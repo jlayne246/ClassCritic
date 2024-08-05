@@ -1,0 +1,101 @@
+:root {
+  --main-text-color: rgba(255, 255, 255, 0.87);
+}
+.courseDetailsPage {
+  display: flex;
+  gap: 20px;
+  border-radius: 10px;
+}
+.submitReviewOutline {
+  font-size: 1.1rem;
+  color: var(--main-text-color);
+  background-color: #333333;
+  border-radius: 10px;
+  width: 300px;
+  margin: 20px 10px;
+  padding-top: 10px;
+  text-align: center;
+}
+.submitReviewOutline input {
+  width: 75px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid var(--main-text-color);
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+.submitReviewOutline input:focus {
+  outline: none;
+}
+.submitReviewOutline button {
+  border: none;
+  border-radius: 15px;
+  padding: 10px 5px;
+  margin: 5px 10px;
+  width: 120px;
+  font-weight: 600;
+}
+#submit {
+  background-color: green;
+  color: white;
+}
+.courseInfo {
+  margin-left: 15px;
+}
+.courseName {
+  font-size: 3rem;
+  color: var(--main-text-color);
+  padding-bottom: 20px;
+}
+.courseCode {
+  color: var(--main-text-color);
+  padding-bottom: 10px;
+}
+.reviewDetails {
+  /*main div for the review info*/
+  display: flex;
+  gap: 50px;
+  color: var(--main-text-color);
+  background-color: #333333;
+  border-radius: 10px;
+  padding: 25px 15px;
+  max-width: 900px;
+  margin-left: 10px;
+}
+.reviewGradeStat {
+  /**/
+  text-align: center;
+  margin-bottom: 25px;
+}
+.reviewGradeStat h3 {
+  font-weight: 500;
+}
+.reviewGradeStat h4 {
+  font-size: 2.5rem;
+}
+.starReviewsAndWrittenReview {
+  /*Div for the titles listed below and the written review details*/
+  max-width: 700px;
+}
+.starReviews {
+  /*Titles for Overall rating, workload, complexity, organization*/
+  display: flex;
+  gap: 35px;
+  justify-content: space-between;
+}
+.writtenReviews {
+  /*Adjust div containing all written review details*/
+  margin-top: 30px;
+  background-color: #1a1a1a;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+.writtenReviewDetails {
+  /*Div containing user name, written review, upvote/downvote*/
+  margin-bottom: 20px;
+}
+.writtenReviewDetails > h5 {
+  /*Adjust user name*/
+  font-weight: 800;
+  font-size: 1.3rem;
+}

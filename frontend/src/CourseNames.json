@@ -1,0 +1,930 @@
+[
+  {
+    "coursecode": "COMP1170",
+    "title": "ENTREPRENEURSHIP FOR COMPUTER SCIENTISTS"
+  },
+  {
+    "coursecode": "COMP1180",
+    "title": "MATHEMATICS FOR COMPUTER SCIENCE I"
+  },
+  {
+    "coursecode": "COMP1205",
+    "title": "COMPUTING I"
+  },
+  {
+    "coursecode": "COMP1210",
+    "title": "COMPUTING II"
+  },
+  {
+    "coursecode": "COMP1215",
+    "title": "UNIX"
+  },
+  {
+    "coursecode": "COMP2210",
+    "title": "MATHEMATICS FOR COMPUTER SCIENCE II"
+  },
+  {
+    "coursecode": "COMP2220",
+    "title": "COMPUTER SYSTEM ARCHITECTURE"
+  },
+  {
+    "coursecode": "COMP2225",
+    "title": "SOFTWARE ENGINEERING"
+  },
+  {
+    "coursecode": "COMP2232",
+    "title": "OBJECT ORIENTED PROGRAMMING CONCEPTS"
+  },
+  {
+    "coursecode": "COMP2235",
+    "title": "NETWORKS I"
+  },
+  {
+    "coursecode": "COMP2245",
+    "title": "WEB DEVELOPMENT CONCEPTS, TOOLS AND PRACTICES"
+  },
+  {
+    "coursecode": "COMP2410",
+    "title": "COMPUTING IN THE DIGITAL AGE"
+  },
+  {
+    "coursecode": "COMP2415",
+    "title": "INFORMATION TECHNOLOGY ENGINEERING"
+  },
+  {
+    "coursecode": "COMP2611",
+    "title": "DATA STRUCTURES"
+  },
+  {
+    "coursecode": "COMP2950",
+    "title": "COMPUTER SCIENCE ELECTIVE"
+  },
+  {
+    "coursecode": "COMP3310",
+    "title": "ALGORITHMS"
+  },
+  {
+    "coursecode": "COMP3320",
+    "title": "DESIGN PRINCIPLES OF OPERATING SYSTEMS"
+  },
+  {
+    "coursecode": "COMP3330",
+    "title": "DATABASE MANAGEMENT SYSTEMS I"
+  },
+  {
+    "coursecode": "COMP3360",
+    "title": "NETWORKS II"
+  },
+  {
+    "coursecode": "COMP3370",
+    "title": "SOFTWARE ENGINEERING ON A LARGE SCALE"
+  },
+  {
+    "coursecode": "COMP3375",
+    "title": "SOFTWARE TESTING AND QUALITY"
+  },
+  {
+    "coursecode": "COMP3385",
+    "title": "FRAMEWORK DESIGN FOR ADVANCED WEB DEVELOPMENT"
+  },
+  {
+    "coursecode": "COMP3412",
+    "title": "SCALABLE ENTERPRISE WEB APPLICATIONS"
+  },
+  {
+    "coursecode": "COMP3415",
+    "title": "DATABASE MANAGEMENT SYSTEMS II"
+  },
+  {
+    "coursecode": "COMP3420",
+    "title": "COMPUTER GRAPHICS"
+  },
+  {
+    "coursecode": "COMP3435",
+    "title": "USER-INTERFACE DESIGN"
+  },
+  {
+    "coursecode": "COMP3440",
+    "title": "E-COMMERCE"
+  },
+  {
+    "coursecode": "COMP3445",
+    "title": "COMPUTER INFORMATION SYSTEMS"
+  },
+  {
+    "coursecode": "COMP3450",
+    "title": "FUNDAMENTALS OF ARTIFICIAL INTELLIGENCE"
+  },
+  {
+    "coursecode": "COMP3490",
+    "title": "RESEARCH PROJECT IN COMPUTER SCIENCE"
+  },
+  {
+    "coursecode": "COMP3495",
+    "title": "MAJOR RESEARCH PROJECT IN COMPUTER SCIENCE"
+  },
+  {
+    "coursecode": "COMP3499",
+    "title": "GROUP RESEARCH PROJECT IN COMPUTER SCIENCE"
+  },
+  {
+    "coursecode": "COMP3955",
+    "title": "COMPUTER SCIENCE INTERNSHIP"
+  },
+  {
+    "coursecode": "SWEN1000",
+    "title": "AN INTRODUCTION TO COMPUTING I"
+  },
+  {
+    "coursecode": "SWEN1001",
+    "title": "AN INTRODUCTION TO OBJECT ORIENTED PROGRAMMING"
+  },
+  {
+    "coursecode": "SWEN1002",
+    "title": "COMPUTING IN SOCIETY"
+  },
+  {
+    "coursecode": "SWEN1003",
+    "title": "CURRENT AND FUTURE TRENDS IN COMPUTING FOR SOFTWARE ENGINEERS"
+  },
+  {
+    "coursecode": "SWEN1004",
+    "title": "MATHEMATICS FOR SOFTWARE ENGINEERS"
+  },
+  {
+    "coursecode": "SWEN1005",
+    "title": "MOBILE WEB PROGRAMMING"
+  },
+  {
+    "coursecode": "SWEN1006",
+    "title": "RESEARCH METHODS FOR SOFTWARE ENGINEERS"
+  },
+  {
+    "coursecode": "SWEN1007",
+    "title": "SOFTWARE ENGINEERING ESSENTIALS"
+  },
+  {
+    "coursecode": "SWEN1008",
+    "title": "TECHNICAL WRITING FOR SOFTWARE ENGINEERS"
+  },
+  {
+    "coursecode": "SWEN1009",
+    "title": "AN INTRODUCTION TO COMPUTING II"
+  },
+  {
+    "coursecode": "SWEN2000",
+    "title": "AN INTRODUCTION TO REQUIREMENTS ENGINEERING"
+  },
+  {
+    "coursecode": "SWEN2001",
+    "title": "AN INTRODUCTION TO SOFTWARE ENGINEERING"
+  },
+  {
+    "coursecode": "SWEN2002",
+    "title": "AN INTRODUCTION TO THE ANALYSIS OF ALGORITHMS"
+  },
+  {
+    "coursecode": "SWEN2003",
+    "title": "COMPUTER NETWORKING & SECURITY"
+  },
+  {
+    "coursecode": "SWEN2004",
+    "title": "COMPUTER ORGANIZATION"
+  },
+  {
+    "coursecode": "SWEN2005",
+    "title": "DATABASE SYSTEMS"
+  },
+  {
+    "coursecode": "SWEN2006",
+    "title": "DISCRETE MATHEMATICS FOR SOFTWARE ENGINEERS"
+  },
+  {
+    "coursecode": "SWEN2007",
+    "title": "OBJECT ORIENTED DESIGN AND IMPLEMENTATION"
+  },
+  {
+    "coursecode": "SWEN2013",
+    "title": "ELEMENTARY CHINESE CULTURE AND LANGUAGE"
+  },
+  {
+    "coursecode": "SWEN2014",
+    "title": "INTERMEDIATE CHINESE CULTURE AND LANGUAGE"
+  },
+  {
+    "coursecode": "SWEN3000",
+    "title": "APPLICATION DEVELOPMENT FOR IOS DEVICES"
+  },
+  {
+    "coursecode": "SWEN3001",
+    "title": "ANDROID APPLICATION DEVELOPMENT I"
+  },
+  {
+    "coursecode": "SWEN3002",
+    "title": "Android Application Development II"
+  },
+  {
+    "coursecode": "SWEN3003",
+    "title": "Web & Mobile Application Development I"
+  },
+  {
+    "coursecode": "SWEN3004",
+    "title": "Web & Mobile Application Development II"
+  },
+  {
+    "coursecode": "SWEN3120",
+    "title": "Software Architecture"
+  },
+  {
+    "coursecode": "SWEN3130",
+    "title": "PROJECT MANAGEMENT FOR SOFTWARE PROJECTS"
+  },
+  {
+    "coursecode": "SWEN3145",
+    "title": "SOFTWARE MODELLING"
+  },
+  {
+    "coursecode": "SWEN3165",
+    "title": "SOFTWARE TESTING"
+  },
+  {
+    "coursecode": "SWEN3920",
+    "title": "CAPSTONE PROJECT"
+  },
+  {
+    "coursecode": "SWEN4001",
+    "title": "ADVANCED DATABASE SYSTEMS"
+  },
+  {
+    "coursecode": "SWEN4008",
+    "title": "IT CERTIFICATION I"
+  },
+  {
+    "coursecode": "SWEN4050",
+    "title": "SOFTWARE ENGINEERING CAPSTONE PROJECT I "
+  },
+  {
+    "coursecode": "ELET1200",
+    "title": "BASIC CIRCUIT ANALYSIS"
+  },
+  {
+    "coursecode": "ELET1205",
+    "title": "COMPUTER AIDED DESIGN"
+  },
+  {
+    "coursecode": "ELET1210",
+    "title": "DIGITAL ELECTRONICS I"
+  },
+  {
+    "coursecode": "ELET1215",
+    "title": "DIGITAL ELECTRONICS II"
+  },
+  {
+    "coursecode": "ELET1220",
+    "title": "INTRODUCTION TO ELECTRONICS"
+  },
+  {
+    "coursecode": "ELET2215",
+    "title": "MICROPROCESSORS SYSTEMS"
+  },
+  {
+    "coursecode": "ELET2220",
+    "title": "CIRCUIT SIMULATION AND APPLICATIONS"
+  },
+  {
+    "coursecode": "ELET2225",
+    "title": "DISCRETE COMPONENT ELECTRONICS"
+  },
+  {
+    "coursecode": "ELET2230",
+    "title": "DIGITAL COMMUNICATIONS SYSTEMS I"
+  },
+  {
+    "coursecode": "ELET2235",
+    "title": "AUTOMATION TECHNOLOGY AND APPLICATIONS"
+  },
+  {
+    "coursecode": "ELET2240",
+    "title": "SENSORS AND ACTUATION DEVICES"
+  },
+  {
+    "coursecode": "ELET2951",
+    "title": "ELECTRONICS EXCHANGE ELECTIVE"
+  },
+  {
+    "coursecode": "ELET3215",
+    "title": "MICROCONTROLLER TECHNOLOGY"
+  },
+  {
+    "coursecode": "ELET3220",
+    "title": "CONTROL SYSTEMS"
+  },
+  {
+    "coursecode": "ELET3230",
+    "title": "ESSENTIALS OF DIGITAL SIGNAL PROCESSING DSP"
+  },
+  {
+    "coursecode": "ELET3235",
+    "title": "DIGITAL COMMUNICATION SYSTEMS II"
+  },
+  {
+    "coursecode": "ELET3240",
+    "title": "DIGITAL COMMUNICATION SYSTEMS III"
+  },
+  {
+    "coursecode": "ELET3250",
+    "title": "BIOMEDICAL INSTRUMENTATION"
+  },
+  {
+    "coursecode": "ELET3255",
+    "title": "WIRELESS COMMUNICATIONS"
+  },
+  {
+    "coursecode": "ELET3260",
+    "title": "ADVANCED MICROPROCESSORS & SYSTEMS"
+  },
+  {
+    "coursecode": "ELET3290",
+    "title": "SEMESTER ELECTRONICS RESEARCH PROJECT"
+  },
+  {
+    "coursecode": "ELET3295",
+    "title": "MAJOR ELECTRONICS RESEARCH PROJECT"
+  },
+  {
+    "coursecode": "ELET3298",
+    "title": "GROUP ELECTRONICS RESEARCH PROJECT"
+  },
+  {
+    "coursecode": "ELET3955",
+    "title": "ELECTRONICS INTERNSHIP"
+  },
+  {
+    "coursecode": "PHYS1200",
+    "title": "PHYSICS I: MECHANICS OF TRANSLATIONAL MOTION"
+  },
+  {
+    "coursecode": "PHYS1205",
+    "title": "PHYSICS II: ROTATION, WAVES AND THERMODYNAMICS"
+  },
+  {
+    "coursecode": "PHYS1210",
+    "title": "PHYSICS III: ELECTRIC FIELDS, CURRENTS AND CIRCUITS"
+  },
+  {
+    "coursecode": "PHYS1220",
+    "title": "PHYSICS IV: MAGNETISM, ELECTOMAGNETIC WAVES AND OPTICS"
+  },
+  {
+    "coursecode": "PHYS2400",
+    "title": "MATHEMATICAL METHODS IN PHYSICS I"
+  },
+  {
+    "coursecode": "PHYS2405",
+    "title": "MATHEMATICAL METHODS IN PHYSICS II"
+  },
+  {
+    "coursecode": "PHYS2410",
+    "title": "MODERN PHYSICS"
+  },
+  {
+    "coursecode": "PHYS2415",
+    "title": "THEORY OF CLASSICAL MECHANICS"
+  },
+  {
+    "coursecode": "PHYS2420",
+    "title": "ADVANCED PHYSICS LABORATORY I"
+  },
+  {
+    "coursecode": "PHYS2425",
+    "title": "COMPUTATIONAL METHODS IN PHYSICS"
+  },
+  {
+    "coursecode": "PHYS2950",
+    "title": "PHYSICS ELECTIVE"
+  },
+  {
+    "coursecode": "PHYS3420",
+    "title": "ELECTROMAGNETIC THEORY I"
+  },
+  {
+    "coursecode": "PHYS3445",
+    "title": "FUNDAMENTALS OF GENERAL RELATIVITY AND COSMOLOGY"
+  },
+  {
+    "coursecode": "PHYS3450",
+    "title": "FLUID MECHANICS"
+  },
+  {
+    "coursecode": "PHYS3455",
+    "title": "LASERS AND OPTICAL SYSTEMS"
+  },
+  {
+    "coursecode": "PHYS3460",
+    "title": "PHYSICS OF SUSTAINABLE ENERGY SYSTEMS"
+  },
+  {
+    "coursecode": "PHYS3465",
+    "title": "ELECTROMAGNETIC THEORY II"
+  },
+  {
+    "coursecode": "PHYS3470",
+    "title": "BIOLOGICAL PHYSICS"
+  },
+  {
+    "coursecode": "PHYS3475",
+    "title": "FUNDAMENTALS OF SOLID STATE PHYSICS"
+  },
+  {
+    "coursecode": "PHYS3480",
+    "title": "THEORY OF QUANTUM MECHANICS"
+  },
+  {
+    "coursecode": "PHYS3485",
+    "title": "THEORY OF STATISTICAL MECHANICS"
+  },
+  {
+    "coursecode": "PHYS3490",
+    "title": "PHYSICS ONE-SEMESTER RESEARCH PROJECT"
+  },
+  {
+    "coursecode": "PHYS3495",
+    "title": "PHYSICS TWO-SEMESTER RESEARCH PROJECT"
+  },
+  {
+    "coursecode": "PHYS3955",
+    "title": "PHYSICS INTERNSHIP"
+  },
+  {
+    "coursecode": "MATH1141",
+    "title": "INTRODUCTORY LINEAR ALGEBRA & ANALYTICAL GEOMETRY"
+  },
+  {
+    "coursecode": "MATH1152",
+    "title": "SETS AND NUMBER SYSTEMS"
+  },
+  {
+    "coursecode": "MATH1190",
+    "title": "CALCULUS A"
+  },
+  {
+    "coursecode": "MATH1195",
+    "title": "CALCULUS B"
+  },
+  {
+    "coursecode": "MATH1230",
+    "title": "INTRODUCTORY APPLIED STATISTICS 1"
+  },
+  {
+    "coursecode": "MATH1235",
+    "title": "PYTHON PROGRAMMING & MATHEMATICAL SOFTWARE"
+  },
+  {
+    "coursecode": "MATH2304",
+    "title": "MULTIVARIABLE CALCULUS"
+  },
+  {
+    "coursecode": "MATH2305",
+    "title": "DIFFERENTIAL EQUATIONS"
+  },
+  {
+    "coursecode": "MATH2310",
+    "title": "ABSTRACT ALGEBRA 1"
+  },
+  {
+    "coursecode": "MATH2315",
+    "title": "LINEAR ALGEBRA 1"
+  },
+  {
+    "coursecode": "MATH2321",
+    "title": "REAL ANALYSIS 1"
+  },
+  {
+    "coursecode": "MATH2325",
+    "title": "ELEMENTARY NUMBER THEORY"
+  },
+  {
+    "coursecode": "MATH2330",
+    "title": "PROBABILITY THEORY 1"
+  },
+  {
+    "coursecode": "MATH2335",
+    "title": "STATISTICS 1"
+  },
+  {
+    "coursecode": "MATH3543",
+    "title": "ABSTRACT ALGEBRA 2"
+  },
+  {
+    "coursecode": "MATH3545",
+    "title": "LINEAR ALGEBRA 2"
+  },
+  {
+    "coursecode": "MATH3550",
+    "title": "REAL ANALYSIS 2"
+  },
+  {
+    "coursecode": "MATH3555",
+    "title": "COMPLEX ANALYSIS"
+  },
+  {
+    "coursecode": "MATH3560",
+    "title": "METRIC SPACES"
+  },
+  {
+    "coursecode": "MATH3565",
+    "title": "PROBABILITY THEORY 2"
+  },
+  {
+    "coursecode": "MATH3570",
+    "title": "STATISTICS 2"
+  },
+  {
+    "coursecode": "MATH3575",
+    "title": "TOPICS IN NUMERICAL ANALYSIS"
+  },
+  {
+    "coursecode": "MATH3580",
+    "title": "FOURIER ANALYSIS WITH PARTIAL DIFFERENTIALS EQUATIONS"
+  },
+  {
+    "coursecode": "MATH3590",
+    "title": "MATHEMATICS RESEARCH PROJECT"
+  },
+  {
+    "coursecode": "MATH3600",
+    "title": "TOPICS IN DISCRETE AND COMPUTATIONAL GEOMETRY"
+  },
+  {
+    "coursecode": "MATH3605",
+    "title": "TOPICS IN GRAPH THEORY"
+  },
+  {
+    "coursecode": "MATH3620",
+    "title": "FINANCIAL MATHEMATICS 1"
+  },
+  {
+    "coursecode": "MATH3621",
+    "title": "FINANCIAL MATHEMATICS 2"
+  },
+  {
+    "coursecode": "MATH3955",
+    "title": "MATHEMATICS INTERNSHIP"
+  },
+  {
+    "coursecode": "BIOC1015",
+    "title": "INTRODUCTION TO BIOCHEMISTRY"
+  },
+  {
+    "coursecode": "BIOL1020",
+    "title": "DIVERSITY OF LIFE I"
+  },
+  {
+    "coursecode": "BIOL1025",
+    "title": "DIVERSITY OF LIFE II"
+  },
+  {
+    "coursecode": "BIOL1030",
+    "title": "INTRODUCTION TO GENETICS"
+  },
+  {
+    "coursecode": "BIOC2365",
+    "title": "PRIMARY METABOLISM"
+  },
+  {
+    "coursecode": "BIOC2366",
+    "title": "PROTEIN BIOCHEMISTRY"
+  },
+  {
+    "coursecode": "BIOC2370",
+    "title": "CELL SIGNALS"
+  },
+  {
+    "coursecode": "BIOC2371",
+    "title": "MOLECULAR TECHNIQUES"
+  },
+  {
+    "coursecode": "BIOC2900",
+    "title": "BIOCHEMISTRY EXCHANGE ELECTIVE"
+  },
+  {
+    "coursecode": "BIOL2166",
+    "title": "ADVANCED GENETICS I"
+  },
+  {
+    "coursecode": "BIOL2370",
+    "title": "FLOWERING PLANT PHYSIOLOGY"
+  },
+  {
+    "coursecode": "BIOL2371",
+    "title": "ECOPHYSIOLOGY OF ANIMALS"
+  },
+  {
+    "coursecode": "BIOL2372",
+    "title": "PLANTS FOR CARIBBEAN LANDSCAPES"
+  },
+  {
+    "coursecode": "BIOL2373",
+    "title": "SKILLS FOR BIOLOGISTS"
+  },
+  {
+    "coursecode": "BIOL2463",
+    "title": "SUSTAINABLE LAND USE"
+  },
+  {
+    "coursecode": "BIOL2465",
+    "title": "TROPICAL HORTICULTURE"
+  },
+  {
+    "coursecode": "BIOL2466",
+    "title": "TROPICAL ENERGY AND BIOPROCESSING"
+  },
+  {
+    "coursecode": "BIOL2900",
+    "title": "BIOLOGY EXCHANGE ELECTIVE"
+  },
+  {
+    "coursecode": "ECOL2460",
+    "title": "ESSENTIALS OF ECOLOGY"
+  },
+  {
+    "coursecode": "ECOL2461",
+    "title": "CARIBBEAN ISLAND BIODIVERSITY"
+  },
+  {
+    "coursecode": "ECOL2462",
+    "title": "MARINE BIOTA"
+  },
+  {
+    "coursecode": "ECOL2900",
+    "title": "ECOLOGY EXCHANGE ELECTIVE"
+  },
+  {
+    "coursecode": "MICR2260",
+    "title": "ESSENTIAL MICROBIOLOGY"
+  },
+  {
+    "coursecode": "MICR2261",
+    "title": "EUKARYOTIC MICROBES"
+  },
+  {
+    "coursecode": "MICR2262",
+    "title": "METHODS IN MICROBIOLOGY"
+  },
+  {
+    "coursecode": "MICR2900",
+    "title": "MICROBIOLOGY EXCHANGE ELECTIVE"
+  },
+  {
+    "coursecode": "BIOC3260",
+    "title": "PRINCIPLES OF BIOTECHNOLOGY"
+  },
+  {
+    "coursecode": "BIOC3261",
+    "title": "MITOCHONDRIAL BIOENERGETICS"
+  },
+  {
+    "coursecode": "BIOC3265",
+    "title": "PRINCIPLES OF BIOINFORMATICS"
+  },
+  {
+    "coursecode": "BIOC3290",
+    "title": "BIOCHEMISTRY PROJECT (MINORS)"
+  },
+  {
+    "coursecode": "BIOC3370",
+    "title": "BASIS OF HUMAN DISEASE"
+  },
+  {
+    "coursecode": "BIOC3990",
+    "title": "BIOCHEMISTRY PROJECT"
+  },
+  {
+    "coursecode": "BIOL3501",
+    "title": "PROFESSIONAL PLACEMENT FOR BIOLOGISTS"
+  },
+  {
+    "coursecode": "BIOL3025",
+    "title": "MOLECULAR PLANT PATHOLOGY"
+  },
+  {
+    "coursecode": "BIOL3901",
+    "title": "MULTIDISCIPLINARY PROJECT"
+  },
+  {
+    "coursecode": "BIOL3990",
+    "title": "BIOLOGY PROJECT"
+  },
+  {
+    "coursecode": "ECOL3100",
+    "title": "STATISTICS FOR ECOLOGISTS"
+  },
+  {
+    "coursecode": "ECOL3460",
+    "title": "BIOLOGY & ECOLOGY OF CORAL REEFS"
+  },
+  {
+    "coursecode": "ECOL3461",
+    "title": "ECOLOGY OF A CHANGING PLANET"
+  },
+  {
+    "coursecode": "ECOL3462",
+    "title": "BEHAVIOUR: AN EVOLUTIONARY APPROACH"
+  },
+  {
+    "coursecode": "ECOL 3463",
+    "title": "TROPICAL CROP ECOLOGY"
+  },
+  {
+    "coursecode": "ECOL3990",
+    "title": "ECOLOGY PROJECT"
+  },
+  {
+    "coursecode": "MICR3265",
+    "title": "MICROBIOLOGY OF FOOD"
+  },
+  {
+    "coursecode": "MICR3266",
+    "title": "ECOLOGY OF MICROORGANISMS"
+  },
+  {
+    "coursecode": "MICR3267",
+    "title": "ESSENTIAL VIROLOGY"
+  },
+  {
+    "coursecode": "MICR3268",
+    "title": "MICROBIAL PATHOGENESIS"
+  },
+  {
+    "coursecode": "MICR3990",
+    "title": "MICROBIOLOGY PROJECT"
+  },
+  {
+    "coursecode": "CHEM1110",
+    "title": "INTRODUCTION TO ORGANIC CHEMISTRY"
+  },
+  {
+    "coursecode": "CHEM1120",
+    "title": "INTRODUCTION TO PHYSICAL CHEMISTRY"
+  },
+  {
+    "coursecode": "CHEM1125",
+    "title": "INTRODUCTION TO EXPERIMENTAL CHEMISTRY"
+  },
+  {
+    "coursecode": "CHEM1130",
+    "title": "INTRODUCTION TO INORGANIC CHEMISTRY"
+  },
+  {
+    "coursecode": "CHEM2513",
+    "title": "FUNDAMENTALS OF TEACHING CHEMISTRY"
+  },
+  {
+    "coursecode": "CHEM2700",
+    "title": "INTERMEDIATE INORGANIC CHEMISTRY"
+  },
+  {
+    "coursecode": "CHEM2705",
+    "title": "INTERMEDIATE ORGANIC CHEMISTRY"
+  },
+  {
+    "coursecode": "CHEM2710",
+    "title": "INTERMEDIATE PHYSICAL CHEMISTRY"
+  },
+  {
+    "coursecode": "CHEM2715",
+    "title": "LABORATORY METHODS IN CHEMISTRY I"
+  },
+  {
+    "coursecode": "CHEM2720",
+    "title": "LABORATORY METHODS IN CHEMISTRY II"
+  },
+  {
+    "coursecode": "CHEM2725",
+    "title": "CHEMISTRY OF THE ENVIRONMENT"
+  },
+  {
+    "coursecode": "CHEM2730",
+    "title": "QUANTITATIVE CHEMICAL ANALYSIS"
+  },
+  {
+    "coursecode": "CHEM2950",
+    "title": "CHEMISTRY ELECTIVE"
+  },
+  {
+    "coursecode": "CHEM3167",
+    "title": "ADVANCED INORGANIC CHEMISTRY"
+  },
+  {
+    "coursecode": "CHEM3175",
+    "title": "ADVANCED ORGANIC CHEMISTRY"
+  },
+  {
+    "coursecode": "CHEM3218",
+    "title": "ENVIRONMENTAL CHEMISTRY AND TOXICOLOGY"
+  },
+  {
+    "coursecode": "CHEM3620",
+    "title": "ADVANCED PHYSICAL CHEMISTRY"
+  },
+  {
+    "coursecode": "CHEM3625",
+    "title": "LABORATORY METHODS IN CHEMISTRY III"
+  },
+  {
+    "coursecode": "CHEM3630",
+    "title": "METHODS IN INSTRUMENTAL ANALYSIS"
+  },
+  {
+    "coursecode": "CHEM3635",
+    "title": "BIOLOGICAL INORGANIC CHEMISTRY"
+  },
+  {
+    "coursecode": "CHEM3800",
+    "title": "NANOSTRUCTURES AND SUPRAMOLECULAR CHEMISTRY"
+  },
+  {
+    "coursecode": "CHEM3950",
+    "title": "BASIC PROJECT IN CHEMISTRY"
+  },
+  {
+    "coursecode": "CHEM3955",
+    "title": "RESEARCH PROJECT IN CHEMISTRY"
+  },
+  {
+    "coursecode": "CHEM3990",
+    "title": "PROFESSIONAL PLACEMENT FOR CHEMISTS"
+  },
+  {
+    "coursecode": "CHEM3992",
+    "title": "SPECIAL TOPICS IN PHYSICAL CHEMISTRY"
+  },
+  {
+    "coursecode": "ENSC1000",
+    "title": "EARTH AND ITS ENVIRONMENT"
+  },
+  {
+    "coursecode": "ENSC1005",
+    "title": "Landform Dynamics"
+  },
+  {
+    "coursecode": "ENSC2000",
+    "title": "ESSENTIALS OF OCEANOGRAPHY"
+  },
+  {
+    "coursecode": "ENSC2002",
+    "title": "EARTH’S CLIMATE"
+  },
+  {
+    "coursecode": "ENSC2003",
+    "title": "SUSTAINABLE ENERGY SYSTEMS"
+  },
+  {
+    "coursecode": "ENSC2005",
+    "title": "EARTH LIFE CYCLES"
+  },
+  {
+    "coursecode": "ENSC2900",
+    "title": "ENVIRONMENTAL SCIENCE EXCHANGE"
+  },
+  {
+    "coursecode": "ENSC3000",
+    "title": "CLIMATE VARIATION AND CHANGE"
+  },
+  {
+    "coursecode": "ENSC3001",
+    "title": "NATURAL HAZARDS AND DISASTERS"
+  },
+  {
+    "coursecode": "ENSC3005",
+    "title": "URBAN GEOMORPHOLOGY"
+  },
+  {
+    "coursecode": "ENSC3020",
+    "title": "CASE STUDY IN ENVIRONMENTAL SCIENCE"
+  },
+  {
+    "coursecode": "ENSC3090",
+    "title": "PROFESSIONAL PLACEMENT FOR ENVIRONMENTAL SCIENCE"
+  },
+  {
+    "coursecode": "ENSC3900",
+    "title": "RESEARCH PROJECT IN ENVIRONMENTAL SCIENCE"
+  },
+  {
+    "coursecode": "ENSC3100",
+    "title": "PRINCIPLES OF SUSTAINABILITY"
+  },
+  {
+    "coursecode": "ENSC3101",
+    "title": "CLIMATE & WEATHER IN THE CARIBBEAN"
+  },
+  {
+    "coursecode": "ENSC3102",
+    "title": "BIODIVERSITY IN THE CARIBBEAN"
+  },
+  {
+    "coursecode": "ENSC3901",
+    "title": "BARBADOS RESEARCH PROJECT"
+  }
+]
