@@ -12,12 +12,12 @@ const reviewDetails = require("./routes/reviewDetails");
 app.use(express.json());
 //middleware being used to log the path and type of request
 app.use((req, res, next) => {
-  console.log(req.path, req.method);
+  console.log(req.path, req.method, req.originalUrl);
   next();
 });
 
 //localhost:4000/api/review/
-app.use("/api/review", reviewDetails);
+app.use("/api/review",reviewDetails);
 
 //connecting to the LOCAL mongodb
 //https://youtu.be/s0anSjEeua8?si=0a8KFFrCu0mIbT1G&t=435

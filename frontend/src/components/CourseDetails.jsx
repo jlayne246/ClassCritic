@@ -2,30 +2,67 @@ import React from "react";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { useEffect, useState } from "react";
+import Data from "../CourseNames.json";
 
 export default function CourseDetails() {
   const [reviews, setReviews] = useState(null);
 
+  //initial state for the course title and code.
+  //Would be wise to make them blank and set it to this on not found but I aint doing all of that
+  const [courseInfo, setCourseInfo] = useState({
+    coursecode:"How did you get here?",
+    title:"Course doesn't exist!"
+  });
   useEffect(() => {
-    const fetchReviews = async () => {
+    const fetchReviews = async (query) => {
+      //urlParameters contains the 
       /* https://www.youtube.com/watch?v=N4yUiQiTvwU 
       you must proxy api requests while developing, i already set it up in the vite.config
       the utube link gives an indepth explanation, but i literally on look at the 1st 30secs of the vid*/
-      const response = await fetch("/api/review");
+      
+      //Need to be able to pass query to back end
+      //Add query to the slug
+      const courseRequest = "/api/review"+query; //slug + coursecode query (ie ?course=CODE1234)
+      const response = await fetch(courseRequest);
 
       const json = await response.json();
       if (response.ok) {
         setReviews(json);
       }
     };
-    fetchReviews();
+
+    //This function finds the corresponding class of the code queried from the CourseNames.json and sets the title and course code to that
+    const fetchCourseInfo = (code,courseList)=>{
+      try{
+        const foundCourse = courseList.find(course=> course.coursecode === code);
+        if (foundCourse){
+          setCourseInfo(foundCourse);
+          console.log("Course that was set:", foundCourse);
+        }
+        else{
+          console.log("There is literally no class with that code on this site");
+        }
+      }
+      catch(error){
+        console.error('OOPSIE in fetchCourseInfo:',error);
+      }
+    };
+
+    //Gets query of the current url with ?
+    const classquery = window.location.search;
+    //next 2 lines strip query to just the code
+    const url = new URLSearchParams(classquery);
+    const courseCode = url.get('course');
+
+    fetchCourseInfo(courseCode,Data);
+    fetchReviews(classquery);
   }, []);
   return (
     <div className="courseDetailsPage">
       <div className="courseOutline">
         <div className="courseInfo">
-          <h1 className="courseName">Computing in the Analogue Age</h1>
-          <h2 className="courseCode">COMP2344</h2>
+          <h1 className="courseName">{courseInfo.title}</h1>
+          <h2 className="courseCode">{courseInfo.coursecode}</h2>
         </div>
         <div className="reviewDetails">
           <div className="reviewGradeStats">
