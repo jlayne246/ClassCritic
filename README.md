@@ -7,14 +7,14 @@ Select the directory you want to save the ClassCritic repo to and run the follow
 
 `git clone https://github.com/kashwald/ClassCritic.git`
 
-### Now enter the front-end directory and run the following command, to install all the required dependicies, 
+### Now navigate to the front-end directory (frontend) and run the following command, to install all the required dependicies, 
 ##### (when you run the command, packages.json is used to help determine which dependicies need to be installed, specifically for the front-end )
 
 `npm install`
 
 ### You should now be able to "npm run dev" and view the front-end app
 
-### To set up the back-end, you need to "cd" into that directory and run the following command
+### To set up the back-end, you need to navigate to the back-end directory (backend) and run the following command
 ##### (when you run the command, packages.json is used to help determine which dependicies need to be installed. specifically for the back-end )
 `npm install`
 
