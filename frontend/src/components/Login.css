@@ -1,0 +1,44 @@
+/* Login.css */
+.login-form {
+    width: 300px;
+    margin: 0 auto;
+  }
+  
+  .form-group {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column layout */
+    margin-bottom: 15px;
+    /* text-align: left; */
+  }
+  
+  label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 10px;
+  }
+  
+  button {
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
