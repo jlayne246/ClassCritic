@@ -4,12 +4,33 @@ const mongoose = require("mongoose");
 //ONLY PAY ATTENTION TO getReviews()
 //since thats the only function i know works for sure right now
 //GET ALL REVIEWS
-const getReviews = async (req, res) => {
-  //find all of the review records and return them in acending order
-  const reviews = await Review.find({}).sort({ createdAt: -1 });
+const getReviews = async(req,res)=>{
+  //wrapping everything in try incase of any errors
+  try{
+    //getting code from the query passed from front-end
+    //url/review?course=CODE getting the CODE part
+    const code = req.query.course;
+    console.log(code);
 
-  res.status(200).json(reviews);
-};
+    if(!code){//catching for if ?course isnt provided
+      console.log("No course code provided")
+    }
+    else{
+      //get the reviews which match this id
+      const filter = {};
+      filter.coursecode=code;
+      const reviews = await Review.find(filter).sort({ createdAt: -1 });
+      
+      //find all of the review records and return them in acending order
+      //const ALLreviews = await Review.find({}).sort({ createdAt: -1 });
+      res.status(200).json(reviews);
+    } 
+  }
+  catch(error){
+    console.error("OOPS:",error);
+  }
+  
+}
 
 //function to get a single review (probly wont be used)
 const getReview = async (req, res) => {
