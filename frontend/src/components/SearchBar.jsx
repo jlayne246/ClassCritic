@@ -69,7 +69,7 @@ export default function SearchBar({ placeholder, data }) {
           {filteredData.slice(0, 5).map((value) => {
             return (
               <div key={value.coursecode}>
-                <a className="dataItem">
+                <a className="dataItem" href={window.location.origin+"/review?course="+value.coursecode}>
                   <p>{value.title}</p>
                 </a>
               </div>

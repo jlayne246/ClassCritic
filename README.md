@@ -29,7 +29,7 @@ You see the front-end by visiting http://localhost:5173/ or the URL provided by 
 ### Back-End Set-Up
 Navigate to the back-end directory (backend)
 
-`cd ClassCritic\backend`
+`cd .\ClassCritic\backend`
 
 and run the following command
 

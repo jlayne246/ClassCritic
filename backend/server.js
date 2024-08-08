@@ -23,7 +23,7 @@ app.use("/api/review",reviewDetails);
 //https://youtu.be/s0anSjEeua8?si=0a8KFFrCu0mIbT1G&t=435
 //Watch link when connecting to ATLAS instead of local db
 mongoose
-  .connect("mongodb://localhost:27017/classcritic")
+  .connect("mongodb://127.0.0.1:27017/classcritic") // localhost = 127.0.0.1
   .then(() => {
     //only listen for requests once conneted to the db
     app.listen(4000, () => {
