@@ -8,10 +8,9 @@ export default function CourseDetails() {
   const [reviews, setReviews] = useState(null);
 
   //initial state for the course title and code.
-  //Would be wise to make them blank and set it to this on not found but I aint doing all of that
   const [courseInfo, setCourseInfo] = useState({
-    coursecode:"How did you get here?",
-    title:"Course doesn't exist!"
+    coursecode:" ",
+    title:" "
   });
   useEffect(() => {
     const fetchReviews = async (query) => {
@@ -31,31 +30,43 @@ export default function CourseDetails() {
       }
     };
 
-    //This function finds the corresponding class of the code queried from the CourseNames.json and sets the title and course code to that
+    //This function finds the corresponding course of the code queried from the CourseNames.json and sets the title and course code to that
+    //Also returns true on if it finds, and false if it doesnt
     const fetchCourseInfo = (code,courseList)=>{
       try{
         const foundCourse = courseList.find(course=> course.coursecode === code);
         if (foundCourse){
           setCourseInfo(foundCourse);
           console.log("Course that was set:", foundCourse);
+
+          return true;
         }
         else{
+          //if code being queried doesn't exist in course list
+          const noCourse = {
+            coursecode:"How did you get here?",
+            title:"Course doesn't exist!"
+          }
+          setCourseInfo(noCourse);
           console.log("There is literally no class with that code on this site");
+          return false;
         }
       }
       catch(error){
-        console.error('OOPSIE in fetchCourseInfo:',error);
+        console.error('OOPSIE in fetching course info for course details: ',error);
       }
     };
 
-    //Gets query of the current url with ?
-    const classquery = window.location.search;
-    //next 2 lines strip query to just the code
+    const classquery = window.location.search; //returns current url request slug e.g. ?course=COMP2210
+    //next 2 lines strip query to just the code e.g. COMP2210
     const url = new URLSearchParams(classquery);
     const courseCode = url.get('course');
 
-    fetchCourseInfo(courseCode,Data);
-    fetchReviews(classquery);
+    //fetches course info and only if its found does it search for reviews.
+    if (fetchCourseInfo(courseCode,Data)){
+      fetchReviews(classquery);
+    }
+    
   }, []);
   return (
     <div className="courseDetailsPage">
