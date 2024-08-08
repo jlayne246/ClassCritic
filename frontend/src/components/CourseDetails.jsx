@@ -3,7 +3,7 @@ import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { useEffect, useState } from "react";
 import Data from "../CourseNames.json";
-
+//just testing that this is working from my github now -Kai Test
 export default function CourseDetails() {
   const [reviews, setReviews] = useState(null);
 
