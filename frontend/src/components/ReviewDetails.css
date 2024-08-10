@@ -52,6 +52,7 @@
   margin: 5px 10px;
   width: 120px;
   font-weight: 600;
+  display: block;
 }
 .submitReviewOutline button:hover {
   border: 2px solid black;
@@ -125,4 +126,52 @@
   /*Adjust user name*/
   font-weight: 800;
   font-size: 1.3rem;
+}
+
+/**/
+/* .btn-modal {
+  padding: 10px 20px;
+  display: block;
+  margin: 100px auto 0;
+}
+ */
+.modal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.overlay {
+  background: rgba(49, 49, 49, 0.8);
+}
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: var(--accent-color);
+  padding: 14px 28px;
+  border-radius: 3px;
+  width: 600px;
+  height: 300px;
+}
+textarea {
+  width: 450px;
+  height: 100px;
+  margin-top: 50px;
+  outline: none;
+  resize: none;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 7px;
 }

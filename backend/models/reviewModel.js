@@ -27,6 +27,18 @@ const reviewSchema = new Schema(
       type: String,
       require: true,
     },
+    writtenReview: {
+      type: String,
+      require: false,
+    },
+    username: {
+      type: String,
+      require: false,
+    },
+    coursecode: {
+      type: String,
+      require: false,
+    },
   },
   { timestamps: true }
 );
