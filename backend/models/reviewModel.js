@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const review = require("../models/reviewModel");
 
 const Schema = mongoose.Schema;
 
@@ -12,19 +11,19 @@ const reviewSchema = new Schema(
       require: true,
     },
     overallQuality: {
-      type: String,
+      type: Number,
       require: true,
     },
     simplicity: {
-      type: String,
+      type: Number,
       require: true,
     },
     courseRelevance: {
-      type: String,
+      type: Number,
       require: true,
     },
     instructionalEffectiveness: {
-      type: String,
+      type: Number,
       require: true,
     },
     writtenReview: {
@@ -33,7 +32,7 @@ const reviewSchema = new Schema(
     },
     username: {
       type: String,
-      require: false,
+      require: true,
     },
     coursecode: {
       type: String,
@@ -42,7 +41,6 @@ const reviewSchema = new Schema(
   },
   { timestamps: true }
 );
-//check models vid
-//this may create a "reviews" collection
-//based on my understading, i believe i would need to pass the userID and coursecode
+
+//Export the schema that was created above
 module.exports = mongoose.model("review", reviewSchema);

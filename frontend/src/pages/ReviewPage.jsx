@@ -1,5 +1,5 @@
-import CourseDetails from "../components/ReviewDetails";
+import ReviewDetails from "../components/ReviewDetails";
 
 export default function ReviewPage() {
-  return <CourseDetails />;
+  return <ReviewDetails />;
 }

@@ -4,7 +4,10 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { useEffect, useState } from "react";
 import Data from "../CourseNames.json";
 
-export default function CourseDetails() {
+export default function ReviewDetails() {
+  //Any error sent from dB is stored in formErrorOrSuccess and displayed in Ui
+  const [formErrorOrSuccess, setErrorOrSuccess] = useState(null);
+
   /*-------------- START OF CODE USED TO TRACK AND SUBMIT FORM DATA --------------*/
   /////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////
@@ -65,9 +68,11 @@ export default function CourseDetails() {
     //I may end up removing this line, it may not be necessary
     const json = await response.json();
 
-    //Reset formData if the POST request was sucessful
-    if (response.ok) {
-      console.log("A review has been added to the db using the front-end");
+    //Print the error if failed or Reset formData if the POST request was sucessful
+    if (!response.ok) {
+      setErrorOrSuccess(json.error);
+    } else {
+      /* console.log("A review has been added to the db using the front-end"); */
       setFormData({
         grade: "",
         overallQuality: "",
@@ -76,6 +81,7 @@ export default function CourseDetails() {
         instructionalEffectiveness: "",
         writtenReview: "",
       });
+      setErrorOrSuccess("A review was added to the dB");
     }
   };
   /*-------------- END OF CODE USED TO TRACK AND SUBMIT FORM DATA --------------*/
@@ -154,7 +160,7 @@ export default function CourseDetails() {
 
   /*-------------- Modal Box Code --------------*/
   //Used to control modal box visibility (false = do  not show)
-  const [modal, setModal] = useState(true);
+  const [modal, setModal] = useState(false);
 
   //Used to set modal box visibility
   const toggleModal = () => {
@@ -240,6 +246,7 @@ export default function CourseDetails() {
             onChange={handleChange}
             name="grade"
             value={formData.grade}
+            required
           />
           <h4>Overall Quality</h4>
           <span>Rate </span>
@@ -251,6 +258,7 @@ export default function CourseDetails() {
             onChange={handleChange}
             name="overallQuality"
             value={formData.overallQuality}
+            required
           />
           <span> out of 5</span>
           <h4>Simplicity</h4>
@@ -263,6 +271,7 @@ export default function CourseDetails() {
             onChange={handleChange}
             name="simplicity"
             value={formData.simplicity}
+            required
           />
           <span> out of 5</span>
           <h4>Coure Relevance</h4>
@@ -275,6 +284,7 @@ export default function CourseDetails() {
             onChange={handleChange}
             name="courseRelevance"
             value={formData.courseRelevance}
+            required
           />
           <span> out of 5</span>
           <h4>Instructional Effectiveness</h4>
@@ -287,6 +297,7 @@ export default function CourseDetails() {
             onChange={handleChange}
             name="instructionalEffectiveness"
             value={formData.instructionalEffectiveness}
+            required
           />
           <span> out of 5</span>
 
@@ -313,6 +324,10 @@ export default function CourseDetails() {
               </button>
             </div>
           </div>
+        )}
+        {/*Show error OR success*/}
+        {formErrorOrSuccess && (
+          <div className="errorOrSuccess">{formErrorOrSuccess}</div>
         )}
       </div>
     </div>
