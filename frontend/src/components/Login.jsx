@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
-//import axios from 'axios';
+import axios from 'axios';
 
 function Login() {
   const [email, setEmail] = useState(""); // Used to set a state variable for the email entered using useState, which will utilise the "setter" to then store the data in the variable
