@@ -78,7 +78,7 @@ export default function Register(){
             {" "}
             {/* This is the div container for the Email part of the form */}
             <input
-              type="password"
+              type= "text"
               name="password"
               placeholder="Password"
               onBlur={handleInput}
