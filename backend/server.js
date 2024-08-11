@@ -19,6 +19,11 @@ app.use((req, res, next) => {
 //localhost:4000/api/review/
 app.use("/api/review",reviewDetails);
 
+app.post('/api/login', (req, res) => {
+  console.log(req.body.email, req.body.password);
+  // res.send('GET request to the homepage')
+})
+
 //connecting to the LOCAL mongodb
 //https://youtu.be/s0anSjEeua8?si=0a8KFFrCu0mIbT1G&t=435
 //Watch link when connecting to ATLAS instead of local db
@@ -27,7 +32,7 @@ mongoose
   .then(() => {
     //only listen for requests once conneted to the db
     app.listen(4000, () => {
-      console.log("conencted to local mongoDB & listening on port 4000");
+      console.log("connected to local mongoDB & listening on port 4000");
     });
   })
   .catch((error) => {
