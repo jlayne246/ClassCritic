@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
-
+import axios from 'axios';
 
 export default function Register(){
     const [email, setEmail] = useState(''); // Used to set a state variable for the email entered using useState, which will utilise the "setter" to then store the data in the variable email.
@@ -15,7 +15,11 @@ export default function Register(){
         e.preventDefault();
         console.log("submit " + email + "," + password);
         try{
-            const response = await fetch('/api/register', {method: 'POST', mode: 'cors', email, password})
+            const response = await fetch("/api/register", {method: 'POST', mode: 'cors', body: JSON.stringify({email, password}), headers:{
+        "Content-Type": "application/json",
+      },
+    }
+    )
             .then((response) => response.json())
             .then((result) => {console.warn(result); 
             setMsg(result);
@@ -40,7 +44,7 @@ export default function Register(){
             }
     }
     if (e.target.name == "password") {
-        if (e.target.value = ""){
+        if (e.target.value == ""){
             console.warn("Please enter password");
             e.target.classname = "inputError";
             e.target.value = " ";
@@ -78,7 +82,7 @@ export default function Register(){
             {" "}
             {/* This is the div container for the Email part of the form */}
             <input
-              type="password"
+              type= "password"
               name="password"
               placeholder="Password"
               onBlur={handleInput}
