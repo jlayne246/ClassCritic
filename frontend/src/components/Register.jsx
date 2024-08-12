@@ -15,7 +15,11 @@ export default function Register(){
         e.preventDefault();
         console.log("submit " + email + "," + password);
         try{
-            const response = await fetch('/api/register', {method: 'POST', mode: 'cors', body: JSON.stringify({email, password})})
+            const response = await fetch("/api/register", {method: 'POST', mode: 'cors', body: JSON.stringify({email, password}), headers:{
+        "Content-Type": "application/json",
+      },
+    }
+    )
             .then((response) => response.json())
             .then((result) => {console.warn(result); 
             setMsg(result);
