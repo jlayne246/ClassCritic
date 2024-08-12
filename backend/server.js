@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 app.use("/api/review",reviewDetails);
 
 app.post('/api/login', (req, res) => {
-  console.log(req.body.email, req.body.password);
+  console.log(req.body.email, req.body.password, req.body.remember);
   // res.send('GET request to the homepage')
 })
 

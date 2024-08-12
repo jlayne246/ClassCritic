@@ -9,6 +9,7 @@ import axios from 'axios';
 function Login() {
   const [email, setEmail] = useState(""); // Used to set a state variable for the email entered using useState, which will utilise the "setter" to then store the data in the variable
   const [password, setPassword] = useState(""); // Used to set a state variable for the password entered using useState, which will utilise the "setter" to then store the data in the variable
+  const [remember, setChecked] = useState(""); // Used to set a state variable for the password entered using useState, which will utilise the "setter" to then store the data in the variable
   const [error, setError] = useState(""); // Used to set a state variable for any errors using useState, which will utilise the "setter" to then store the data in the variable
 
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ function Login() {
         // Would forward the submission data to the backend using a POST request to validate the login.
         email,
         password,
+        remember,
       });
 
       if (response.data.success) {
@@ -35,6 +37,10 @@ function Login() {
       setError("Login failed. Please try again.");
     }
   };
+
+  function handleChange(e) {
+    setChecked(e.target.checked);
+ };
 
   return (
     <div className="wrapper">
@@ -52,7 +58,7 @@ function Login() {
               type="email"
               name="email"
               value={email}
-              placeholder="UWI E-Mail"
+              placeholder="UWI E-Mail or Username"
               onChange={(e) => setEmail(e.target.value)}
               required
             />{" "}
@@ -79,7 +85,11 @@ function Login() {
           {error && <p>{error}</p>} {/* Display error message if exists */}
           <div className="rememberForgot">
             <label>
-              <input type="checkbox" />
+              <input 
+              type="checkbox"
+              value={remember}
+              name="remember"
+              onChange={handleChange}/>
               Remember Me
             </label>
             <a href="">Forgot Password?</a>
