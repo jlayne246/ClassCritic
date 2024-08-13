@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 //get all the created routes from this file
 const reviewDetails = require("./routes/reviewDetails");
 const credentialRoutes = require("./routes/credentialRoutes")
+const loginRoutes = require("./routes/loginRoutes")
 
 //passes data attached in body to the req object
 app.use(express.json());
@@ -23,10 +24,12 @@ app.use("/api/review",reviewDetails);
 //localhost:4000/api/register/
 app.use("/api/register",credentialRoutes);
 
-app.post('/api/login', (req, res) => {
-  console.log(req.body.email, req.body.password, req.body.remember);
-  // res.send('GET request to the homepage')
-})
+// app.post('/api/login', (req, res) => {
+//   console.log(req.body.email, req.body.password, req.body.remember);
+//   // res.send('GET request to the homepage')
+// })
+
+app.use("/api/login",loginRoutes);
 
 //connecting to the LOCAL mongodb
 //https://youtu.be/s0anSjEeua8?si=0a8KFFrCu0mIbT1G&t=435

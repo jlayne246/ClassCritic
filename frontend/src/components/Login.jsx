@@ -82,7 +82,7 @@ function Login() {
               <LockIcon />
             </i>
           </div>
-          {error && <p>{error}</p>} {/* Display error message if exists */}
+          {error && <p className="error">{error}</p>} {/* Display error message if exists */}
           <div className="rememberForgot">
             <label>
               <input 
