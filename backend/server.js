@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 
 //get all the created routes from this file
 const reviewDetails = require("./routes/reviewDetails");
-const credentialRoutes = require("./routes/credentialRoutes")
+const registerRoutes = require("./routes/registerRoutes")
 const loginRoutes = require("./routes/loginRoutes")
 
 //passes data attached in body to the req object
@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 app.use("/api/review",reviewDetails);
 
 //localhost:4000/api/register/
-app.use("/api/register",credentialRoutes);
+app.use("/api/register",registerRoutes);
 
 // app.post('/api/login', (req, res) => {
 //   console.log(req.body.email, req.body.password, req.body.remember);

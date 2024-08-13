@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Router, useNavigate } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import axios from 'axios';
@@ -20,23 +20,23 @@ export default function Register(){
       },
     }
     )
+    //get response and put it into JSON object, give console warning of the json object and then display if an error has occured or if the JSON was successfully made
             .then((response) => response.json())
             .then((result) => {console.warn(result); 
-            setMsg(result);
+              if (JSON.stringify(result).includes('error')) {
+                setMsg('An error occured')
+              } else {setMsg('Student successfully registered')}
             })
-            e.target.reset();
         }
         catch (err) {
             console.error(err);
-          
         }
     }
-
     const handleInput = (e) => { 
     if (e.target.name == "uwi_email") {
         if (!(e.target.value.endsWith("@mycavehill.uwi.edu"))) {
           console.warn("Invalid email entered");
-          e.target.value = " ";
+          e.target.value = null;
           e.target.className = "inputError";
           return;
         } else {e.target.className = " ";
@@ -45,9 +45,9 @@ export default function Register(){
     }
     if (e.target.name == "password") {
         if (e.target.value == ""){
-            console.warn("Please enter password");
+            e.target.placeholder= "Please enter password";
             e.target.classname = "inputError";
-            e.target.value = " ";
+            e.target.value = null;
         } else  {e.target.className = " ";
             setPassword(e.target.value);
             }
@@ -92,7 +92,7 @@ export default function Register(){
               <LockIcon />
             </i>
           </div>
-          {msg && <p>{msg}</p>} {/* Display error message if exists */}
+          <p>{JSON.stringify(msg)}</p> {/* Display error message if exists */}
           <button type="submit" className="registerButton">
             Register
           </button>{" "}
