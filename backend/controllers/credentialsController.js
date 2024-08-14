@@ -2,6 +2,10 @@ const Credentials = require("../models/credentialModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
+const jwt = require('jsonwebtoken');
+
+const JWT_SECRET = '151a60307f621da4e322f2e3ff9493c50f62a0b8ad919eeac7b009f60bcd37ca';
+
 //Function to create a new user at register page
 const createUser = async(req, res) => {
 
@@ -53,7 +57,7 @@ const validateUser = async (req, res) => {
         remember,
     } = req.body;
 
-    // console.log(email, password, remember);
+    console.log(email, password, remember);
 
     try {
         // const loginCondition = {email: email, password: password};
@@ -67,7 +71,13 @@ const validateUser = async (req, res) => {
             const isPasswordValid = await bcrypt.compare(password, validate.password);
 
             if (isPasswordValid) {
-                return res.json({success: true});
+                const token = jwt.sign({ userId: validate._id, emailAddr: validate.email }, JWT_SECRET);
+
+                console.log(token);
+
+                req.session.token = token;
+
+                return res.json({success: true, token});
             } else {
                 return res.json({success: false, message: "Wrong Password."});
             }
