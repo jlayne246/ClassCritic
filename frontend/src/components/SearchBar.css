@@ -14,6 +14,11 @@
   font-size: 60px;
   color: rgba(255, 255, 255, 0.87);
 }
+.search > h2 {
+  margin: 15px;
+  /* font-size: 60px; */
+  color: rgba(255, 255, 255, 0.87);
+}
 
 .searchInputs {
   display: flex;
