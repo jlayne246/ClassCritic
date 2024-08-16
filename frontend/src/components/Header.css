@@ -1,0 +1,74 @@
+/* src/components/Header.css */
+.header {
+    background-color: #282c34;
+    padding: 20px;
+    color: white;
+    text-align: right;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+.header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.header nav ul li {
+    display: inline;
+    /* margin: 0 15px; */
+}
+
+.header nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 20px 28.5px 20px 28.5px;
+    /* padding-left: 28.5px;
+    padding-right: 28.5px; */
+}
+
+.header nav ul li a:hover {
+    text-decoration: none;
+    color: black;
+    background-color: lightgoldenrodyellow;
+}
+
+.header nav img {
+    height: 40px;
+    display: block;
+    padding: 3px;
+    background-color: black;
+    border: 1px solid lightgoldenrodyellow;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+.header nav .nav-links {
+    align-items: center;
+}
+
+.header nav .nav-logo {
+    align-items: center;
+}
+
+.header nav .nav-logo a {
+    text-decoration: none;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.header nav .nav-logo a:hover {
+    text-decoration: none;
+    
+}
