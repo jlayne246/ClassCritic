@@ -30,7 +30,9 @@
 .header nav ul li a {
     color: white;
     text-decoration: none;
-    padding: 20px;
+    padding: 20px 28.5px 20px 28.5px;
+    /* padding-left: 28.5px;
+    padding-right: 28.5px; */
 }
 
 .header nav ul li a:hover {
