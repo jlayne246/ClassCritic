@@ -2,6 +2,10 @@ const Credentials = require("../models/credentialModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
+const jwt = require('jsonwebtoken');
+
+const JWT_SECRET = '151a60307f621da4e322f2e3ff9493c50f62a0b8ad919eeac7b009f60bcd37ca';
+
 //Function to create a new user at register page
 const createUser = async(req, res) => {
 
@@ -24,7 +28,7 @@ const createUser = async(req, res) => {
     };
 
     const saltRounds = 10; // Cost factor
-    const hashPass = await hashPassword(password, saltRounds);
+    const hashPass = await hashPassword(password, saltRounds); //Hashes password
 
 //Await promise, creating a new database record using the Credentials model
 //email and password properties in the record are set with the request object properties above.
@@ -38,7 +42,7 @@ const createUser = async(req, res) => {
         const register = await Credentials.create({
             email,
             password: hashPass,
-        });
+        }); // Creates credentials with email and hashed password
 
         res.status(200).json(register);
     } catch(error) {
@@ -67,7 +71,16 @@ const validateUser = async (req, res) => {
             const isPasswordValid = await bcrypt.compare(password, validate.password);
 
             if (isPasswordValid) {
-                return res.json({success: true});
+                const token = jwt.sign({ userId: validate._id, emailAddr: validate.email }, JWT_SECRET);
+                // Future note: Consider adding roles to make admin differentiation easier
+
+                // console.log(token);
+
+                localStorage.setItem("rememberStatus", remember);
+
+                req.session.token = token;
+
+                return res.json({success: true, token});
             } else {
                 return res.json({success: false, message: "Wrong Password."});
             }
