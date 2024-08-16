@@ -28,7 +28,7 @@ const createUser = async(req, res) => {
     };
 
     const saltRounds = 10; // Cost factor
-    const hashPass = await hashPassword(password, saltRounds);
+    const hashPass = await hashPassword(password, saltRounds); //Hashes password
 
 //Await promise, creating a new database record using the Credentials model
 //email and password properties in the record are set with the request object properties above.
@@ -42,7 +42,7 @@ const createUser = async(req, res) => {
         const register = await Credentials.create({
             email,
             password: hashPass,
-        });
+        }); // Creates credentials with email and hashed password
 
         res.status(200).json(register);
     } catch(error) {
@@ -57,7 +57,7 @@ const validateUser = async (req, res) => {
         remember,
     } = req.body;
 
-    console.log(email, password, remember);
+    // console.log(email, password, remember);
 
     try {
         // const loginCondition = {email: email, password: password};
@@ -72,8 +72,11 @@ const validateUser = async (req, res) => {
 
             if (isPasswordValid) {
                 const token = jwt.sign({ userId: validate._id, emailAddr: validate.email }, JWT_SECRET);
+                // Future note: Consider adding roles to make admin differentiation easier
 
-                console.log(token);
+                // console.log(token);
+
+                localStorage.setItem("rememberStatus", remember);
 
                 req.session.token = token;
 

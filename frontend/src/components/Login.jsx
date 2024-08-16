@@ -7,7 +7,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
 import axios from 'axios';
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = ({ setIsLoggedIn }) => { // Receives login state in function
   const [email, setEmail] = useState(""); // Used to set a state variable for the email entered using useState, which will utilise the "setter" to then store the data in the variable
   const [password, setPassword] = useState(""); // Used to set a state variable for the password entered using useState, which will utilise the "setter" to then store the data in the variable
   const [remember, setChecked] = useState(""); // Used to set a state variable for the password entered using useState, which will utilise the "setter" to then store the data in the variable
@@ -27,16 +27,16 @@ const Login = ({ setIsLoggedIn }) => {
       });
 
       if (response.data.success) {
-        // If there is a successful login, then the user would be navigated to the home page.
+        // If there is a successful login, then the login state is set true, and the user would be navigated to the home page.
         setIsLoggedIn(true);
         navigate("/home");
       } else {
-        // Otherwise, it would return an error message
+        // Otherwise, then the login state is set false, and it would return an error message
         setIsLoggedIn(false);
         setError(response.data.message);
       }
     } catch (error) {
-      // This would be the fall back in case there are errors in the initial login process by setting the error message as such.
+      // This would be the fall back in case there are errors in the initial login process by setting the login state to false, and error message as such.
       setIsLoggedIn(false);
       setError("Login failed. Please try again.");
     }
