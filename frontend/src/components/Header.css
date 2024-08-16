@@ -3,12 +3,18 @@
     background-color: #282c34;
     padding: 20px;
     color: white;
-    text-align: center;
+    text-align: right;
 }
 
 .header h1 {
     margin: 0;
     font-size: 2em;
+}
+
+.header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .header nav ul {
@@ -18,7 +24,7 @@
 
 .header nav ul li {
     display: inline;
-    margin: 0 15px;
+    /* margin: 0 15px; */
 }
 
 .header nav ul li a {
@@ -31,4 +37,30 @@
     text-decoration: none;
     color: black;
     background-color: lightgoldenrodyellow;
+}
+
+.header nav img {
+    height: 40px;
+    display: block;
+    /* margin-right: 20px; */
+    /* text-align: left; */
+  }
+.header nav .nav-links {
+    align-items: center;
+}
+
+.header nav .nav-logo {
+    align-items: center;
+}
+
+.header nav .nav-logo a {
+    text-decoration: none;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.header nav .nav-logo a:hover {
+    text-decoration: none;
+    
 }
