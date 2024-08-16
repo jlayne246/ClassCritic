@@ -44,9 +44,15 @@
 .header nav img {
     height: 40px;
     display: block;
-    /* margin-right: 20px; */
-    /* text-align: left; */
-  }
+    padding: 3px;
+    background-color: black;
+    border: 1px solid lightgoldenrodyellow;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
 .header nav .nav-links {
     align-items: center;
 }
