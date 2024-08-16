@@ -1,28 +1,50 @@
+//add toast
+//add functionality to calculate grades
+
 import React from "react";
-import StarIcon from "@mui/icons-material/Star";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useState } from "react";
 import Data from "../CourseNames.json";
+//https://www.youtube.com/watch?v=vnftyztz6ss
+import StarRating from "../components/StarRating";
 
 export default function ReviewDetails() {
+  const handleRatingChange = (newRating, name) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: newRating,
+    }));
+  };
+
   //Any error sent from dB is stored in formErrorOrSuccess and displayed in Ui
   const [formErrorOrSuccess, setErrorOrSuccess] = useState(null);
 
   /*-------------- START OF CODE USED TO TRACK AND SUBMIT FORM DATA --------------*/
   /////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////
-  //refresh page
   //figure out how to refrence, based on a id
 
   //formData object containing json to be inserted into MongoDB
   const [formData, setFormData] = React.useState({
     grade: "",
-    overallQuality: "",
-    simplicity: "",
-    courseRelevance: "",
-    instructionalEffectiveness: "",
+    overallQuality: 0,
+    simplicity: 0,
+    courseRelevance: 0,
+    instructionalEffectiveness: 0,
     writtenReview: "",
   });
+
+  const resetRating = () => {
+    setFormData({
+      grade: "",
+      overallQuality: 0,
+      simplicity: 0,
+      courseRelevance: 0,
+      instructionalEffectiveness: 0,
+      writtenReview: "",
+    });
+  };
 
   //Each time a change is made to any input field, update what is stored in formData
   function handleChange(event) {
@@ -41,10 +63,23 @@ export default function ReviewDetails() {
   const handleSubmit = async (e) => {
     e.preventDefault(); //do not reload the page
 
+    //Cancel submission if the user has not selected all of the star reviews
+    if (
+      formData.grade === "" ||
+      formData.overallQuality === 0 ||
+      formData.simplicity === 0 ||
+      formData.courseRelevance === 0 ||
+      formData.instructionalEffectiveness === 0
+    ) {
+      setErrorOrSuccess(
+        "Please fill in all required fields before submitting the review."
+      );
+      return;
+    }
+
     //Get the courseCode from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const courseCode = urlParams.get("course");
-    //console.log(courseCode);
 
     // Add the userName field to updatedFormData (MUST BE ADJUSTED TO DYNAMICALLY GET THE APPROPRIATE NAME)
     // Add the courseCode from the URL to updatedFormData
@@ -58,7 +93,6 @@ export default function ReviewDetails() {
     //Send POST request with the updatedFormData
     const response = await fetch("/api/review", {
       method: "POST",
-      /*  body: JSON.stringify(formData), */
       body: JSON.stringify(updatedFormData),
       headers: {
         "Content-Type": "application/json",
@@ -75,13 +109,37 @@ export default function ReviewDetails() {
       /* console.log("A review has been added to the db using the front-end"); */
       setFormData({
         grade: "",
-        overallQuality: "",
-        simplicity: "",
-        courseRelevance: "",
-        instructionalEffectiveness: "",
+        overallQuality: 0,
+        simplicity: 0,
+        courseRelevance: 0,
+        instructionalEffectiveness: 0,
         writtenReview: "",
       });
+
       setErrorOrSuccess("A review was added to the dB");
+      //Display the new record that was added to the dB within the UI
+      setReviews([...reviews, json]);
+    }
+  };
+
+  //function to remove a review
+  const deleteReview = async (reviewID) => {
+    const response = await fetch("api/review/" + reviewID, {
+      method: "DELETE",
+    });
+    console.log(reviewID);
+
+    const json = await response.json();
+
+    if (response.ok) {
+      setErrorOrSuccess("A review was deleted from dB");
+
+      // Update the reviews state directly using the review ID
+      setReviews((prevReviews) =>
+        prevReviews.filter((review) => review._id !== reviewID)
+      );
+    } else {
+      setErrorOrSuccess("Failed to remove review");
     }
   };
   /*-------------- END OF CODE USED TO TRACK AND SUBMIT FORM DATA --------------*/
@@ -195,29 +253,25 @@ export default function ReviewDetails() {
               <div className="starReview">
                 <h3>Overall Quality</h3>
                 <div className="starIcon">
-                  <StarIcon /> <StarIcon /> <StarIcon /> <StarBorderIcon />
-                  <StarBorderIcon />
+                  <h4>5/5</h4>
                 </div>
               </div>
               <div className="starReview">
                 <h3>Course Simplicity</h3>
                 <div className="starIcon">
-                  <StarIcon /> <StarIcon /> <StarIcon /> <StarBorderIcon />
-                  <StarBorderIcon />
+                  <h4>5/5</h4>
                 </div>
               </div>
               <div className="starReview">
                 <h3>Course Relevance</h3>
                 <div className="starIcon">
-                  <StarIcon /> <StarIcon /> <StarIcon /> <StarBorderIcon />
-                  <StarBorderIcon />
+                  <h4>5/5</h4>
                 </div>
               </div>
               <div className="starReview">
                 <h3>Instructional Effectiveness</h3>
                 <div className="starIcon">
-                  <StarIcon /> <StarIcon /> <StarIcon /> <StarBorderIcon />
-                  <StarBorderIcon />
+                  <h4>5/5</h4>
                 </div>
               </div>
             </div>
@@ -229,6 +283,9 @@ export default function ReviewDetails() {
                       <div className="writtenReviewDetails" key={review._id}>
                         <h5>{review.username}</h5>
                         <p>{review.writtenReview}</p>
+                        <span onClick={() => deleteReview(review._id)}>
+                          <CloseIcon />
+                        </span>
                       </div>
                     )
                 )}
@@ -238,93 +295,92 @@ export default function ReviewDetails() {
       </div>
 
       <div className="submitReviewOutline">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} id="myform">
           <h4>Your Grade:</h4>
-          <input
-            type="text"
-            placeholder="Input Here"
-            onChange={handleChange}
-            name="grade"
-            value={formData.grade}
-            required
-          />
+          <div className="selectContainer">
+            <select
+              id="favColor"
+              value={formData.grade}
+              onChange={handleChange}
+              name="grade"
+              className="selectBox"
+            >
+              <option value="">Grade</option>
+              <option value="A+">A+</option>
+              <option value="A">A</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B">B</option>
+              <option value="B-">B-</option>
+              <option value="C+">C+</option>
+              <option value="C">C</option>
+              <option value="C-">C-</option>
+              <option value="F1">F1</option>
+              <option value="F2">F2</option>
+              <option value="F3">F3</option>
+            </select>
+            <div className="selectSerachIconContainer">
+              <i>
+                <KeyboardArrowDownIcon />
+              </i>
+            </div>
+          </div>
           <h4>Overall Quality</h4>
-          <span>Rate </span>
-          <input
-            type="number"
-            className="reviewStatInput"
-            min="1"
-            max="5"
-            onChange={handleChange}
+          <StarRating
+            rating={formData.overallQuality}
+            onRating={handleRatingChange}
             name="overallQuality"
             value={formData.overallQuality}
-            required
           />
-          <span> out of 5</span>
+
           <h4>Simplicity</h4>
-          <span>Rate </span>
-          <input
-            type="number"
-            className="reviewStatInput"
-            min="1"
-            max="5"
-            onChange={handleChange}
+          <StarRating
+            rating={formData.simplicity}
+            onRating={handleRatingChange}
             name="simplicity"
             value={formData.simplicity}
-            required
           />
-          <span> out of 5</span>
           <h4>Coure Relevance</h4>
-          <span>Rate </span>
-          <input
-            type="number"
-            className="reviewStatInput"
-            min="1"
-            max="5"
-            onChange={handleChange}
+          <StarRating
+            rating={formData.courseRelevance}
+            onRating={handleRatingChange}
             name="courseRelevance"
             value={formData.courseRelevance}
-            required
           />
-          <span> out of 5</span>
           <h4>Instructional Effectiveness</h4>
-          <span>Rate </span>
-          <input
-            type="number"
-            className="reviewStatInput"
-            min="1"
-            max="5"
-            onChange={handleChange}
+          <StarRating
+            rating={formData.instructionalEffectiveness}
+            onRating={handleRatingChange}
             name="instructionalEffectiveness"
             value={formData.instructionalEffectiveness}
-            required
           />
-          <span> out of 5</span>
-
-          <button type="submit " id="submit">
-            Submit Review
-          </button>
         </form>
         <button onClick={toggleModal} className="btn-modal">
           Write Review
+        </button>
+        <button type="submit " id="submit" form="myform">
+          Submit Review
         </button>
         {modal && (
           <div className="modal">
             <div onClick={toggleModal} className="overlay"></div>
             <div className="modal-content">
-              <h2>Written Review</h2>
+              <div className="modalHeader">
+                <div className="close-modal">
+                  <CloseIcon onClick={toggleModal} />
+                </div>
+              </div>
+
               <textarea
                 value={formData.writtenReview}
-                placeholder="Enter your written review here!"
+                placeholder="Enter text here..."
                 onChange={handleChange}
                 name="writtenReview"
               />
-              <button className="close-modal" onClick={toggleModal}>
-                CLOSE
-              </button>
             </div>
           </div>
         )}
+        <button onClick={resetRating}>Reset Ratings</button>
         {/*Show error OR success*/}
         {formErrorOrSuccess && (
           <div className="errorOrSuccess">{formErrorOrSuccess}</div>
