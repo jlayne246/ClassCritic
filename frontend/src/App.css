@@ -1,0 +1,4 @@
+.App {
+  background-color: var(--primary-background);
+  transition: background-color 0.25s ease-in-out;
+}

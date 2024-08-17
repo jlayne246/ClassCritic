@@ -1,5 +1,90 @@
-/* src/components/Header.css */
 .header {
+  background-color: var(--primary-background);
+}
+nav {
+  height: 60px;
+  margin-left: 30px;
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logoAndtext {
+  display: flex;
+  align-items: center;
+}
+.logoAndtext > h4 {
+  margin-bottom: 6px; /* align-item center is fully center so i added this */
+  margin-left: 5px;
+  font-size: 1.2rem;
+  font-weight: 200;
+  color: rgba(255, 255, 255, 0.87);
+  letter-spacing: 2px;
+}
+.logoAndtext span {
+  font-weight: 500;
+  color: red;
+}
+img {
+  width: 40px;
+}
+a:hover {
+  background-color: transparent;
+}
+.navbarLinkContainer {
+  margin-right: 150px; /*Horizontally center nav links with search bar*/
+}
+#navbar {
+  /* displays and aligns <ul> content horizontally */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#navbar li {
+  list-style: none;
+  position: relative;
+  padding: 0 20px;
+}
+#navbar a {
+  text-decoration: none;
+  font-weight: 600;
+  color: white;
+}
+#navbar a:hover {
+  color: greenyellow;
+  transition: 0.3s ease-in-out;
+}
+#mobile {
+  display: none;
+}
+@media screen and (max-width: 769px) {
+  #navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: fixed;
+    top: 60px;
+    right: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: black;
+    transition: 0.3s ease-in-out;
+  }
+  #navbar.active {
+    right: 0;
+  }
+  #navbar li {
+    margin-bottom: 25px;
+  }
+  #mobile {
+    display: block;
+  }
+  #mobile:hover {
+    cursor: pointer;
+  }
+}
+/* .header {
     background-color: #282c34;
     padding: 20px;
     color: white;
@@ -24,15 +109,12 @@
 
 .header nav ul li {
     display: inline;
-    /* margin: 0 15px; */
 }
 
 .header nav ul li a {
     color: white;
     text-decoration: none;
     padding: 20px 28.5px 20px 28.5px;
-    /* padding-left: 28.5px;
-    padding-right: 28.5px; */
 }
 
 .header nav ul li a:hover {
@@ -71,4 +153,4 @@
 .header nav .nav-logo a:hover {
     text-decoration: none;
     
-}
+} */

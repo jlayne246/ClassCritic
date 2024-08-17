@@ -9,9 +9,7 @@ import Close from "@mui/icons-material/Close";
 export default function SearchBar({ placeholder, data }) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
-  {
-    /**/
-  }
+
   const handleFilter = (event) => {
     {
       /*the current text inside of the search bar is saved inside searchWord
@@ -70,7 +68,14 @@ export default function SearchBar({ placeholder, data }) {
           {filteredData.slice(0, 5).map((value) => {
             return (
               <div key={value.coursecode}>
-                <a className="dataItem" href={window.location.origin+"/review?course="+value.coursecode}>
+                <a
+                  className="dataItem"
+                  href={
+                    window.location.origin +
+                    "/review?course=" +
+                    value.coursecode
+                  }
+                >
                   <p>{value.title}</p>
                 </a>
               </div>
