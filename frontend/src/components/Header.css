@@ -15,6 +15,7 @@ nav {
 .logoAndtext {
   display: flex;
   align-items: center;
+  /* margin-right: 10px; */
 }
 .logoAndtext > h4 {
   margin-bottom: 6px; /* align-item center is fully center so i added this */
@@ -35,7 +36,9 @@ a:hover {
   background-color: transparent;
 }
 .navbarLinkContainer {
-  margin-right: 150px; /*Horizontally center nav links with search bar*/
+  /* margin-right: 150px; Horizontally center nav links with search bar */
+  /* margin-right: 10px; */
+  /* margin: auto; */
 }
 #navbar {
   /* displays and aligns <ul> content horizontally */
@@ -59,6 +62,7 @@ a:hover {
 }
 .toggle-comp {
     align-items: center;
+    margin-left: 75px;
 }
 #mobile {
   display: none;
