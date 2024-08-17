@@ -1,13 +1,15 @@
-:root {
+/* :root {
   --light-grey: #6f727a;
   --background-color: #242424;
-}
+} */
 
 .search {
   margin: 0 auto;
   display: flex;
   align-items: center;
   flex-direction: column;
+  height: 100vh; /* 
+  background-color: var(--background-color); */
 }
 .search > h1 {
   margin-top: 105px;
@@ -15,10 +17,10 @@
   color: rgba(255, 255, 255, 0.87);
 }
 .search > h2 {
-  margin: 15px;
-  /* font-size: 60px; */
   color: rgba(255, 255, 255, 0.87);
   text-align: center;
+  font-weight: 100;
+  font-size: 1.35rem;
 }
 
 .searchInputs {

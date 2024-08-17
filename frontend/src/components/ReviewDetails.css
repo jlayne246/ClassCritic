@@ -1,13 +1,6 @@
-:root {
-  --card-background: #3b3b3b;
-  --primary-text-color: #f1edee;
-  --secondary-text-color: #dedbdb;
-  --accent-color: #63ade5;
-}
 .courseDetailsPage {
   display: flex;
   gap: 20px;
-  border-radius: 10px;
 }
 .submitReviewOutline {
   /* Align vertically and center */

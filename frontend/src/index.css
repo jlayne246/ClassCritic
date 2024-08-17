@@ -1,5 +1,11 @@
+/*https://www.youtube.com/watch?v=sy-rRtT84CQ 5:16 */
+
 :root {
-  --primary-background: #333333;
+  --primary-background: orange;
+  --card-background: pink;
+  --primary-text-color: green;
+  --secondary-text-color: red;
+  --accent-color: yellow;
 }
 
 * {
@@ -9,6 +15,10 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
-body {
-  background-color: var(--primary-background);
+[data-theme="dark"] {
+  --primary-background: #333333;
+  --card-background: #3b3b3b;
+  --primary-text-color: #f1edee;
+  --secondary-text-color: #dedbdb;
+  --accent-color: #63ade5;
 }
