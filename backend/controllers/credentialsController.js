@@ -76,7 +76,7 @@ const validateUser = async (req, res) => {
 
                 // console.log(token);
 
-                localStorage.setItem("rememberStatus", remember);
+                // localStorage.setItem("rememberStatus", remember);
 
                 req.session.token = token;
 

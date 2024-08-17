@@ -12,7 +12,7 @@ export default function SearchPage() {
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      {/* <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} /> */}
       {/* Passes the user login state into the header */}
       <SearchBar placeholder="Enter a course name..." data={Data} />;
 

@@ -63,7 +63,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn, isDark, setIsDark }) => {
           </ul>
         </div>
 
-        <div>
+        <div className="toggle-comp">
           <ToggleComponent
             isChecked={isDark}
             handleChange={() => setIsDark(!isDark)}

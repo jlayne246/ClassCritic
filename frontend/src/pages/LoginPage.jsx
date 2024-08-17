@@ -14,7 +14,7 @@ export default function LoginPage() {
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      {/* <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} /> */}
       {/* Passes the user login state into the header */}
       
       <main>

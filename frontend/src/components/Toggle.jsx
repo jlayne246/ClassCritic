@@ -9,7 +9,7 @@ const Toggle = ({ handleChange, isChecked }) => {
         className="toggle"
         onChange={handleChange}
       />
-      <label htmlFor="check">Dark Mode</label>
+      {isChecked ? (<label htmlFor="check" style={{color: 'white'}}>Light Mode</label>) : (<label htmlFor="check">Dark Mode</label>)}
     </div>
   );
 };
