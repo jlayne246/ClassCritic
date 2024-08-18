@@ -1,12 +1,14 @@
 import "./Login.css";
 
 import React, { useState } from "react";
+// import { AuthContext } from './AuthContext';
 import { useNavigate } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
-import axios from 'axios';
+import axios from "axios";
 
-function Login() {
+const Login = ({ setIsLoggedIn }) => {
+  // Receives login state in function
   const [email, setEmail] = useState(""); // Used to set a state variable for the email entered using useState, which will utilise the "setter" to then store the data in the variable
   const [password, setPassword] = useState(""); // Used to set a state variable for the password entered using useState, which will utilise the "setter" to then store the data in the variable
   const [remember, setChecked] = useState(""); // Used to set a state variable for the password entered using useState, which will utilise the "setter" to then store the data in the variable
@@ -26,21 +28,24 @@ function Login() {
       });
 
       if (response.data.success) {
-        // If there is a successful login, then the user would be navigated to the home page.
+        // If there is a successful login, then the login state is set true, and the user would be navigated to the home page.
+        setIsLoggedIn(true);
         navigate("/home");
       } else {
-        // Otherwise, it would return an error message
+        // Otherwise, then the login state is set false, and it would return an error message
+        setIsLoggedIn(false);
         setError(response.data.message);
       }
     } catch (error) {
-      // This would be the fall back in case there are errors in the initial login process by setting the error message as such.
+      // This would be the fall back in case there are errors in the initial login process by setting the login state to false, and error message as such.
+      setIsLoggedIn(false);
       setError("Login failed. Please try again.");
     }
   };
 
   function handleChange(e) {
     setChecked(e.target.checked);
- };
+  }
 
   return (
     <div className="wrapper">
@@ -82,14 +87,16 @@ function Login() {
               <LockIcon />
             </i>
           </div>
-          {error && <p className="error">{error}</p>} {/* Display error message if exists */}
+          {error && <p className="error">{error}</p>}{" "}
+          {/* Display error message if exists */}
           <div className="rememberForgot">
             <label>
-              <input 
-              type="checkbox"
-              value={remember}
-              name="remember"
-              onChange={handleChange}/>
+              <input
+                type="checkbox"
+                value={remember}
+                name="remember"
+                onChange={handleChange}
+              />
               Remember Me
             </label>
             <a href="">Forgot Password?</a>
@@ -99,7 +106,7 @@ function Login() {
           </button>{" "}
           <div className="registerLink">
             <p>
-              Don't have an account? <a>Register</a>
+              Don't have an account? <a href="/register">Register</a>
             </p>
           </div>
           {/* Button used to submit data */}
@@ -107,6 +114,6 @@ function Login() {
       </div>
     </div>
   );
-}
+};
 
 export default Login;

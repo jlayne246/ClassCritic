@@ -1,15 +1,14 @@
-:root {
-  --card-background: #3b3b3b;
-  --primary-text-color: #f1edee;
-  --secondary-text-color: #dedbdb;
-  --accent-color: #63ade5;
-}
 .courseDetailsPage {
   display: flex;
-  gap: 20px;
-  border-radius: 10px;
 }
 .submitReviewOutline {
+  /* Align vertically and center */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  border: 1px solid var(--border-color);
   font-size: 1.1rem;
   color: var(--primary-text-color);
   background-color: var(--card-background);
@@ -17,12 +16,57 @@
   box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.25),
     0px 0px 2.9px rgba(0, 0, 0, 0.22);
   width: 300px;
-  margin: 20px 10px;
+  margin: 30px 10px 20px 10px;
   padding-top: 10px;
+  padding-bottom: 20px;
+}
+/*Select box start*/
+.selectContainer {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 150px;
+  height: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+.selectBox {
+  appearance: none;
+  padding: 0 30px 0 15px;
+  width: 100%;
+  color: var(--primary-text-color);
+  background-color: var(--select-box-background);
+  text-align: center;
+  border-radius: 20px;
+  outline: none;
+}
+.selectBox option {
   text-align: center;
 }
+#favColor:hover {
+  cursor: pointer;
+}
+.selectContainer .selectSerachIconContainer {
+  width: 25px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--accent-color);
+  font-size: 30px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.selectSearchIconContainer i {
+  font-size: 30px;
+  color: black;
+}
+/*Select box end*/
+
 .submitReviewOutline input {
-  /*general style for all the inputs*/
   width: 75px;
   background-color: transparent;
   border: none;
@@ -30,29 +74,25 @@
   font-size: 1rem;
   margin-bottom: 20px;
 }
-.submitReviewOutline .reviewStatInput {
-  width: 30px;
-  color: var(--primary-text-color);
-  text-align: center;
+
+.starReviewContainer {
+  margin-bottom: 10px;
 }
-.submitReviewOutline input[type="number"]::-webkit-inner-spin-button,
-.submitReviewOutline input[type="number"]::-webkit-outer-spin-button {
-  /*Remmove the number increment*/
-  -webkit-appearance: none;
-  margin: 0;
+.starReviewContainer span:hover {
+  cursor: pointer;
 }
-.submitReviewOutline input:focus {
-  outline: none;
-}
+
 .submitReviewOutline button {
   /*General style for the buttons*/
   border: none;
   border-radius: 15px;
-  padding: 10px 5px;
+  padding: 7px 1px;
   margin: 5px 10px;
   width: 120px;
+  font-size: 0.75rem;
   font-weight: 600;
   display: block;
+  /* background-color: var(--select-box-background); */
 }
 .submitReviewOutline button:hover {
   border: 2px solid black;
@@ -65,12 +105,12 @@
   margin-left: 15px;
 }
 .courseName {
-  font-size: 2.85rem;
+  font-size: 2rem;
   color: var(--primary-text-color);
   padding-bottom: 20px;
 }
 .courseCode {
-  color: var(--secondary-text-color);
+  color: var(--primary-text-color);
   padding-bottom: 10px;
 }
 .reviewDetails {
@@ -79,12 +119,13 @@
   gap: 50px;
   color: var(--primary-text-color);
   background-color: var(--card-background);
+  border: 1px solid var(--border-color);
   border-radius: 10px;
   box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.25),
     0px 0px 2.9px rgba(0, 0, 0, 0.22);
   padding: 25px 15px;
   max-width: 900px;
-  margin-left: 10px;
+  margin: 0px 0px 0px 10px;
 }
 .reviewGradeStat {
   color: var(--primary-text-color);
@@ -95,37 +136,56 @@
   font-weight: 500;
 }
 .reviewGradeStat h4 {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 .starReviewsAndWrittenReview {
   /*Div for the titles listed below and the written review details*/
   max-width: 700px;
 }
 .starReviews {
-  /*Titles for Overall rating, workload, complexity, organization*/
+  /*Titles for Overall rating, simplicity, relevance, intructional effectiveness*/
   display: flex;
   gap: 35px;
   justify-content: space-between;
 }
+.starReviews h3 {
+  font-weight: 500;
+}
 .starIcon {
   /*Adjust color of the star*/
+  font-size: 2rem;
   color: var(--accent-color);
 }
 .writtenReviews {
   /*Adjust div containing all written review details*/
   margin-top: 30px;
-  background-color: #333333;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
   padding: 10px 20px;
   border-radius: 10px;
 }
 .writtenReviewDetails {
   /*Div containing user name, written review, upvote/downvote*/
   margin-bottom: 20px;
+  position: relative;
 }
 .writtenReviewDetails > h5 {
   /*Adjust user name*/
   font-weight: 800;
-  font-size: 1.3rem;
+  font-size: 0.9rem;
+}
+
+.writtenReviewDetails > p {
+  /*Adjust review content*/
+  font-size: 1rem;
+}
+
+.writtenReviewDetails > span {
+  /*delete review icon*/
+  cursor: pointer;
+  position: absolute;
+  left: 95%;
+  top: 0%;
 }
 
 /**/
@@ -152,26 +212,89 @@
 .modal-content {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 40%;
   transform: translate(-50%, -50%);
   line-height: 1.4;
-  background: var(--accent-color);
-  padding: 14px 28px;
+  background: #1f1f1f;
   border-radius: 3px;
   width: 600px;
   height: 300px;
 }
+.modalHeader {
+  background-color: #1f1f1f;
+  position: relative;
+  height: 10%; /* 10% for the header within modal-content container */
+  width: 100%;
+}
+.close-modal {
+  position: absolute; /*Relative to modalHeader  */
+  top: 15%;
+  left: 95%;
+}
+.close-modal:hover {
+  cursor: pointer;
+}
 textarea {
-  width: 450px;
-  height: 100px;
-  margin-top: 50px;
+  background-color: var(--card-background);
+  border: none;
+  width: 98%;
+  height: 88%; /* 90% for the body within modal-content container */
   outline: none;
   resize: none;
+  color: white;
+  text-indent: 10px;
+  padding: 5px;
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
-.close-modal {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 5px 7px;
+/* Styles for laptop screens and below */
+@media screen and (max-width: 1025px) {
+  .courseName {
+    font-size: 1.75rem;
+  }
+  .courseCode {
+    font-size: 1.25rem;
+  }
+  .reviewGradeStat h3 {
+    font-size: 1rem;
+  }
+  .starReviews {
+    text-align: center;
+  }
+  .starReviews h3 {
+    font-size: 0.85rem;
+  }
+  .starReviews h4 {
+    font-size: 1.2rem;
+  }
+}
+
+/* Styles for large phone screens and below */
+@media screen and (max-width: 426px) {
+  .courseDetailsPage {
+    flex-direction: column;
+    overflow-x: clip;
+  }
+  .reviewDetails {
+    /* displays div which contains stared review averages and writtens comments below reviewGradeStats */
+    flex-direction: column;
+    margin: 0px 5px 0px 5px;
+    gap: 0px;
+  }
+  .reviewGradeStats {
+    /* Display average grade, median grade and pass rate within a row */
+    display: flex;
+    justify-content: space-between;
+  }
+  .submitReviewOutline {
+    /* Center the review form outline */
+    margin: 40px auto;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .starReviews {
+    gap: 15px;
+  }
 }

@@ -1,5 +1,24 @@
+/*https://www.youtube.com/watch?v=sy-rRtT84CQ 5:16 */
+
 :root {
-  --primary-background: #333333;
+  --primary-text-color: #383838;
+  --secondary-text-color: red;
+  --accent-color: #f1aa00;
+
+  --header-background: #f6f8fa;
+  --border-color: #d0d7de;
+  --background: #ffffff;
+
+  --card-background: transparent;
+
+  --searchbar-placeholder-color: black;
+  --searchbar-text-color: black;
+
+  --login-register-card-background: transparent;
+
+  --select-box-background: #f5efed;
+
+  --circle-toggle-theme: #f6f8fa;
 }
 
 * {
@@ -9,6 +28,24 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
-body {
-  background-color: var(--primary-background);
+[data-theme="dark"] {
+  --secondary-text-color: #dedbdb;
+  --accent-color: #f1aa00;
+
+  --header-background: #010409;
+  --border-color: #30363d;
+  --background: #0d1117;
+
+  --card-background: transparent;
+
+  --primary-text-color: #e6edf3;
+
+  --searchbar-placeholder-color: #8d96a0;
+  --searchbar-text-color: white;
+
+  --login-register-card-background: #161b22;
+
+  --select-box-background: #010409;
+
+  --circle-toggle-theme: #383838;
 }

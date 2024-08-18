@@ -1,28 +1,52 @@
+//add toast
+//add functionality to calculate grades
+
 import React from "react";
-import StarIcon from "@mui/icons-material/Star";
-import StarBorderIcon from "@mui/icons-material/StarBorder";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useState } from "react";
 import Data from "../CourseNames.json";
 
+//https://www.youtube.com/watch?v=vnftyztz6ss
+import StarRating from "../components/StarRating";
+
+//https://www.youtube.com/watch?v=8JTrY1dlXCw&t=20s - Video explaining toast notification
+//https://sonner.emilkowal.ski/ - Documentation for toast notifications
+import { Toaster, toast } from "sonner";
+
 export default function ReviewDetails() {
-  //Any error sent from dB is stored in formErrorOrSuccess and displayed in Ui
-  const [formErrorOrSuccess, setErrorOrSuccess] = useState(null);
+  const handleRatingChange = (newRating, name) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: newRating,
+    }));
+  };
 
   /*-------------- START OF CODE USED TO TRACK AND SUBMIT FORM DATA --------------*/
   /////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////
-  //refresh page
   //figure out how to refrence, based on a id
 
   //formData object containing json to be inserted into MongoDB
   const [formData, setFormData] = React.useState({
     grade: "",
-    overallQuality: "",
-    simplicity: "",
-    courseRelevance: "",
-    instructionalEffectiveness: "",
+    overallQuality: 0,
+    simplicity: 0,
+    courseRelevance: 0,
+    instructionalEffectiveness: 0,
     writtenReview: "",
   });
+
+  const resetRating = () => {
+    setFormData({
+      grade: "",
+      overallQuality: 0,
+      simplicity: 0,
+      courseRelevance: 0,
+      instructionalEffectiveness: 0,
+      writtenReview: "",
+    });
+  };
 
   //Each time a change is made to any input field, update what is stored in formData
   function handleChange(event) {
@@ -41,10 +65,21 @@ export default function ReviewDetails() {
   const handleSubmit = async (e) => {
     e.preventDefault(); //do not reload the page
 
+    //Cancel submission if the user has not selected all of the star reviews
+    if (
+      formData.grade === "" ||
+      formData.overallQuality === 0 ||
+      formData.simplicity === 0 ||
+      formData.courseRelevance === 0 ||
+      formData.instructionalEffectiveness === 0
+    ) {
+      toast.error("Error: Fill all STRARED review options AND select grade");
+      return;
+    }
+
     //Get the courseCode from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const courseCode = urlParams.get("course");
-    //console.log(courseCode);
 
     // Add the userName field to updatedFormData (MUST BE ADJUSTED TO DYNAMICALLY GET THE APPROPRIATE NAME)
     // Add the courseCode from the URL to updatedFormData
@@ -58,30 +93,57 @@ export default function ReviewDetails() {
     //Send POST request with the updatedFormData
     const response = await fetch("/api/review", {
       method: "POST",
-      /*  body: JSON.stringify(formData), */
       body: JSON.stringify(updatedFormData),
       headers: {
         "Content-Type": "application/json",
       },
     });
 
-    //I may end up removing this line, it may not be necessary
+    //will be used to update the user's UI with the record that was just sent to the dB
     const json = await response.json();
 
     //Print the error if failed or Reset formData if the POST request was sucessful
     if (!response.ok) {
-      setErrorOrSuccess(json.error);
+      toast.error("Error: Review not saved! ");
     } else {
       /* console.log("A review has been added to the db using the front-end"); */
       setFormData({
         grade: "",
-        overallQuality: "",
-        simplicity: "",
-        courseRelevance: "",
-        instructionalEffectiveness: "",
+        overallQuality: 0,
+        simplicity: 0,
+        courseRelevance: 0,
+        instructionalEffectiveness: 0,
         writtenReview: "",
       });
-      setErrorOrSuccess("A review was added to the dB");
+
+      toast.success("Success: Review addedd!");
+      //Display the new record that was added to the dB within the UI
+      /* setReviews([...reviews, json]); */
+      setReviews([json, ...reviews]);
+
+      console.log(json);
+    }
+  };
+
+  //function to remove a review
+  const deleteReview = async (reviewID) => {
+    const response = await fetch("api/review/" + reviewID, {
+      method: "DELETE",
+    });
+    console.log(reviewID);
+
+    //"json" contain the json record of the document that is deleted
+    const json = await response.json();
+
+    if (response.ok) {
+      toast.success("Success: Review Removed!");
+
+      // Update the reviews state directly using the review ID
+      setReviews((prevReviews) =>
+        prevReviews.filter((review) => review._id !== reviewID)
+      );
+    } else {
+      toast.error("Error: Review not removed");
     }
   };
   /*-------------- END OF CODE USED TO TRACK AND SUBMIT FORM DATA --------------*/
@@ -96,6 +158,9 @@ export default function ReviewDetails() {
 
   //reviews will contain all of the info pulled from the "reviews" collection
   const [reviews, setReviews] = useState(null);
+
+  //contains the stats info
+  const [stats, setStats] = useState(null);
 
   //initial state for the course title and code.
   //Would be wise to make them blank and set it to this on not found but I aint doing all of that
@@ -112,15 +177,38 @@ export default function ReviewDetails() {
       Eventually, when we launch ClassCritic, the youtube link should help us configure the server for production*/
       /*--------------END OF NOTE FOR PRODUCTION PHASE OF CLASS CRITIC --------------*/
 
+      /*-------------- START OF CODE USED TO LOAD ALL REVIEW DATA  --------------*/
       //Need to be able to pass query to back end
       //Add query to the slug
       const courseRequest = "/api/review" + query; //slug + coursecode query (ie ?course=CODE1234)
       const response = await fetch(courseRequest);
 
+      console.log(response);
+
       //IF data fetch was sucessful, the reviews object is populated with the data
       const json = await response.json();
       if (response.ok) {
         setReviews(json);
+      }
+    };
+
+    const fetchStats = async (query) => {
+      // Remove everything before the "=" and replace it with "/"
+      // ?course=CODE1234 becomes CODE1234
+      const modifiedQuery = query.replace(/.*=/, "/");
+
+      const courseRequest = "/api/stats" + modifiedQuery; //slug + coursecode query (ie ?course=CODE1234)
+      const response = await fetch(courseRequest);
+
+      console.log(response);
+
+      //IF data fetch was sucessful, the reviews object is populated with the data
+      const json = await response.json();
+      if (response.ok) {
+        setStats(json);
+        console.log(json);
+      } else if (!response.ok) {
+        console.log("no  response");
       }
     };
 
@@ -151,6 +239,7 @@ export default function ReviewDetails() {
 
     fetchCourseInfo(courseCode, Data);
     fetchReviews(classquery);
+    fetchStats(classquery);
   }, []);
 
   /*-------------- END OF CODE USED TO LOAD ALL REVIEW DATA  --------------*/
@@ -170,6 +259,7 @@ export default function ReviewDetails() {
 
   return (
     <div className="courseDetailsPage">
+      <Toaster richColors position="top-right" />
       <div className="courseOutline">
         <div className="courseInfo">
           <h1 className="courseName">{courseInfo.title}</h1>
@@ -195,29 +285,25 @@ export default function ReviewDetails() {
               <div className="starReview">
                 <h3>Overall Quality</h3>
                 <div className="starIcon">
-                  <StarIcon /> <StarIcon /> <StarIcon /> <StarBorderIcon />
-                  <StarBorderIcon />
+                  <h4>5/5</h4>
                 </div>
               </div>
               <div className="starReview">
                 <h3>Course Simplicity</h3>
                 <div className="starIcon">
-                  <StarIcon /> <StarIcon /> <StarIcon /> <StarBorderIcon />
-                  <StarBorderIcon />
+                  <h4>5/5</h4>
                 </div>
               </div>
               <div className="starReview">
                 <h3>Course Relevance</h3>
                 <div className="starIcon">
-                  <StarIcon /> <StarIcon /> <StarIcon /> <StarBorderIcon />
-                  <StarBorderIcon />
+                  <h4>5/5</h4>
                 </div>
               </div>
               <div className="starReview">
                 <h3>Instructional Effectiveness</h3>
                 <div className="starIcon">
-                  <StarIcon /> <StarIcon /> <StarIcon /> <StarBorderIcon />
-                  <StarBorderIcon />
+                  <h4>5/5</h4>
                 </div>
               </div>
             </div>
@@ -229,6 +315,9 @@ export default function ReviewDetails() {
                       <div className="writtenReviewDetails" key={review._id}>
                         <h5>{review.username}</h5>
                         <p>{review.writtenReview}</p>
+                        <span onClick={() => deleteReview(review._id)}>
+                          <CloseIcon />
+                        </span>
                       </div>
                     )
                 )}
@@ -238,73 +327,67 @@ export default function ReviewDetails() {
       </div>
 
       <div className="submitReviewOutline">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} id="myform">
           <h4>Your Grade:</h4>
-          <input
-            type="text"
-            placeholder="Input Here"
-            onChange={handleChange}
-            name="grade"
-            value={formData.grade}
-            required
-          />
+          <div className="selectContainer">
+            <select
+              id="favColor"
+              value={formData.grade}
+              onChange={handleChange}
+              name="grade"
+              className="selectBox"
+            >
+              <option value="">Grade</option>
+              <option value="A+">A+</option>
+              <option value="A">A</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B">B</option>
+              <option value="B-">B-</option>
+              <option value="C+">C+</option>
+              <option value="C">C</option>
+              <option value="C-">C-</option>
+              <option value="F1">F1</option>
+              <option value="F2">F2</option>
+              <option value="F3">F3</option>
+            </select>
+            <div className="selectSerachIconContainer">
+              <i>
+                <KeyboardArrowDownIcon />
+              </i>
+            </div>
+          </div>
           <h4>Overall Quality</h4>
-          <span>Rate </span>
-          <input
-            type="number"
-            className="reviewStatInput"
-            min="1"
-            max="5"
-            onChange={handleChange}
+          <StarRating
+            rating={formData.overallQuality}
+            onRating={handleRatingChange}
             name="overallQuality"
             value={formData.overallQuality}
-            required
           />
-          <span> out of 5</span>
+
           <h4>Simplicity</h4>
-          <span>Rate </span>
-          <input
-            type="number"
-            className="reviewStatInput"
-            min="1"
-            max="5"
-            onChange={handleChange}
+          <StarRating
+            rating={formData.simplicity}
+            onRating={handleRatingChange}
             name="simplicity"
             value={formData.simplicity}
-            required
           />
-          <span> out of 5</span>
           <h4>Coure Relevance</h4>
-          <span>Rate </span>
-          <input
-            type="number"
-            className="reviewStatInput"
-            min="1"
-            max="5"
-            onChange={handleChange}
+          <StarRating
+            rating={formData.courseRelevance}
+            onRating={handleRatingChange}
             name="courseRelevance"
             value={formData.courseRelevance}
-            required
           />
-          <span> out of 5</span>
           <h4>Instructional Effectiveness</h4>
-          <span>Rate </span>
-          <input
-            type="number"
-            className="reviewStatInput"
-            min="1"
-            max="5"
-            onChange={handleChange}
+          <StarRating
+            rating={formData.instructionalEffectiveness}
+            onRating={handleRatingChange}
             name="instructionalEffectiveness"
             value={formData.instructionalEffectiveness}
-            required
           />
-          <span> out of 5</span>
-
-          <button type="submit " id="submit">
-            Submit Review
-          </button>
         </form>
+        <button onClick={resetRating}>Reset Ratings</button>
         <button onClick={toggleModal} className="btn-modal">
           Write Review
         </button>
@@ -312,23 +395,25 @@ export default function ReviewDetails() {
           <div className="modal">
             <div onClick={toggleModal} className="overlay"></div>
             <div className="modal-content">
-              <h2>Written Review</h2>
+              <div className="modalHeader">
+                <div className="close-modal">
+                  <CloseIcon onClick={toggleModal} />
+                </div>
+              </div>
+
               <textarea
                 value={formData.writtenReview}
-                placeholder="Enter your written review here!"
+                placeholder="Enter text here..."
                 onChange={handleChange}
                 name="writtenReview"
               />
-              <button className="close-modal" onClick={toggleModal}>
-                CLOSE
-              </button>
             </div>
           </div>
         )}
-        {/*Show error OR success*/}
-        {formErrorOrSuccess && (
-          <div className="errorOrSuccess">{formErrorOrSuccess}</div>
-        )}
+
+        <button type="submit " id="submit" form="myform">
+          Submit Review
+        </button>
       </div>
     </div>
   );

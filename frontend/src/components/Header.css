@@ -1,34 +1,115 @@
-/* src/components/Header.css */
 .header {
-    background-color: #282c34;
-    padding: 20px;
-    color: white;
-    text-align: center;
+  background-color: var(--header-background);
+  border-bottom: 1px solid var(--border-color);
+}
+nav {
+  height: 60px;
+  margin-left: 30px;
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1em;
+}
+.logoAndtext {
+  display: flex;
+  align-items: center;
+  /* margin-right: 10px; */
+}
+.logoAndtext > h4 {
+  margin-bottom: 6px; /* align-item center is fully center so i added this */
+  margin-left: 5px;
+  font-size: 1.2rem;
+  font-weight: 200;
+  color: var(--primary-text-color);
+  letter-spacing: 2px;
+}
+.logoAndtext span {
+  font-weight: 500;
+  color: var(--accent-color);
+}
+img {
+  width: 40px;
+}
+a:hover {
+  background-color: transparent;
+}
+.navbarLinkContainer {
+  /* margin-right: 150px; Horizontally center nav links with search bar */
+  /* margin-right: 10px; */
+  /* margin: auto; */
+}
+#navbar {
+  /* displays and aligns <ul> content horizontally */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#navbar li {
+  list-style: none;
+  position: relative;
+  padding: 0 20px;
+}
+#navbar a {
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--primary-text-color);
+}
+#navbar a:hover {
+  color: var(--accent-color);
+  transition: 0.3s ease-in-out;
+}
+.toggle-comp {
+    align-items: center;
+    margin-left: 75px;
+}
+#mobile {
+  display: none;
+  color: var(--primary-text-color);
+}
+/* Styles for tablet screens and below */
+@media screen and (max-width: 769px) {
+  #navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: fixed;
+    top: 61px;
+    right: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: black;
+    transition: 0.3s ease-in-out;
+  }
+  #navbar.active {
+    right: 0;
+    background-color: var(--header-background);
+    z-index: 1;
+  }
+  #navbar li {
+    margin-bottom: 25px;
+  }
+  #mobile {
+    display: block;
+  }
+  #mobile:hover {
+    cursor: pointer;
+  }
 }
 
-.header h1 {
-    margin: 0;
-    font-size: 2em;
-}
-
-.header nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-.header nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-.header nav ul li a {
-    color: white;
-    text-decoration: none;
-    padding: 20px;
-}
-
-.header nav ul li a:hover {
-    text-decoration: none;
-    color: black;
-    background-color: lightgoldenrodyellow;
+/* Styles for large phone screens and below */
+@media screen and (max-width: 426px) {
+  nav {
+    /* Utilize the full width of the nav bar */
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  #mobile {
+    /* Slightly push hamurger icon away from the edge of the screen  */
+    margin-right: 10px;
+  }
+  .navbarLinkContainer {
+    position: absolute; /*Removes empty placeholder space from the nav bar*/
+  }
 }
