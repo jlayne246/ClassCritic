@@ -1,6 +1,7 @@
 const Credentials = require("../models/credentialModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const nodemailer = require("nodemailer")
 
 //Function to create a new user at register page
 const createUser = async(req, res) => {
@@ -26,12 +27,24 @@ const createUser = async(req, res) => {
     const saltRounds = 10; // Cost factor
     const hashPass = await hashPassword(password, saltRounds);
 
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.sendgrid.net',
+        port: 587,
+        auth: {
+            user: "apikey",
+            pass: "",
+        },
+    });
+    const mailOptions = {
+        from: 'no-reply@example.com',
+        to: email,
+        subject: 'Course Critic Verification',
+        html: '<p>This is a test!</p>',
+    };
 //Await promise, creating a new database record using the Credentials model
 //email and password properties in the record are set with the request object properties above.
 //If error returned, respond with json object containing the error
     try{
-        
-
         console.log(hashPass);
         // password = hashPass;
 
@@ -39,11 +52,13 @@ const createUser = async(req, res) => {
             email,
             password: hashPass,
         });
-
+        await transporter.sendMail(mailOptions);
         res.status(200).json(register);
+        res.status(200).json({ message: 'Verification email sent' });
     } catch(error) {
         res.status(400).json({error: error.message})
     }
+    
 }
 
 const validateUser = async (req, res) => {
