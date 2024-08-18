@@ -1,6 +1,7 @@
 import "./Header.css";
 import axios from "axios";
-import logo from "../assets/ClassCritic-White.png";
+import logoWhite from "../assets/ClassCritic-White.png";
+import logoBlack from "../assets/ClassCritic-Black.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
@@ -30,7 +31,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn, isDark, setIsDark }) => {
       <nav>
         <div className="logoAndtext">
           <a href="index.html">
-            <img src={logo} alt="" />
+            <img src={isDark ? logoWhite : logoBlack} alt="" />
           </a>
           <h4>
             CLASS.<span>CRITIC</span>

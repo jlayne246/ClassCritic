@@ -5,9 +5,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
-import axios from 'axios';
+import axios from "axios";
 
-const Login = ({ setIsLoggedIn }) => { // Receives login state in function
+const Login = ({ setIsLoggedIn }) => {
+  // Receives login state in function
   const [email, setEmail] = useState(""); // Used to set a state variable for the email entered using useState, which will utilise the "setter" to then store the data in the variable
   const [password, setPassword] = useState(""); // Used to set a state variable for the password entered using useState, which will utilise the "setter" to then store the data in the variable
   const [remember, setChecked] = useState(""); // Used to set a state variable for the password entered using useState, which will utilise the "setter" to then store the data in the variable
@@ -44,7 +45,7 @@ const Login = ({ setIsLoggedIn }) => { // Receives login state in function
 
   function handleChange(e) {
     setChecked(e.target.checked);
- }
+  }
 
   return (
     <div className="wrapper">
@@ -86,14 +87,16 @@ const Login = ({ setIsLoggedIn }) => { // Receives login state in function
               <LockIcon />
             </i>
           </div>
-          {error && <p className="error">{error}</p>} {/* Display error message if exists */}
+          {error && <p className="error">{error}</p>}{" "}
+          {/* Display error message if exists */}
           <div className="rememberForgot">
             <label>
-              <input 
-              type="checkbox"
-              value={remember}
-              name="remember"
-              onChange={handleChange}/>
+              <input
+                type="checkbox"
+                value={remember}
+                name="remember"
+                onChange={handleChange}
+              />
               Remember Me
             </label>
             <a href="">Forgot Password?</a>
@@ -103,7 +106,7 @@ const Login = ({ setIsLoggedIn }) => { // Receives login state in function
           </button>{" "}
           <div className="registerLink">
             <p>
-              Don't have an account? <a>Register</a>
+              Don't have an account? <a href="/register">Register</a>
             </p>
           </div>
           {/* Button used to submit data */}
@@ -111,6 +114,6 @@ const Login = ({ setIsLoggedIn }) => { // Receives login state in function
       </div>
     </div>
   );
-}
+};
 
 export default Login;

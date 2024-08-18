@@ -3,90 +3,94 @@ import { useState } from "react";
 import { Router, useNavigate } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import LockIcon from "@mui/icons-material/Lock";
-import axios from 'axios';
+import axios from "axios";
 
-export default function Register(){
-    const [email, setEmail] = useState(''); // Used to set a state variable for the email entered using useState, which will utilise the "setter" to then store the data in the variable email.
-    const [password, setPassword] = useState(''); // Used to set a state variable for the password entered using useState, which will utilise the "setter" to then store the data in the variable passowrd.
-    const [msg, setMsg] = useState('')
-    const redirect = useNavigate(); 
+export default function Register() {
+  const [email, setEmail] = useState(""); // Used to set a state variable for the email entered using useState, which will utilise the "setter" to then store the data in the variable email.
+  const [password, setPassword] = useState(""); // Used to set a state variable for the password entered using useState, which will utilise the "setter" to then store the data in the variable passowrd.
+  const [msg, setMsg] = useState("");
+  const redirect = useNavigate();
 
-    const handleRegister = async(e) =>{
-        e.preventDefault();
-        console.log("submit " + email + "," + password);
-        try{
-            const response = await fetch("/api/register", {method: 'POST', mode: 'cors', body: JSON.stringify({email, password}), headers:{
-        "Content-Type": "application/json",
-      },
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    console.log("submit " + email + "," + password);
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify({ email, password }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        //get response and put it into JSON object, give console warning of the json object and then display if an error has occured or if the JSON was successfully made
+        .then((response) => response.json())
+        .then((result) => {
+          console.warn(result);
+          if (JSON.stringify(result).includes("error")) {
+            setMsg("An error occured");
+          } else {
+            setMsg("Student successfully registered");
+          }
+        });
+    } catch (err) {
+      console.error(err);
     }
-    )
-    //get response and put it into JSON object, give console warning of the json object and then display if an error has occured or if the JSON was successfully made
-            .then((response) => response.json())
-            .then((result) => {console.warn(result); 
-              if (JSON.stringify(result).includes('error')) {
-                setMsg('An error occured')
-              } else {setMsg('Student successfully registered')}
-            })
-        }
-        catch (err) {
-            console.error(err);
-        }
-    }
-    const handleInput = (e) => { 
+  };
+  const handleInput = (e) => {
     if (e.target.name == "uwi_email") {
-        if (!(e.target.value.endsWith("@mycavehill.uwi.edu"))) {
-          console.warn("Invalid email entered");
-          e.target.value = null;
-          e.target.className = "inputError";
-          return;
-        } else {e.target.className = " ";
-            setEmail(e.target.value);
-            }
+      if (!e.target.value.endsWith("@mycavehill.uwi.edu")) {
+        console.warn("Invalid email entered");
+        e.target.value = null;
+        e.target.className = "inputError";
+        return;
+      } else {
+        e.target.className = " ";
+        setEmail(e.target.value);
+      }
     }
     if (e.target.name == "password") {
-        if (e.target.value == ""){
-            e.target.placeholder= "Please enter password";
-            e.target.classname = "inputError";
-            e.target.value = null;
-        } else  {e.target.className = " ";
-            setPassword(e.target.value);
-            }
+      if (e.target.value == "") {
+        e.target.placeholder = "Please enter password";
+        e.target.classname = "inputError";
+        e.target.value = null;
+      } else {
+        e.target.className = " ";
+        setPassword(e.target.value);
+      }
     }
-  }
+  };
 
   return (
     <div className="wrapper">
       <div className="register-form">
-        {" "}
         {/* This acts as a container for the registration form*/}
         <form onSubmit={handleRegister}>
-          <h1>Register</h1>{" "}
+          <h1>Register</h1>
           {/* This is the login form itself, which will run handleLogin on submission */}
           <div className="form-group">
-            {" "}
             {/* This is the div container for the Email part of the form */}
             {/* This is the label for the email part of the form */}
             <input
               type="email"
               name="uwi_email"
-              placeholder=" Email Address ending in @mycavehill.uwi.edu"
+              placeholder="@mycavehill.uwi.edu"
               onBlur={handleInput}
               required
-            />{" "}
+            />
             {/* This is the input field for the Email part of the form. The type would allow for email addresses to appear in a dropdown, the name helps with the labelling, the value is the state variable that the data will be stored in, the placeholder provides more information, and the onChange property calls a function that will take in the input field's value and pass it into setEmail.*/}
             <i>
               <PersonIcon />
             </i>
           </div>
           <div className="form-group">
-            {" "}
             {/* This is the div container for the Email part of the form */}
             <input
-              type= "password"
+              type="password"
               name="password"
               placeholder="Password"
               onBlur={handleInput}
-            />{" "}
+            />
             {/* This is the input field for the Password part of the form. The type would allow for any text entered to be replaced with dots, the name helps with the labelling, the value is the state variable that the data will be stored in, the placeholder provides more information, and the onChange property calls a function that will take in the input field's value and pass it into setPassword.*/}
             <i>
               <LockIcon />
@@ -95,7 +99,7 @@ export default function Register(){
           <p>{JSON.stringify(msg)}</p> {/* Display error message if exists */}
           <button type="submit" className="registerButton">
             Register
-          </button>{" "}
+          </button>
           <div className="loginLink">
             <p>
               Have an account? <a>Log in</a>

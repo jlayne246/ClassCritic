@@ -28,7 +28,7 @@
   height: 0.8em;
   width: 0.8em;
   border-radius: 1em;
-  background-color: var(--primary-text-color);
+  background-color: var(--circle-toggle-theme);
   position: absolute;
   left: 0.2em;
   transition: background-color 250ms ease-in-out, transform 250ms ease-in-out;

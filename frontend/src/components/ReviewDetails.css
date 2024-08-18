@@ -9,6 +9,7 @@
   align-items: center;
   text-align: center;
 
+  border: 1px solid var(--border-color);
   font-size: 1.1rem;
   color: var(--primary-text-color);
   background-color: var(--card-background);
@@ -35,8 +36,8 @@
   appearance: none;
   padding: 0 30px 0 15px;
   width: 100%;
-  color: white;
-  background-color: var(--card-background);
+  color: var(--primary-text-color);
+  background-color: var(--select-box-background);
   text-align: center;
   border-radius: 20px;
   outline: none;
@@ -86,11 +87,13 @@
   /*General style for the buttons*/
   border: none;
   border-radius: 15px;
-  padding: 10px 5px;
+  padding: 7px 1px;
   margin: 5px 10px;
   width: 120px;
+  font-size: 0.75rem;
   font-weight: 600;
   display: block;
+  /* background-color: var(--select-box-background); */
 }
 .submitReviewOutline button:hover {
   border: 2px solid black;
@@ -103,12 +106,12 @@
   margin-left: 15px;
 }
 .courseName {
-  font-size: 2.2rem;
+  font-size: 2rem;
   color: var(--primary-text-color);
   padding-bottom: 20px;
 }
 .courseCode {
-  color: var(--secondary-text-color);
+  color: var(--primary-text-color);
   padding-bottom: 10px;
 }
 .reviewDetails {
@@ -117,6 +120,7 @@
   gap: 50px;
   color: var(--primary-text-color);
   background-color: var(--card-background);
+  border: 1px solid var(--border-color);
   border-radius: 10px;
   box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.25),
     0px 0px 2.9px rgba(0, 0, 0, 0.22);
@@ -153,7 +157,8 @@
 .writtenReviews {
   /*Adjust div containing all written review details*/
   margin-top: 30px;
-  background-color: #333333;
+  background-color: var(--card-background);
+  border: 1px solid var(--border-color);
   padding: 10px 20px;
   border-radius: 10px;
 }
