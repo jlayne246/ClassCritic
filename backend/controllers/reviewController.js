@@ -1,4 +1,5 @@
 const Review = require("../models/reviewModel");
+const Stats = require("../models/statsModel");
 const mongoose = require("mongoose");
 
 //ONLY PAY ATTENTION TO getReviews() and createReview()
@@ -52,8 +53,8 @@ const getReview = async (req, res) => {
   res.status(200).json(review);
 };
 //function used to create a review
-const createReview = async (req, res) => {
-  //destructure from json
+/* const createReview = async (req, res) => {
+
   const {
     grade,
     overallQuality,
@@ -64,8 +65,6 @@ const createReview = async (req, res) => {
     username,
     coursecode,
   } = req.body;
-  //this adds a review to the db
-  //NEED TO UPDATE THIS TO REFLECT WHAT I ACTUALLY WANT SAVED, SUCH AS COURSECODE, USERID
   try {
     const review = await Review.create({
       grade,
@@ -77,13 +76,100 @@ const createReview = async (req, res) => {
       username,
       coursecode,
     });
-    //if it works then send back a 200 stat as well as what was submitted
+    
     res.status(200).json(review);
   } catch (error) {
-    //else send back a 400 and display the error message
+    
+    res.status(400).json({ error: error.message });
+  }
+}; */
+
+/*-------------- START OF CODE USED TO SUBMIT FORM DATA --------------*/
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
+
+//Destructure the json data recieved
+//Create a review document
+//Call calculateReviewMetrics() creates or updates relevant document within stats collection
+const createReview = async (req, res) => {
+  try {
+    const {
+      grade,
+      overallQuality,
+      simplicity,
+      courseRelevance,
+      instructionalEffectiveness,
+      writtenReview,
+      username,
+      coursecode,
+    } = req.body;
+
+    const newReview = await Review.create({
+      grade,
+      overallQuality,
+      simplicity,
+      courseRelevance,
+      instructionalEffectiveness,
+      writtenReview,
+      username,
+      coursecode,
+    });
+
+    // Calculate average for each metric after creating the review
+    await calculateReviewMetrics(coursecode, newReview);
+
+    res.status(200).json(newReview);
+  } catch (error) {
+    console.error(error);
     res.status(400).json({ error: error.message });
   }
 };
+
+// Function to calculate and update review metrics
+const calculateReviewMetrics = async (coursecode, newReview) => {
+  try {
+    // Find the stats document for the corresponding coursecode
+    let stats = await Stats.findOne({ coursecode });
+
+    console.log(stats);
+
+    // If stats document doesn't exist, create a new one
+    if (!stats) {
+      stats = new Stats({ coursecode });
+    }
+
+    // Calculate new average for each metric
+    const totalReviews = stats.totalReviews ? stats.totalReviews + 1 : 1;
+    stats.averageGrade =
+      (stats.averageGrade * (totalReviews - 1) + newReview.grade) /
+      totalReviews;
+    stats.averageOverallQuality =
+      (stats.averageOverallQuality * (totalReviews - 1) +
+        newReview.overallQuality) /
+      totalReviews;
+    stats.averageSimplicity =
+      (stats.averageSimplicity * (totalReviews - 1) + newReview.simplicity) /
+      totalReviews;
+    stats.averageCourseRelevance =
+      (stats.averageCourseRelevance * (totalReviews - 1) +
+        newReview.courseRelevance) /
+      totalReviews;
+    stats.averageInstructionalEffectiveness =
+      (stats.averageInstructionalEffectiveness * (totalReviews - 1) +
+        newReview.instructionalEffectiveness) /
+      totalReviews;
+    stats.totalReviews = totalReviews;
+
+    // Save the updated stats document
+    await stats.save();
+  } catch (error) {
+    console.error(error);
+    // Handle errors appropriately, consider logging or retry logic
+  }
+};
+/*-------------- END OF CODE USED TO SUBMIT FORM DATA --------------*/
+/////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////
 
 //to delete a review
 const deleteReview = async (req, res) => {

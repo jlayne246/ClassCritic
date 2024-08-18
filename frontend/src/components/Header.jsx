@@ -30,7 +30,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn, isDark, setIsDark }) => {
     <header className={`header ${isLoggedIn ? "logged-in" : "logged-out"}`}>
       <nav>
         <div className="logoAndtext">
-          <a href="index.html">
+          <a href="home">
             <img src={isDark ? logoWhite : logoBlack} alt="" />
           </a>
           <h4>

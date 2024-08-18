@@ -42,7 +42,7 @@ export default function SearchBar({ placeholder, data }) {
   return (
     <div className="search">
       <h1>Class Critic</h1>
-      <h2>A place to share constructive criticism</h2>
+      <h2>Select option from the course list!</h2>
       <div className="searchInputs">
         {/*Each time a char is entered, call handleFilter()*/}
         <input

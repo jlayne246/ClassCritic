@@ -1,6 +1,5 @@
 .courseDetailsPage {
   display: flex;
-  gap: 20px;
 }
 .submitReviewOutline {
   /* Align vertically and center */
@@ -17,7 +16,7 @@
   box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.25),
     0px 0px 2.9px rgba(0, 0, 0, 0.22);
   width: 300px;
-  margin: 70px 10px 20px 10px;
+  margin: 30px 10px 20px 10px;
   padding-top: 10px;
   padding-bottom: 20px;
 }
@@ -126,7 +125,7 @@
     0px 0px 2.9px rgba(0, 0, 0, 0.22);
   padding: 25px 15px;
   max-width: 900px;
-  margin-left: 10px;
+  margin: 0px 0px 0px 10px;
 }
 .reviewGradeStat {
   color: var(--primary-text-color);
@@ -144,10 +143,13 @@
   max-width: 700px;
 }
 .starReviews {
-  /*Titles for Overall rating, workload, complexity, organization*/
+  /*Titles for Overall rating, simplicity, relevance, intructional effectiveness*/
   display: flex;
   gap: 35px;
   justify-content: space-between;
+}
+.starReviews h3 {
+  font-weight: 500;
 }
 .starIcon {
   /*Adjust color of the star*/
@@ -244,4 +246,55 @@ textarea {
   padding: 5px;
   font-size: 0.95rem;
   font-weight: 600;
+}
+
+/* Styles for laptop screens and below */
+@media screen and (max-width: 1025px) {
+  .courseName {
+    font-size: 1.75rem;
+  }
+  .courseCode {
+    font-size: 1.25rem;
+  }
+  .reviewGradeStat h3 {
+    font-size: 1rem;
+  }
+  .starReviews {
+    text-align: center;
+  }
+  .starReviews h3 {
+    font-size: 0.85rem;
+  }
+  .starReviews h4 {
+    font-size: 1.2rem;
+  }
+}
+
+/* Styles for large phone screens and below */
+@media screen and (max-width: 426px) {
+  .courseDetailsPage {
+    flex-direction: column;
+    overflow-x: clip;
+  }
+  .reviewDetails {
+    /* displays div which contains stared review averages and writtens comments below reviewGradeStats */
+    flex-direction: column;
+    margin: 0px 5px 0px 5px;
+    gap: 0px;
+  }
+  .reviewGradeStats {
+    /* Display average grade, median grade and pass rate within a row */
+    display: flex;
+    justify-content: space-between;
+  }
+  .submitReviewOutline {
+    /* Center the review form outline */
+    margin: 40px auto;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .starReviews {
+    gap: 15px;
+  }
 }

@@ -6,6 +6,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useState } from "react";
 import Data from "../CourseNames.json";
+
 //https://www.youtube.com/watch?v=vnftyztz6ss
 import StarRating from "../components/StarRating";
 
@@ -72,7 +73,7 @@ export default function ReviewDetails() {
       formData.courseRelevance === 0 ||
       formData.instructionalEffectiveness === 0
     ) {
-      toast.error("Error: Fill all STRARED review options");
+      toast.error("Error: Fill all STRARED review options AND select grade");
       return;
     }
 
@@ -115,9 +116,12 @@ export default function ReviewDetails() {
         writtenReview: "",
       });
 
-      toast.Success("Success: Review addedd!");
+      toast.success("Success: Review addedd!");
       //Display the new record that was added to the dB within the UI
-      setReviews([...reviews, json]);
+      /* setReviews([...reviews, json]); */
+      setReviews([json, ...reviews]);
+
+      console.log(json);
     }
   };
 
@@ -155,6 +159,9 @@ export default function ReviewDetails() {
   //reviews will contain all of the info pulled from the "reviews" collection
   const [reviews, setReviews] = useState(null);
 
+  //contains the stats info
+  const [stats, setStats] = useState(null);
+
   //initial state for the course title and code.
   //Would be wise to make them blank and set it to this on not found but I aint doing all of that
   const [courseInfo, setCourseInfo] = useState({
@@ -170,15 +177,38 @@ export default function ReviewDetails() {
       Eventually, when we launch ClassCritic, the youtube link should help us configure the server for production*/
       /*--------------END OF NOTE FOR PRODUCTION PHASE OF CLASS CRITIC --------------*/
 
+      /*-------------- START OF CODE USED TO LOAD ALL REVIEW DATA  --------------*/
       //Need to be able to pass query to back end
       //Add query to the slug
       const courseRequest = "/api/review" + query; //slug + coursecode query (ie ?course=CODE1234)
       const response = await fetch(courseRequest);
 
+      console.log(response);
+
       //IF data fetch was sucessful, the reviews object is populated with the data
       const json = await response.json();
       if (response.ok) {
         setReviews(json);
+      }
+    };
+
+    const fetchStats = async (query) => {
+      // Remove everything before the "=" and replace it with "/"
+      // ?course=CODE1234 becomes CODE1234
+      const modifiedQuery = query.replace(/.*=/, "/");
+
+      const courseRequest = "/api/stats" + modifiedQuery; //slug + coursecode query (ie ?course=CODE1234)
+      const response = await fetch(courseRequest);
+
+      console.log(response);
+
+      //IF data fetch was sucessful, the reviews object is populated with the data
+      const json = await response.json();
+      if (response.ok) {
+        setStats(json);
+        console.log(json);
+      } else if (!response.ok) {
+        console.log("no  response");
       }
     };
 
@@ -209,6 +239,7 @@ export default function ReviewDetails() {
 
     fetchCourseInfo(courseCode, Data);
     fetchReviews(classquery);
+    fetchStats(classquery);
   }, []);
 
   /*-------------- END OF CODE USED TO LOAD ALL REVIEW DATA  --------------*/

@@ -79,3 +79,31 @@
 .inputError {
   border: 5px solid red;
 }
+
+/* Styles for large phone screens and below */
+@media screen and (max-width: 426px) {
+  .register-form {
+    width: 345px;
+  }
+  .wrapper h1 {
+    font-size: 1.75em;
+  }
+}
+
+/* Styles for small phone screens */
+@media screen and (max-width: 321px) {
+  .register-form {
+    width: 300px;
+    padding: 10px 20px;
+  }
+  .wrapper h1 {
+    font-size: 1.75em;
+  }
+  .form-group input {
+    height: 80%;
+    font-size: 0.85rem;
+  }
+  .registerButton {
+    height: 35px;
+  }
+}

@@ -19,13 +19,13 @@ const Rate = ({
   const [hoverRating, setHoverRating] = useState(0);
 
   const getColor = (index) => {
-    if (hoverRating >= index) {
+    if (rating === 0) {
+      // Check for unfilled star when rating is 0
+      return color.unfilled; // Use unfilled color if rating is 0 and not hovering
+    } else if (hoverRating >= index) {
       return color.filled;
     } else if (!hoverRating && rating >= index) {
       return color.filled;
-    } else if (rating === 0) {
-      // Check for unfilled star when rating is 0
-      return color.unfilled; // Use unfilled color if rating is 0 and not hovering
     }
     return color.unfilled; // Default to unfilled color otherwise
   };
