@@ -1,11 +1,21 @@
 import React from "react";
 import { useMemo } from "react";
-import PropTypes from "prop-types";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-const Rate = ({ count, rating, color, onRating, name }) => {
+//https://www.youtube.com/watch?v=nErdlbLWqtA - Video explanation of how to build star widgets
+
+const Rate = ({
+  count = 5,
+  rating = 0,
+  color = {
+    filled: "var(--accent-color)",
+    unfilled: "var(--primary-text-color)",
+  },
+  onRating,
+  name,
+}) => {
   const [hoverRating, setHoverRating] = useState(0);
 
   const getColor = (index) => {
@@ -51,20 +61,3 @@ const Rate = ({ count, rating, color, onRating, name }) => {
 };
 
 export default Rate;
-
-Rate.propTypes = {
-  count: PropTypes.number,
-  rating: PropTypes.number,
-  onRating: PropTypes.func.isRequired, // onRating should be required
-  color: PropTypes.shape({
-    filled: PropTypes.string,
-    unfilled: PropTypes.string,
-  }),
-  name: PropTypes.string.isRequired, // name should be required
-};
-
-Rate.defaultProps = {
-  count: 5,
-  rating: 0,
-  color: { filled: "#63ade5", unfilled: "DCDCDC" },
-};

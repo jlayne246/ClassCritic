@@ -9,6 +9,10 @@ import Data from "../CourseNames.json";
 //https://www.youtube.com/watch?v=vnftyztz6ss
 import StarRating from "../components/StarRating";
 
+//https://www.youtube.com/watch?v=8JTrY1dlXCw&t=20s - Video explaining toast notification
+//https://sonner.emilkowal.ski/ - Documentation for toast notifications
+import { Toaster, toast } from "sonner";
+
 export default function ReviewDetails() {
   const handleRatingChange = (newRating, name) => {
     setFormData((prevFormData) => ({
@@ -16,9 +20,6 @@ export default function ReviewDetails() {
       [name]: newRating,
     }));
   };
-
-  //Any error sent from dB is stored in formErrorOrSuccess and displayed in Ui
-  const [formErrorOrSuccess, setErrorOrSuccess] = useState(null);
 
   /*-------------- START OF CODE USED TO TRACK AND SUBMIT FORM DATA --------------*/
   /////////////////////////////////////////////////////////////////////////////////
@@ -71,9 +72,7 @@ export default function ReviewDetails() {
       formData.courseRelevance === 0 ||
       formData.instructionalEffectiveness === 0
     ) {
-      setErrorOrSuccess(
-        "Please fill in all required fields before submitting the review."
-      );
+      toast.error("Error: Fill all STRARED review options");
       return;
     }
 
@@ -99,12 +98,12 @@ export default function ReviewDetails() {
       },
     });
 
-    //I may end up removing this line, it may not be necessary
+    //will be used to update the user's UI with the record that was just sent to the dB
     const json = await response.json();
 
     //Print the error if failed or Reset formData if the POST request was sucessful
     if (!response.ok) {
-      setErrorOrSuccess(json.error);
+      toast.error("Error: Review not saved! ");
     } else {
       /* console.log("A review has been added to the db using the front-end"); */
       setFormData({
@@ -116,7 +115,7 @@ export default function ReviewDetails() {
         writtenReview: "",
       });
 
-      setErrorOrSuccess("A review was added to the dB");
+      toast.Success("Success: Review addedd!");
       //Display the new record that was added to the dB within the UI
       setReviews([...reviews, json]);
     }
@@ -129,17 +128,18 @@ export default function ReviewDetails() {
     });
     console.log(reviewID);
 
+    //"json" contain the json record of the document that is deleted
     const json = await response.json();
 
     if (response.ok) {
-      setErrorOrSuccess("A review was deleted from dB");
+      toast.success("Success: Review Removed!");
 
       // Update the reviews state directly using the review ID
       setReviews((prevReviews) =>
         prevReviews.filter((review) => review._id !== reviewID)
       );
     } else {
-      setErrorOrSuccess("Failed to remove review");
+      toast.error("Error: Review not removed");
     }
   };
   /*-------------- END OF CODE USED TO TRACK AND SUBMIT FORM DATA --------------*/
@@ -228,6 +228,7 @@ export default function ReviewDetails() {
 
   return (
     <div className="courseDetailsPage">
+      <Toaster richColors position="top-right" />
       <div className="courseOutline">
         <div className="courseInfo">
           <h1 className="courseName">{courseInfo.title}</h1>
@@ -355,11 +356,9 @@ export default function ReviewDetails() {
             value={formData.instructionalEffectiveness}
           />
         </form>
+        <button onClick={resetRating}>Reset Ratings</button>
         <button onClick={toggleModal} className="btn-modal">
           Write Review
-        </button>
-        <button type="submit " id="submit" form="myform">
-          Submit Review
         </button>
         {modal && (
           <div className="modal">
@@ -380,11 +379,10 @@ export default function ReviewDetails() {
             </div>
           </div>
         )}
-        <button onClick={resetRating}>Reset Ratings</button>
-        {/*Show error OR success*/}
-        {formErrorOrSuccess && (
-          <div className="errorOrSuccess">{formErrorOrSuccess}</div>
-        )}
+
+        <button type="submit " id="submit" form="myform">
+          Submit Review
+        </button>
       </div>
     </div>
   );

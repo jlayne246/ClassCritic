@@ -1,5 +1,6 @@
 .header {
-  background-color: var(--primary-background);
+  background-color: var(--header-background);
+  border-bottom: 1px solid var(--border-color);
 }
 nav {
   height: 60px;
@@ -8,9 +9,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 1em; 
-  /* padding: 3px; */
-  /* border: 1px solid #ccc; */
+  font-size: 1em;
 }
 .logoAndtext {
   display: flex;
@@ -21,12 +20,12 @@ nav {
   margin-left: 5px;
   font-size: 1.2rem;
   font-weight: 200;
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--primary-text-color);
   letter-spacing: 2px;
 }
 .logoAndtext span {
   font-weight: 500;
-  color: red;
+  color: var(--accent-color);
 }
 img {
   width: 40px;
@@ -51,14 +50,14 @@ a:hover {
 #navbar a {
   text-decoration: none;
   font-weight: 600;
-  color: white;
+  color: var(--primary-text-color);
 }
 #navbar a:hover {
-  color: greenyellow;
+  color: var(--accent-color);
   transition: 0.3s ease-in-out;
 }
 .toggle-comp {
-    align-items: center;
+  align-items: center;
 }
 #mobile {
   display: none;
