@@ -1,6 +1,12 @@
 //add toast
 //add functionality to calculate grades
 
+  /* From Josh:
+  Add this in import lines: import { useUser } from '../Context/UserContext';
+  Add this in the below function I think: const { role } = useUser();
+  These will allow you to access the user role, but I think the schema should be updated to match since we'll have to set admin accounts as well. So may have to check to see if role = user or admin here to allow for deletion or making records
+   */
+
 import React from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import CloseIcon from "@mui/icons-material/Close";
