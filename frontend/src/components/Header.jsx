@@ -1,23 +1,47 @@
 import "./Header.css";
 import axios from "axios";
+// import verifyToken from "../../../backend/modules/jwtRetrieve";
+// import { jwtDecode } from "jwt-decode";
 import logoWhite from "../assets/ClassCritic-White.png";
 import logoBlack from "../assets/ClassCritic-Black.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ToggleComponent from "./Toggle";
+import Dropdown from "./Dropdown";
+import { useUser } from '../Context/UserContext';
+// import { useNavigate } from "react-router-dom";
 
 const Header = ({ isLoggedIn, setIsLoggedIn, isDark, setIsDark }) => {
   //Insert constants or variables
-  const handleLogout = async (e) => {
-    e.preventDefault(); // Prevent default link behavior
-    try {
-      await axios.post("/api/logout", {}, { withCredentials: true });
-      setIsLoggedIn(false);
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
+  // const email = document.cookie
+  //   .split('; ')
+  //   .find(row => row.startsWith('user_email='))
+  //   ?.split('=')[1];
+
+  // const [email, setEmail] = useState('');
+
+  // useEffect(() => {
+  //   // Assume the token is stored in a cookie
+  //   const token = document.cookie
+  //     .split('; ')
+  //     .find(row => row.startsWith('token='))
+  //     ?.split('=')[1];
+
+  //   if (token) {
+  //     // Decode the token
+  //     const decodedToken = jwtDecode(token);
+
+  //     // Extract the email and decode it
+  //     const decodedEmail = decodeURIComponent(decodedToken.emailAddr);
+  //     // console.log("Decoded: " + JSON.stringify(decodedToken));
+  //     setEmail(decodedEmail);
+  //   }
+  // }, []);
+
+  const { email } = useUser();
+
+  // console.log("Header Email: " + email);
 
   //helps determine whether to display menu on small screens
   const [isOpen, setIsOpen] = useState(false);
@@ -46,9 +70,12 @@ const Header = ({ isLoggedIn, setIsLoggedIn, isDark, setIsDark }) => {
             {isLoggedIn ? (
               <>
                 <li>
-                  <a href="/home" onClick={handleLogout}>
-                    Logout
-                  </a>
+                  <div className="dropdown">
+                    <Dropdown 
+                      email={email}
+                      setIsLoggedIn={setIsLoggedIn}
+                    />
+                  </div>
                 </li>
               </>
             ) : (

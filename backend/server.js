@@ -14,6 +14,7 @@ const reviewDetails = require("./routes/reviewDetails");
 const registerRoutes = require("./routes/registerRoutes");
 const loginRoutes = require("./routes/loginRoutes");
 const statsRoutes = require("./routes/stats");
+const emailRoutes = require("./routes/emailRoutes");
 
 //passes data attached in body to the req object
 app.use(express.json());
@@ -82,6 +83,8 @@ app.post("/api/logout", (req, res) => {
 //       res.status(401).json({ message: 'No token found, please log in' });
 //   }
 // });
+
+app.use('/api/user-email', emailRoutes);
 
 //connecting to the LOCAL mongodb
 //https://youtu.be/s0anSjEeua8?si=0a8KFFrCu0mIbT1G&t=435

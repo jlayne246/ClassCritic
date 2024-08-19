@@ -86,7 +86,7 @@ const validateUser = async (req, res) => {
             const isPasswordValid = await bcrypt.compare(password, validate.password);
 
             if (isPasswordValid) {
-                const token = jwt.sign({ userId: validate._id, emailAddr: validate.email }, JWT_SECRET);
+                const token = jwt.sign({ userId: validate._id, emailAddr: validate.email, role: "user" }, JWT_SECRET);
                 // Future note: Consider adding roles to make admin differentiation easier
 
                 // console.log(token);
@@ -94,6 +94,12 @@ const validateUser = async (req, res) => {
                 // localStorage.setItem("rememberStatus", remember);
 
                 req.session.token = token;
+
+                res.cookie('token', token, {
+                    httpOnly: false, // Set to true if you only want the server to access the cookie
+                    secure: process.env.NODE_ENV === 'production', // Only send cookie over HTTPS
+                    sameSite: 'Lax',
+                  });
 
                 return res.json({success: true, token});
             } else {
