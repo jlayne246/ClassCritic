@@ -7,6 +7,7 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [email, setEmail] = useState('');
+  const [role, setRole] = useState('');
 
   useEffect(() => {
     // Retrieve the token from cookies
@@ -18,7 +19,9 @@ export const UserProvider = ({ children }) => {
       try {
         const decodedToken = jwtDecode(token);
         const email = decodeURIComponent(decodedToken.emailAddr);
+        const role = decodeURIComponent(decodedToken.role);
         setEmail(email);
+        setRole(role);
       } catch (error) {
         console.error('Invalid token:', error);
       }
@@ -26,7 +29,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ email, setEmail }}>
+    <UserContext.Provider value={{ email, setEmail, role, setRole }}>
       {children}
     </UserContext.Provider>
   );
