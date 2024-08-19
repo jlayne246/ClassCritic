@@ -8,7 +8,7 @@ import axios from "axios";
 export default function Register(){
     const [email, setEmail] = useState(''); // Used to set a state variable for the email entered using useState, which will utilise the "setter" to then store the data in the variable email.
     const [password, setPassword] = useState(''); // Used to set a state variable for the password entered using useState, which will utilise the "setter" to then store the data in the variable passowrd.
-    const [msg, setMsg] = useState()
+    const [msg, setMsg] = useState('')
     const redirect = useNavigate(); 
 
     const handleRegister = async(e) =>{
@@ -25,8 +25,8 @@ export default function Register(){
             .then((response) => response.json())
             .then((result) => {console.warn(result); 
               if (JSON.stringify(result).includes('error')) {
-                setMsg(String("An error occured"))
-              } else {setMsg(String("Student successfully registered, an email has been sent to your account for verification"))}
+                setMsg(String("An error occured"));
+              } else {setMsg(String("Student successfully registered, verification email sent!"));}
             })
         }
         catch (err) {
@@ -92,7 +92,7 @@ export default function Register(){
               <LockIcon />
             </i>
           </div>
-          <p>{JSON.stringify(msg)}</p> {/* Display error message if exists */}
+          <p>{msg.replace(/['"]+/g, '')}</p> {/* Display error message if exists */}
           <button type="submit" className="registerButton">
             Register
           </button>
