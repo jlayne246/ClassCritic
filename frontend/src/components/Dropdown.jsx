@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './Dropdown.css';
 
-const Dropdown = ({ email, setIsLoggedIn }) => {
+const Dropdown = ({ email, setIsLoggedIn }) => { //replace email with username
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  {console.log(email)}
+//   {console.log(email)}
 
   const handleLogout = async (e) => {
     e.preventDefault(); // Prevent default link behavior
@@ -48,7 +48,8 @@ const Dropdown = ({ email, setIsLoggedIn }) => {
   return (
     <div className="dropdown" ref={dropdownRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="dropdown-email">
-        {email}
+        {email} 
+        {/* replace with {username} */}
       </div>
       {dropdownOpen && (
         <div className="dropdown-menu">

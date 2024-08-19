@@ -39,7 +39,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn, isDark, setIsDark }) => {
   //   }
   // }, []);
 
-  const { email } = useUser();
+  const { email, username } = useUser();
 
   // console.log("Header Email: " + email);
 
@@ -72,7 +72,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn, isDark, setIsDark }) => {
                 <li>
                   <div className="dropdown">
                     <Dropdown 
-                      email={email}
+                      email={email} //replace with username = {username}
                       setIsLoggedIn={setIsLoggedIn}
                     />
                   </div>

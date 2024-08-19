@@ -15,7 +15,7 @@ const Login = ({ setIsLoggedIn }) => {
   const [password, setPassword] = useState(""); // Used to set a state variable for the password entered using useState, which will utilise the "setter" to then store the data in the variable
   const [remember, setChecked] = useState(""); // Used to set a state variable for the password entered using useState, which will utilise the "setter" to then store the data in the variable
   const [error, setError] = useState(""); // Used to set a state variable for any errors using useState, which will utilise the "setter" to then store the data in the variable
-  const { email, setEmail } = useUser();
+  const { email, setEmail, setRole, setUsername } = useUser();
 
   const navigate = useNavigate();
 
@@ -36,6 +36,8 @@ const Login = ({ setIsLoggedIn }) => {
         const decodedToken = jwtDecode(token);
         // console.log(JSON.stringify(decodedToken));
         setEmail(decodeURIComponent(decodedToken.emailAddr));
+        setRole(decodeURIComponent(decodedToken.role));
+        // setUsername(decodeURIComponent(decodedToken.username));
         document.cookie = `token=${token}; path=/`;
         setIsLoggedIn(true);
         navigate("/home");
