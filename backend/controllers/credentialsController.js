@@ -56,8 +56,6 @@ const createUser = async(req, res) => {
             email,
             password: hashPass,
         }); // Creates credentials with email and hashed password
-
-        });
         await transporter.sendMail(mailOptions);
         res.status(200).json(register);
         res.status(200).json({ message: 'Verification email sent' });
