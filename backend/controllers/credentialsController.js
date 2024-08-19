@@ -15,6 +15,7 @@ const createUser = async(req, res) => {
     const {
         email,
         password,
+        //username,
     } = req.body;
 
     const hashPassword = async (password, saltRounds = 10) => {
@@ -87,7 +88,8 @@ const validateUser = async (req, res) => {
 
             if (isPasswordValid) {
                 const token = jwt.sign({ userId: validate._id, emailAddr: validate.email, role: "user" }, JWT_SECRET);
-                // Future note: Consider adding roles to make admin differentiation easier
+                // Insert => username: validate.username
+                // Future note: Consider adding roles to make admin differentiation easier and username
 
                 // console.log(token);
 
