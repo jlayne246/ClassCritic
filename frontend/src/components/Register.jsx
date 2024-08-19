@@ -33,7 +33,6 @@ export default function Register(){
             console.error(err);
         }
     }
-  };
   const handleInput = (e) => {
     if (e.target.name == "uwi_email") {
       if (!e.target.value.endsWith("@mycavehill.uwi.edu")) {
@@ -106,5 +105,6 @@ export default function Register(){
         </form>
       </div>
     </div>
-  );
+  )
 }
+
