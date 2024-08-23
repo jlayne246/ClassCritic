@@ -2,7 +2,7 @@ import "./Login.css";
 
 import React, { useState } from "react";
 // import { AuthContext } from './AuthContext';
-import { useUser } from '../Context/UserContext';
+import { useUser } from "../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import PersonIcon from "@mui/icons-material/Person";
@@ -73,7 +73,7 @@ const Login = ({ setIsLoggedIn }) => {
               type="email"
               name="email"
               value={email}
-              placeholder="UWI E-Mail or Username"
+              placeholder="@mycavehill.uwi.edu"
               onChange={(e) => setEmail(e.target.value)}
               required
             />{" "}

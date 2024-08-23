@@ -1,39 +1,28 @@
-//add toast
-//add functionality to calculate grades
-
-  /* From Josh:
-  Add this in import lines: import { useUser } from '../Context/UserContext';
-  Add this in the below function I think: const { role } = useUser();
-  These will allow you to access the user role, but I think the schema should be updated to match since we'll have to set admin accounts as well. So may have to check to see if role = user or admin here to allow for deletion or making records
-   */
-
 import React from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useState } from "react";
-import Data from "../CourseNames.json";
+import Data from "../CourseNames.json"; //helps get courseCode and title to be displayed in UI
 
-//https://www.youtube.com/watch?v=vnftyztz6ss
-import StarRating from "../components/StarRating";
+import { useUser } from "../Context/UserContext"; //helps get the user's role and username from session
 
-//https://www.youtube.com/watch?v=8JTrY1dlXCw&t=20s - Video explaining toast notification
-//https://sonner.emilkowal.ski/ - Documentation for toast notifications
-import { Toaster, toast } from "sonner";
+import StarRating from "../components/StarRating"; //https://www.youtube.com/watch?v=vnftyztz6ss (Star Widgets)
+import { Toaster, toast, useSonner } from "sonner"; //https://www.youtube.com/watch?v=8JTrY1dlXCw&t=20s (POP UP Notifications)
+
+import dayjs from "dayjs";
 
 export default function ReviewDetails() {
-  const handleRatingChange = (newRating, name) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: newRating,
-    }));
-  };
+  // Get the role of the current user, to help determine what will be displayed
+  // Get the username of the current user, to be submitted when a review is created
+  const { role, username } = useUser();
 
   /*-------------- START OF CODE USED TO TRACK AND SUBMIT FORM DATA --------------*/
   /////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////
-  //figure out how to refrence, based on a id
 
-  //formData object containing json to be inserted into MongoDB
+  // State object to store course review data for submission to MongoDB
   const [formData, setFormData] = React.useState({
     grade: "",
     overallQuality: 0,
@@ -43,6 +32,7 @@ export default function ReviewDetails() {
     writtenReview: "",
   });
 
+  // Function to reset the form data if request by the user
   const resetRating = () => {
     setFormData({
       grade: "",
@@ -54,24 +44,38 @@ export default function ReviewDetails() {
     });
   };
 
-  //Each time a change is made to any input field, update what is stored in formData
+  //Updates the starRating for the specific review metric "name" passed [E.G (name==simplicity)]
+  const handleRatingChange = (newRating, name) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: newRating,
+    }));
+  };
+
+  // Updates the `formData` state each time a change is made
   function handleChange(event) {
     setFormData((prevFormData) => {
       return {
         ...prevFormData, //return all the previous object data
-        [event.target.name]: event.target.value, //and return the new value of the input box that was altered
+        [event.target.name]: event.target.value, //and return the new value of the element which triggered the function
       };
     });
   }
-
-  //Uncomment to view what is stored in formData as it is updated by user input
+  // Uncomment to view how `formData` changes as user enters input
   /* console.log(formData); */
 
-  //Function called when submit button is clicked
+  // Function called when submit button is clicked
   const handleSubmit = async (e) => {
     e.preventDefault(); //do not reload the page
 
-    //Cancel submission if the user has not selected all of the star reviews
+    // username is stored in session storage when logged in
+    // so cancel review submission if no username is found
+    if (!username) {
+      toast.error("Create Account or Sign In");
+      return;
+    }
+
+    // Prevent form submission if the grade input is empty or any star ratings are missing
     if (
       formData.grade === "" ||
       formData.overallQuality === 0 ||
@@ -83,17 +87,49 @@ export default function ReviewDetails() {
       return;
     }
 
-    //Get the courseCode from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const courseCode = urlParams.get("course");
+    // Check if user already submitted a review for this course
+    // by looking through the `review` state object
+    // which contains ALL the reviews loaded from the mongoDB
+    const existingReview = reviews?.find(
+      (review) => review.username === username
+    );
 
-    // Add the userName field to updatedFormData (MUST BE ADJUSTED TO DYNAMICALLY GET THE APPROPRIATE NAME)
-    // Add the courseCode from the URL to updatedFormData
+    // If the user previously submitted a review, DELETE IT
+    // if statement needs to be updated if user can overwrite (future implementation)
+    if (existingReview) {
+      toast.error("You can only create one review");
+      return;
+      // Delete the existing review before creating a new one
+      /* const response = await fetch(`/api/review/${existingReview._id}`, {
+        method: "DELETE",
+      }); */
+
+      /* const response = await fetch("/api/review/" + reviewID + "/vote", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, reviewID }),
+      }); */
+
+      //query to update stats table based on existing review
+      //deleteReview(existingReview._id);
+
+      /* if (response.ok) {
+        toast.success("Success: Old Review Removed!");
+      } else {
+        toast.error("Error: Old Review Not Removed!");
+        return; // Exit function if deletion fails
+      } */
+    }
+
+    // Add the username field to updatedFormData
+    // Add the courseCode from the `courseInfo` which contains the courseCode and title
     // updatedFormData is used instead of formData since formData can not be appended
     const updatedFormData = {
       ...formData,
-      username: "test",
-      coursecode: courseCode,
+      username: username, //username var comes from const { role, username } = useUser();
+      coursecode: courseInfo.coursecode,
     };
 
     //Send POST request with the updatedFormData
@@ -105,14 +141,15 @@ export default function ReviewDetails() {
       },
     });
 
-    //will be used to update the user's UI with the record that was just sent to the dB
+    // save the response given from mongoDB
+    // will be used to update the user's UI with the record that was just sent to the dB
     const json = await response.json();
 
-    //Print the error if failed or Reset formData if the POST request was sucessful
+    // Print error if review data was not successfully saved to mongoDB
     if (!response.ok) {
-      toast.error("Error: Review not saved! ");
+      console.log(response);
     } else {
-      /* console.log("A review has been added to the db using the front-end"); */
+      // Reset formData
       setFormData({
         grade: "",
         overallQuality: 0,
@@ -123,28 +160,28 @@ export default function ReviewDetails() {
       });
 
       toast.success("Success: Review addedd!");
-      //Display the new record that was added to the dB within the UI
-      /* setReviews([...reviews, json]); */
+      // Display new record that was added to the dB within the UI
       setReviews([json, ...reviews]);
 
-      console.log(json);
+      // Remove old review from the UI, if it existed
+      if (existingReview) {
+        setReviews((prevReviews) =>
+          prevReviews.filter((review) => review._id !== existingReview._id)
+        );
+      }
     }
   };
 
-  //function to remove a review
+  //function to remove a review when ADMIN clicks on delete button
   const deleteReview = async (reviewID) => {
     const response = await fetch("api/review/" + reviewID, {
       method: "DELETE",
     });
-    console.log(reviewID);
-
-    //"json" contain the json record of the document that is deleted
-    const json = await response.json();
 
     if (response.ok) {
       toast.success("Success: Review Removed!");
 
-      // Update the reviews state directly using the review ID
+      // Update the `reviews` state by removing the old review based on the reviewID
       setReviews((prevReviews) =>
         prevReviews.filter((review) => review._id !== reviewID)
       );
@@ -152,6 +189,41 @@ export default function ReviewDetails() {
       toast.error("Error: Review not removed");
     }
   };
+
+  // Function to handle up-vote or down-vote for a review
+  const handleVote = async (reviewID, username) => {
+    // Do not allow person to like a review, if no one is logged in
+    if (!username) {
+      toast.error("Create Account or Sign In");
+      return;
+    }
+
+    // Update the specific review that was liked, by adding the user's username to the "likes" array
+    const response = await fetch("/api/review/" + reviewID + "/vote", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, reviewID }),
+    });
+
+    if (response.ok) {
+      // Update local state to reflect the vote
+      setReviews((prevReviews) =>
+        prevReviews.map((review) =>
+          review._id === reviewID
+            ? {
+                ...review,
+                likes: review.likes.includes(username)
+                  ? review.likes.filter((like) => like !== username)
+                  : [...review.likes, username],
+              }
+            : review
+        )
+      );
+    }
+  };
+
   /*-------------- END OF CODE USED TO TRACK AND SUBMIT FORM DATA --------------*/
   /////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////
@@ -162,14 +234,22 @@ export default function ReviewDetails() {
   /////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////
 
-  //reviews will contain all of the info pulled from the "reviews" collection
+  // will contain all of the info pulled from the "reviews" collection based on courecode
   const [reviews, setReviews] = useState(null);
 
-  //contains the stats info
-  const [stats, setStats] = useState(null);
+  // will contain the stats info based on coursecode
+  const [stats, setStats] = React.useState({
+    averageGrade: "?",
+    averageOverallQuality: "?",
+    averageSimplicity: "?",
+    averageCourseRelevance: "?",
+    averageInstructionalEffectiveness: "?",
+    totalReviews: "N/A",
+    passRate: "?",
+  });
 
-  //initial state for the course title and code.
-  //Would be wise to make them blank and set it to this on not found but I aint doing all of that
+  // initial state for the course title and code.
+  // Would be wise to make them blank and set it to this on not found but I aint doing all of that
   const [courseInfo, setCourseInfo] = useState({
     coursecode: "How did you get here?",
     title: "Course doesn't exist!",
@@ -186,10 +266,9 @@ export default function ReviewDetails() {
       /*-------------- START OF CODE USED TO LOAD ALL REVIEW DATA  --------------*/
       //Need to be able to pass query to back end
       //Add query to the slug
-      const courseRequest = "/api/review" + query; //slug + coursecode query (ie ?course=CODE1234)
+      const modifiedQuery = query.replace(/.*=/, "/");
+      const courseRequest = "/api/review" + modifiedQuery;
       const response = await fetch(courseRequest);
-
-      console.log(response);
 
       //IF data fetch was sucessful, the reviews object is populated with the data
       const json = await response.json();
@@ -202,23 +281,19 @@ export default function ReviewDetails() {
       // Remove everything before the "=" and replace it with "/"
       // ?course=CODE1234 becomes CODE1234
       const modifiedQuery = query.replace(/.*=/, "/");
-
       const courseRequest = "/api/stats" + modifiedQuery; //slug + coursecode query (ie ?course=CODE1234)
       const response = await fetch(courseRequest);
 
-      console.log(response);
-
-      //IF data fetch was sucessful, the reviews object is populated with the data
+      // IF data fetch was sucessful, the `stats` object is populated with the data
       const json = await response.json();
       if (response.ok) {
         setStats(json);
-        console.log(json);
       } else if (!response.ok) {
         console.log("no  response");
       }
     };
 
-    //This function finds the corresponding class of the code queried from the CourseNames.json and sets the title and course code to that
+    // function finds the corresponding class of the code queried from the CourseNames.json and sets the title and course code to that
     const fetchCourseInfo = (code, courseList) => {
       try {
         const foundCourse = courseList.find(
@@ -226,7 +301,6 @@ export default function ReviewDetails() {
         );
         if (foundCourse) {
           setCourseInfo(foundCourse);
-          console.log("Course that was set:", foundCourse);
         } else {
           console.log(
             "There is literally no class with that code on this site"
@@ -253,6 +327,56 @@ export default function ReviewDetails() {
   /////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////
 
+  //converts quality point in dB to the relevant letter grade, right before the value is rendered
+  const calculateLetterGrade = (averageGrade) => {
+    if (averageGrade == 0) {
+      return "F3";
+    }
+
+    const gradeCutoffMap = {
+      "A+": 4.33,
+      A: 4.0,
+      "A-": 3.7,
+      "B+": 3.3,
+      B: 3.0,
+      "B-": 2.7,
+      "C+": 2.3,
+      C: 2.0,
+      F1: 1.7,
+      F2: 1.3,
+      F3: 0.0,
+    };
+
+    // Round the averageGrade to one decimal place using Math.round()
+    const roundedAverageGrade = Math.round(averageGrade * 10) / 10;
+
+    // Iterate through the gradeCutoffMap to find the matching letter grade
+    for (const letterGrade in gradeCutoffMap) {
+      if (roundedAverageGrade >= gradeCutoffMap[letterGrade]) {
+        return letterGrade;
+      }
+    }
+
+    // If no match is found, return nothing
+    return "N/A";
+  };
+
+  // converts createdAt time to #of days/months/years ago using dayjs() from the library daysjs
+  const calculateTimeAgo = (createdAt) => {
+    const createdDate = dayjs(createdAt);
+    const daysAgo = dayjs().diff(createdDate, "days");
+
+    if (daysAgo < 30) {
+      return `${daysAgo} ${daysAgo === 1 ? "day" : "days"} ago`;
+    } else if (daysAgo < 365) {
+      const monthsAgo = Math.floor(daysAgo / 30);
+      return `${monthsAgo} ${monthsAgo === 1 ? "month" : "months"} ago`;
+    } else {
+      const yearsAgo = Math.floor(daysAgo / 365);
+      return `${yearsAgo} ${yearsAgo === 1 ? "year" : "years"} ago`;
+    }
+  };
+
   /*-------------- Modal Box Code --------------*/
   //Used to control modal box visibility (false = do  not show)
   const [modal, setModal] = useState(false);
@@ -272,58 +396,84 @@ export default function ReviewDetails() {
           <h2 className="courseCode">{courseInfo.coursecode}</h2>
         </div>
         <div className="reviewDetails">
-          <div className="reviewGradeStats">
-            <div className="reviewGradeStat">
-              <h3>Average Grade</h3>
-              <h4>B</h4>
+          {stats && (
+            <div className="reviewGradeStats">
+              <div className="reviewGradeStat">
+                <h3>Average Grade</h3>
+                <h4>{calculateLetterGrade(stats.averageGrade)}</h4>
+              </div>
+              <div className="reviewGradeStat">
+                <h3>Total Reviews</h3>
+                <h4>{stats.totalReviews}</h4>
+              </div>
+              <div className="reviewGradeStat">
+                <h3>Pass Rate</h3>
+                <h4>{stats.passRate}%</h4>
+              </div>
             </div>
-            <div className="reviewGradeStat">
-              <h3>Median Grade</h3>
-              <h4>B+</h4>
-            </div>
-            <div className="reviewGradeStat">
-              <h3>Pass Rate</h3>
-              <h4>70%</h4>
-            </div>
-          </div>
+          )}
           <div className="starReviewsAndWrittenReview">
-            <div className="starReviews">
-              <div className="starReview">
-                <h3>Overall Quality</h3>
-                <div className="starIcon">
-                  <h4>5/5</h4>
+            {stats && (
+              <div className="starReviews">
+                <div className="starReview">
+                  <h3>Overall Quality</h3>
+                  <div className="starIcon">
+                    <h4>{stats.averageOverallQuality}/5</h4>
+                  </div>
+                </div>
+                <div className="starReview">
+                  <h3>Course Simplicity</h3>
+                  <div className="starIcon">
+                    <h4>{stats.averageSimplicity}/5</h4>
+                  </div>
+                </div>
+                <div className="starReview">
+                  <h3>Course Relevance</h3>
+                  <div className="starIcon">
+                    <h4>{stats.averageCourseRelevance}/5</h4>
+                  </div>
+                </div>
+                <div className="starReview">
+                  <h3>Instructional Effectiveness</h3>
+                  <div className="starIcon">
+                    <h4>{stats.averageInstructionalEffectiveness}/5</h4>
+                  </div>
                 </div>
               </div>
-              <div className="starReview">
-                <h3>Course Simplicity</h3>
-                <div className="starIcon">
-                  <h4>5/5</h4>
-                </div>
-              </div>
-              <div className="starReview">
-                <h3>Course Relevance</h3>
-                <div className="starIcon">
-                  <h4>5/5</h4>
-                </div>
-              </div>
-              <div className="starReview">
-                <h3>Instructional Effectiveness</h3>
-                <div className="starIcon">
-                  <h4>5/5</h4>
-                </div>
-              </div>
-            </div>
+            )}
             <div className="writtenReviews">
               {reviews &&
                 reviews.map(
                   (review) =>
                     review.writtenReview && ( //if writtenReview exists then display that record
                       <div className="writtenReviewDetails" key={review._id}>
-                        <h5>{review.username}</h5>
+                        <h5>
+                          {review.username}
+                          <span>{calculateTimeAgo(review.createdAt)}</span>
+                        </h5>
+
                         <p>{review.writtenReview}</p>
-                        <span onClick={() => deleteReview(review._id)}>
-                          <CloseIcon />
-                        </span>
+                        {role === "admin" && (
+                          <span onClick={() => deleteReview(review._id)}>
+                            <CloseIcon />
+                          </span>
+                        )}
+                        <div className="voteButton">
+                          {/* If username is found in the likes array, diplay filled icon */}
+                          {review.likes.includes(username) ? (
+                            <ThumbUpIcon
+                              id="upvote"
+                              onClick={() => handleVote(review._id, username)}
+                            />
+                          ) : (
+                            /* Else display outline of thumbs up icon */ <ThumbUpAltOutlinedIcon
+                              id="upvote"
+                              onClick={() => handleVote(review._id, username)}
+                            />
+                          )}
+                          {/* Display num of saved username or 0 if likes array is empty */}
+                          <span>{review.likes.length || 0}</span>
+                        </div>
                       </div>
                     )
                 )}

@@ -9,7 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useState, useEffect } from "react";
 import ToggleComponent from "./Toggle";
 import Dropdown from "./Dropdown";
-import { useUser } from '../Context/UserContext';
+import { useUser } from "../Context/UserContext";
 // import { useNavigate } from "react-router-dom";
 
 const Header = ({ isLoggedIn, setIsLoggedIn, isDark, setIsDark }) => {
@@ -39,9 +39,10 @@ const Header = ({ isLoggedIn, setIsLoggedIn, isDark, setIsDark }) => {
   //   }
   // }, []);
 
+  //Gets the relevant info from userContext
   const { email, username } = useUser();
 
-  // console.log("Header Email: " + email);
+  /* console.log("Header Email: " + email); */
 
   //helps determine whether to display menu on small screens
   const [isOpen, setIsOpen] = useState(false);
@@ -71,8 +72,8 @@ const Header = ({ isLoggedIn, setIsLoggedIn, isDark, setIsDark }) => {
               <>
                 <li>
                   <div className="dropdown">
-                    <Dropdown 
-                      email={email} //replace with username = {username}
+                    <Dropdown
+                      username={username} //replaced with username = {username}
                       setIsLoggedIn={setIsLoggedIn}
                     />
                   </div>

@@ -38,6 +38,10 @@ const reviewSchema = new Schema(
       type: String,
       require: false,
     },
+    likes: {
+      type: [String], // Array of usernames who liked this review
+      require: false,
+    },
   },
   { timestamps: true }
 );

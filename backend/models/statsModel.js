@@ -7,7 +7,7 @@ const statsSchema = new mongoose.Schema(
       required: true,
     },
     averageGrade: {
-      type: String,
+      type: Number,
       default: "",
     },
     averageOverallQuality: {
@@ -27,6 +27,14 @@ const statsSchema = new mongoose.Schema(
       default: null,
     },
     totalReviews: {
+      type: Number,
+      default: 0,
+    },
+    numPassed: {
+      type: Number,
+      default: 0,
+    },
+    passRate: {
       type: Number,
       default: 0,
     },

@@ -1,6 +1,7 @@
 .header {
   background-color: var(--header-background);
   border-bottom: 1px solid var(--border-color);
+  transition: 0.25s ease-in-out;
 }
 nav {
   height: 60px;
@@ -60,8 +61,8 @@ a:hover {
   transition: 0.3s ease-in-out;
 }
 .toggle-comp {
-    align-items: center;
-    margin-left: 75px;
+  align-items: center;
+  margin-left: 75px;
 }
 #mobile {
   display: none;
@@ -104,6 +105,9 @@ a:hover {
     /* Utilize the full width of the nav bar */
     margin-left: 0px;
     margin-right: 0px;
+  }
+  .toggle-comp {
+    margin-left: 0px;
   }
   #mobile {
     /* Slightly push hamurger icon away from the edge of the screen  */

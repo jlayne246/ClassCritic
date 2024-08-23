@@ -1,5 +1,6 @@
 .courseDetailsPage {
   display: flex;
+  min-height: 100vh;
 }
 .submitReviewOutline {
   /* Align vertically and center */
@@ -169,15 +170,34 @@
   margin-bottom: 20px;
   position: relative;
 }
+.voteButton {
+  display: flex;
+  margin-top: 3px;
+}
+.voteButton:hover {
+  cursor: pointer;
+}
+.voteButton span {
+  margin-left: 5px;
+}
+
 .writtenReviewDetails > h5 {
   /*Adjust user name*/
   font-weight: 800;
   font-size: 0.9rem;
 }
 
+.writtenReviewDetails > h5 > span {
+  /*Date within span text within username*/
+  font-weight: 100;
+  margin-left: 5px;
+}
+
 .writtenReviewDetails > p {
   /*Adjust review content*/
-  font-size: 1rem;
+  font-size: 0.875rem;
+  word-spacing: 2px;
+  font-weight: 500;
 }
 
 .writtenReviewDetails > span {
@@ -271,7 +291,7 @@ textarea {
 }
 
 /* Styles for large phone screens and below */
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 690px) {
   .courseDetailsPage {
     flex-direction: column;
     overflow-x: clip;
@@ -290,6 +310,15 @@ textarea {
   .submitReviewOutline {
     /* Center the review form outline */
     margin: 40px auto;
+  }
+
+  .modal-content {
+    top: 50%;
+    left: 50%;
+    width: 95%;
+  }
+  .close-modal {
+    left: 90%;
   }
 }
 

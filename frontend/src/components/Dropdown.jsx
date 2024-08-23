@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import axios from 'axios';
-import './Dropdown.css';
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import "./Dropdown.css";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const Dropdown = ({ email, setIsLoggedIn }) => { //replace email with username
+//replaced email with username
+const Dropdown = ({ username, setIsLoggedIn }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-//   {console.log(email)}
+  //   {console.log(email)}
 
   const handleLogout = async (e) => {
     e.preventDefault(); // Prevent default link behavior
@@ -18,9 +20,9 @@ const Dropdown = ({ email, setIsLoggedIn }) => { //replace email with username
     }
   };
 
-//   const toggleDropdown = () => {
-//     setOpen(!open);
-//   };
+  //   const toggleDropdown = () => {
+  //     setOpen(!open);
+  //   };
 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -39,17 +41,23 @@ const Dropdown = ({ email, setIsLoggedIn }) => { //replace email with username
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   return (
-    <div className="dropdown" ref={dropdownRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <div
+      className="dropdown"
+      ref={dropdownRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="dropdown-email">
-        {email} 
-        {/* replace with {username} */}
+        {username}
+        <ExpandMoreIcon />
+        {/* replaced with {username} */}
       </div>
       {dropdownOpen && (
         <div className="dropdown-menu">
@@ -57,9 +65,9 @@ const Dropdown = ({ email, setIsLoggedIn }) => { //replace email with username
           <a href="/settings">Settings</a> */}
           <ul>
             <li>
-                <a href="/home" onClick={handleLogout}>
+              <a href="/home" onClick={handleLogout}>
                 Logout
-                </a>
+              </a>
             </li>
           </ul>
         </div>
