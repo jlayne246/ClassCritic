@@ -112,11 +112,13 @@ export default function ReviewDetails() {
     // If the user previously submitted a review, DELETE IT
     // if statement needs to be updated if user can overwrite (future implementation)
     if (existingReview) {
-      // <ConfirmationDialog
+      // {showDialog && (
+      //   <ConfirmationDialog
       //   message= "Are you sure? Submitting another review for your course will delete your previous review. Click confirm to proceed, or cancel to keep your previous message."
-      //   onConfirm= {handleConfirm(existingReview._id)}
-      //   onCancel={handleCancel}
-      // />
+      //     onConfirm= {handleConfirm(existingReview._id)}
+      //     onCancel={handleCancel}
+      //   />
+      // )}
 
       const confirmed = window.confirm("Are you sure? Submitting another review for your course will delete your previous review. Click OK to proceed.");
       if (confirmed) {
