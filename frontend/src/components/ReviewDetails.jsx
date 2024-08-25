@@ -335,7 +335,7 @@ export default function ReviewDetails() {
     }
 
     const gradeCutoffMap = {
-      "A+": 4.33,
+      "A+": 4.3,
       A: 4.0,
       "A-": 3.7,
       "B+": 3.3,
@@ -350,6 +350,8 @@ export default function ReviewDetails() {
 
     // Round the averageGrade to one decimal place using Math.round()
     const roundedAverageGrade = Math.round(averageGrade * 10) / 10;
+
+    console.log(roundedAverageGrade);
 
     // Iterate through the gradeCutoffMap to find the matching letter grade
     for (const letterGrade in gradeCutoffMap) {
@@ -501,8 +503,9 @@ export default function ReviewDetails() {
               onChange={handleChange}
               name="grade"
               className="selectBox"
+              // placeholder="Grade"
             >
-              <option value="">Grade</option>
+              <option value="" default selected>Grade</option>
               <option value="A+">A+</option>
               <option value="A">A</option>
               <option value="A-">A-</option>

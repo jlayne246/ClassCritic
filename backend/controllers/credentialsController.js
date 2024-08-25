@@ -16,7 +16,7 @@ const REFRESH_TOKEN = '1//04VzxCpVhtygWCgYIARAAGAQSNwF-L9IrGMNXijwSTdNGG69vDtnop
 //SET UP TO GENERATE ACCESS TOKEN FROM GOOGLE
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID,CLIENT_SECRET,REDIRECT_URI);
 oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN});
-async function sendEmail(){
+async function sendEmail(userEmail){
     try{
         const generatedAccessToken = await oAuth2Client.getAccessToken()//set up for this token.
         
@@ -32,8 +32,9 @@ async function sendEmail(){
             }
         });
         const mailOptions = {
-            from: "Kai 🥲 <coursecritic.noreply@gmail.com>",
-            to: "kai00hill@gmail.com",// set the email here //email,
+            from: "Class Critic <classcritic.noreply@gmail.com>",
+            to: userEmail,// set the email here //email,
+            // to: "kai00hill@gmail.com",
             subject: "Class Critic Verification",
             text: "This is a test!",
         };
@@ -126,13 +127,15 @@ const createUser = async (req, res) => {
     console.log(hashPass);
     // password = hashPass;
 
+    // console.log("Username: " + username);
+
     const register = await Credentials.create({
       email,
       password: hashPass,
       role: "user",
       username: username,
     }); // Creates credentials with email and hashed password and save role as user
-    const SentVerificationEmail = await sendEmail();
+    const SentVerificationEmail = await sendEmail(email);
     console.log('make it happen');
     console.log(SentVerificationEmail);
     // res.status(200).json({ message: 'Verification email sent' });
@@ -154,6 +157,8 @@ const validateUser = async (req, res) => {
 
     const validate = await Credentials.findOne(userCheck);
 
+    // console.log("Mongo Record: " + validate);
+
     if (validate) {
       // return true;
       const isPasswordValid = await bcrypt.compare(password, validate.password);
@@ -171,7 +176,7 @@ const validateUser = async (req, res) => {
         // Insert => username: validate.username
         // Future note: Consider adding roles to make admin differentiation easier and username
 
-        // console.log(token);
+        // console.log("Token: " + token);
 
         // localStorage.setItem("rememberStatus", remember);
 

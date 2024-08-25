@@ -327,3 +327,7 @@ textarea {
     gap: 15px;
   }
 }
+
+option[default] {
+  display: none;
+}
