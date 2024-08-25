@@ -2,103 +2,127 @@ const Credentials = require("../models/credentialModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
+const {google} = require('googleapis');
 
 const jwt = require("jsonwebtoken");
 
-const JWT_SECRET =
-  "151a60307f621da4e322f2e3ff9493c50f62a0b8ad919eeac7b009f60bcd37ca";
+const JWT_SECRET = "151a60307f621da4e322f2e3ff9493c50f62a0b8ad919eeac7b009f60bcd37ca";
+
+const CLIENT_ID = '1097695032083-9sd3foeeml9d6glqkmofmnlnuqqo619u.apps.googleusercontent.com'; //ID
+const CLIENT_SECRET = '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';    //secret
+const REDIRECT_URI = 'https://developers.google.com/oauthplayground'; //used to get the oauth refresh tokens.
+const REFRESH_TOKEN = '1//04VzxCpVhtygWCgYIARAAGAQSNwF-L9IrGMNXijwSTdNGG69vDtnop-DpURokwpCG8Rvx9RjYAbccS5TZ4_2rFptwVn96ANBosAQ';
+
+//SET UP TO GENERATE ACCESS TOKEN FROM GOOGLE
+const oAuth2Client = new google.auth.OAuth2(CLIENT_ID,CLIENT_SECRET,REDIRECT_URI);
+oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN});
+async function sendEmail(){
+    try{
+        const generatedAccessToken = await oAuth2Client.getAccessToken()//set up for this token.
+        
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                type:'OAuth2',
+                user:'coursecritic.noreply@gmail.com',
+                clientId: CLIENT_ID,
+                clientSecret: CLIENT_SECRET,
+                refreshToken: REFRESH_TOKEN,
+                accessToken: generatedAccessToken //the thing we got there ^
+            }
+        });
+        const mailOptions = {
+            from: "Kai 🥲 <coursecritic.noreply@gmail.com>",
+            to: "kai00hill@gmail.com",// set the email here //email,
+            subject: "Class Critic Verification",
+            text: "This is a test!",
+        };
+        const email = await transporter.sendMail(mailOptions);
+        return email;
+    }
+    catch(error){
+        console.error("It borken:",error);
+    }
+}
 
 //Function to create a new user at register page
 const createUser = async (req, res) => {
-  //Decontructs Json from Json object obtained from API post request
-  //Sets the following variables below using JSON object with properties of the same nams
-  const {
-    email,
-    password,
-    //username,
-  } = req.body;
+    
+    //Decontructs Json from Json object obtained from API post request
+    //Sets the following variables below using JSON object with properties of the same nams
+    const {
+        email,
+        password,
+        //username,
+    } = req.body;
 
-  const hashPassword = async (password, saltRounds = 10) => {
-    try {
-      // Use bcrypt to hash the password
-      const hash = await bcrypt.hash(password, saltRounds);
-      return hash; // Return the hashed password
-    } catch (err) {
-      console.error("Error hashing password:", err);
-      throw err; // Throw error if hashing fails
-    }
-  };
+    const hashPassword = async (password, saltRounds = 10) => {
+        try {
+            // Use bcrypt to hash the password
+            const hash = await bcrypt.hash(password, saltRounds);
+            return hash; // Return the hashed password
+        } catch (err) {
+            console.error("Error hashing password:", err);
+            throw err; // Throw error if hashing fails
+        }
+    };
 
-  const saltRounds = 10; // Cost factor
-  const hashPass = await hashPassword(password, saltRounds); //Hashes password
+    const saltRounds = 10; // Cost factor
+    const hashPass = await hashPassword(password, saltRounds); //Hashes password
 
-  const transporter = nodemailer.createTransport({
-    host: "smtp.sendgrid.net",
-    port: 587,
-    auth: {
-      user: "apikey",
-      pass: "",
-    },
-  });
-  const mailOptions = {
-    from: "no-reply@example.com",
-    to: email,
-    subject: "Course Critic Verification",
-    html: "<p>This is a test!</p>",
-  };
+    ////////////////////START OF GENERATE USERNAME///////////////////////////////////////////////
+    // Array of short adjectives
+    const adjectives = [
+        "Quick",
+        "Smart",
+        "Cool",
+        "Brave",
+        "Kind",
+        "Fun",
+        "Nice",
+        "Cool",
+        "Happy",
+        "Wild",
+    ];
 
-  ////////////////////START OF GENERATE USERNAME///////////////////////////////////////////////
-  // Array of short adjectives
-  const adjectives = [
-    "Quick",
-    "Smart",
-    "Cool",
-    "Brave",
-    "Kind",
-    "Fun",
-    "Nice",
-    "Cool",
-    "Happy",
-    "Wild",
-  ];
+    const animals = [
+        "Pelican",
+        "Dove",
+        "Pigeon",
+        "Egret",
+        "Bird",
+        "Duck",
+        "Robin",
+        "Parrot",
+        "Sparrow",
+        "MockingJay",
+    ];
 
-  const animals = [
-    "Pelican",
-    "Dove",
-    "Pigeon",
-    "Egret",
-    "Bird",
-    "Duck",
-    "Robin",
-    "Parrot",
-    "Sparrow",
-    "MockingJay",
-  ];
+    // Get the current date and time
+    const now = new Date();
 
-  // Get the current date and time
-  const now = new Date();
+    // Format the date as mm/yy
+    const formattedDate = `${now.getMonth() + 1}${now.getFullYear() % 100}`;
 
-  // Format the date as mm/yy
-  const formattedDate = `${now.getMonth() + 1}${now.getFullYear() % 100}`;
+    // Format the time as HHMMSS
+    const formattedTime = `${now.getHours().toString().padStart(2, "0")}${now
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}${now.getSeconds().toString().padStart(2, "0")}`;
 
-  // Format the time as HHMMSS
-  const formattedTime = `${now.getHours().toString().padStart(2, "0")}${now
-    .getMinutes()
-    .toString()
-    .padStart(2, "0")}${now.getSeconds().toString().padStart(2, "0")}`;
+    // Combine a random adjective, animal, formatted date, and formatted time
+    const username = `${
+        adjectives[Math.floor(Math.random() * adjectives.length)]
+    }${
+        animals[Math.floor(Math.random() * animals.length)]
+    }${formattedDate}${formattedTime}`;
+    ////////////////////END OF GENERATE USERNAME///////////////////////////////////////////////
 
-  // Combine a random adjective, animal, formatted date, and formatted time
-  const username = `${
-    adjectives[Math.floor(Math.random() * adjectives.length)]
-  }${
-    animals[Math.floor(Math.random() * animals.length)]
-  }${formattedDate}${formattedTime}`;
-  ////////////////////END OF GENERATE USERNAME///////////////////////////////////////////////
-
-  //Await promise, creating a new database record using the Credentials model
-  //email and password properties in the record are set with the request object properties above.
-  //If error returned, respond with json object containing the error
+    //Await promise, creating a new database record using the Credentials model
+    //email and password properties in the record are set with the request object properties above.
+    //If error returned, respond with json object containing the error
   try {
+
     console.log(hashPass);
     // password = hashPass;
 
@@ -108,8 +132,10 @@ const createUser = async (req, res) => {
       role: "user",
       username: username,
     }); // Creates credentials with email and hashed password and save role as user
-    /*  await transporter.sendMail(mailOptions);
-        res.status(200).json({ message: 'Verification email sent' }); */
+    const SentVerificationEmail = await sendEmail();
+    console.log('make it happen');
+    console.log(SentVerificationEmail);
+    // res.status(200).json({ message: 'Verification email sent' });
     res.status(200).json(register);
   } catch (error) {
     res.status(400).json({ error: error.message });
