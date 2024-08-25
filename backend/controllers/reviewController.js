@@ -311,13 +311,14 @@ const updateStatsAfterReviewDeletion = async (coursecode, deletedReview) => {
     stats.passRate = Math.round((stats.numPassed / stats.totalReviews) * 100);
   } else {
     // Handle edge case of deleting the only review (set averages to 0)
-    stats.averageGrade = 0;
-    stats.averageOverallQuality = 0;
-    stats.averageSimplicity = 0;
-    stats.averageCourseRelevance = 0;
-    stats.averageInstructionalEffectiveness = 0;
-    stats.numPassed = 0;
-    stats.passRate = 0;
+    stats.averageGrade = null;
+    stats.averageOverallQuality = null;
+    stats.averageSimplicity = null;
+    stats.averageCourseRelevance = null;
+    stats.averageInstructionalEffectiveness = null;
+    stats.numPassed = null;
+    stats.passRate = null;
+    stats.totalReviews = null;
   }
 
   // Save the updated stats document

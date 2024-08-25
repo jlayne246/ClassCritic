@@ -97,8 +97,9 @@ export default function ReviewDetails() {
     // If the user previously submitted a review, DELETE IT
     // if statement needs to be updated if user can overwrite (future implementation)
     if (existingReview) {
-      toast.error("You can only create one review");
-      return;
+      await deleteReview(existingReview._id);
+      /* toast.error("You can only create one review");
+      return; */
       // Delete the existing review before creating a new one
       /* const response = await fetch(`/api/review/${existingReview._id}`, {
         method: "DELETE",
@@ -364,19 +365,27 @@ export default function ReviewDetails() {
   // converts createdAt time to #of days/months/years ago using dayjs() from the library daysjs
   const calculateTimeAgo = (createdAt) => {
     const createdDate = dayjs(createdAt);
-    const daysAgo = dayjs().diff(createdDate, "days");
+    const minutesAgo = dayjs().diff(createdDate, "minutes");
 
-    if (daysAgo < 30) {
+    if (minutesAgo < 60) {
+      return `${minutesAgo} ${minutesAgo === 1 ? "minute" : "minutes"} ago`;
+    } else if (minutesAgo < 1440) {
+      // 1440 minutes = 24 hours
+      const hoursAgo = Math.floor(minutesAgo / 60);
+      return `${hoursAgo} ${hoursAgo === 1 ? "hour" : "hours"} ago`;
+    } else if (minutesAgo < 43200) {
+      // 43200 minutes = 720 hours = 30 days
+      const daysAgo = Math.floor(minutesAgo / 1440);
       return `${daysAgo} ${daysAgo === 1 ? "day" : "days"} ago`;
-    } else if (daysAgo < 365) {
-      const monthsAgo = Math.floor(daysAgo / 30);
+    } else if (minutesAgo < 525600) {
+      // 525600 minutes = 8760 hours = 365 days
+      const monthsAgo = Math.floor(minutesAgo / 43200); // Assuming 30 days per month
       return `${monthsAgo} ${monthsAgo === 1 ? "month" : "months"} ago`;
     } else {
-      const yearsAgo = Math.floor(daysAgo / 365);
+      const yearsAgo = Math.floor(minutesAgo / 525600);
       return `${yearsAgo} ${yearsAgo === 1 ? "year" : "years"} ago`;
     }
   };
-
   /*-------------- Modal Box Code --------------*/
   //Used to control modal box visibility (false = do  not show)
   const [modal, setModal] = useState(false);
