@@ -9,6 +9,7 @@ import Data from "../CourseNames.json"; //helps get courseCode and title to be d
 import { useUser } from "../Context/UserContext"; //helps get the user's role and username from session
 
 import StarRating from "../components/StarRating"; //https://www.youtube.com/watch?v=vnftyztz6ss (Star Widgets)
+import ConfirmationDialog from "./Confirmation"
 import { Toaster, toast, useSonner } from "sonner"; //https://www.youtube.com/watch?v=8JTrY1dlXCw&t=20s (POP UP Notifications)
 
 import dayjs from "dayjs";
@@ -17,6 +18,7 @@ export default function ReviewDetails() {
   // Get the role of the current user, to help determine what will be displayed
   // Get the username of the current user, to be submitted when a review is created
   const { role, username } = useUser();
+  // const [showDialog, setShowDialog] = useState(false);
 
   /*-------------- START OF CODE USED TO TRACK AND SUBMIT FORM DATA --------------*/
   /////////////////////////////////////////////////////////////////////////////////
@@ -64,9 +66,22 @@ export default function ReviewDetails() {
   // Uncomment to view how `formData` changes as user enters input
   /* console.log(formData); */
 
+  // const handleConfirm = async (reviewID) => {
+  //   setShowDialog(false);
+  //   // Perform the delete action here
+  //   console.log('Item deleted');
+  //   await deleteReview(reviewID)
+  // };
+
+  // const handleCancel = () => {
+  //   setShowDialog(false);
+  // };
+
   // Function called when submit button is clicked
   const handleSubmit = async (e) => {
     e.preventDefault(); //do not reload the page
+
+    // setShowDialog(true);
 
     // username is stored in session storage when logged in
     // so cancel review submission if no username is found
@@ -97,7 +112,21 @@ export default function ReviewDetails() {
     // If the user previously submitted a review, DELETE IT
     // if statement needs to be updated if user can overwrite (future implementation)
     if (existingReview) {
-      await deleteReview(existingReview._id);
+      // <ConfirmationDialog
+      //   message= "Are you sure? Submitting another review for your course will delete your previous review. Click confirm to proceed, or cancel to keep your previous message."
+      //   onConfirm= {handleConfirm(existingReview._id)}
+      //   onCancel={handleCancel}
+      // />
+
+      const confirmed = window.confirm("Are you sure? Submitting another review for your course will delete your previous review. Click OK to proceed.");
+      if (confirmed) {
+        // Perform the delete action
+        console.log('Item deleted');
+        await deleteReview(existingReview._id);
+      } else {
+        return;
+      }
+      
       /* toast.error("You can only create one review");
       return; */
       // Delete the existing review before creating a new one
