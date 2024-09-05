@@ -1,4 +1,5 @@
 const Credentials = require("../models/credentialModel");
+const OTP = require("../models/otpModel")
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
@@ -51,12 +52,32 @@ const createUser = async (req, res) => {
     
     //Decontructs Json from Json object obtained from API post request
     //Sets the following variables below using JSON object with properties of the same nams
-    const {
-        email,
-        password,
-        //username,
-    } = req.body;
-
+    //Check for all 
+    try {
+      const { email, password, role, otp } = req.body;
+      // Check if all details are provided
+      if (!email || !password || !otp) {
+        return res.status(403).json({
+          success: false,
+          message: 'All fields are required',
+        });
+      }
+      // Check if user already exists
+      const existingUser = await Credentials.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({
+        success: false,
+        message: 'User already exists',
+      });
+    }
+    // Find the most recent OTP for the email
+    const response = await OTP.find({ email }).sort({ createdAt: -1 }).limit(1);
+    if (response.length === 0 || otp !== response[0].otp) {
+      return res.status(400).json({
+        success: false,
+        message: 'The OTP is not valid',
+      });
+    }
     const hashPassword = async (password, saltRounds = 10) => {
         try {
             // Use bcrypt to hash the password
@@ -139,9 +160,15 @@ const createUser = async (req, res) => {
     console.log('make it happen');
     console.log(SentVerificationEmail);
     // res.status(200).json({ message: 'Verification email sent' });
-    res.status(200).json(register);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+      res.status(200).json({
+        success: true,
+        message: 'User registered successfully',
+      });
+    } catch (error) {
+      res.status(400).json({ success: false, error: error.message });
+    }
+  } catch (error){
+    res.status(400).json({success: false, message: 'Critical error when making new user credentials!'});
   }
 };
 

@@ -14,7 +14,7 @@ const reviewDetails = require("./routes/reviewDetails");
 const registerRoutes = require("./routes/registerRoutes");
 const loginRoutes = require("./routes/loginRoutes");
 const statsRoutes = require("./routes/stats");
-
+const otpRoutes = require("./routes/otpRoutes");
 //passes data attached in body to the req object
 app.use(express.json());
 //middleware being used to log the path and type of request
@@ -53,6 +53,8 @@ app.use("/api/stats", statsRoutes);
 
 //localhost:4000/api/register/
 app.use("/api/register", registerRoutes);
+
+app.use("/api/verify", otpRoutes);
 
 // app.post('/api/login', (req, res) => {
 //   console.log(req.body.email, req.body.password, req.body.remember);
