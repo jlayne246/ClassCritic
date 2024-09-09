@@ -14,7 +14,7 @@ import { Toaster, toast, useSonner } from "sonner"; //https://www.youtube.com/wa
 
 import dayjs from "dayjs";
 
-export default function ReviewDetails() {
+function ReviewDetails() {
   // Get the role of the current user, to help determine what will be displayed
   // Get the username of the current user, to be submitted when a review is created
   const { role, username } = useUser();
@@ -617,3 +617,5 @@ export default function ReviewDetails() {
     </div>
   );
 }
+
+export default ReviewDetails;
