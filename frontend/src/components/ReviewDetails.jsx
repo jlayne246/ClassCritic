@@ -569,7 +569,7 @@ export default function ReviewDetails() {
             name="simplicity"
             value={formData.simplicity}
           />
-          <h4>Coure Relevance</h4>
+          <h4>Course Relevance</h4>
           <StarRating
             rating={formData.courseRelevance}
             onRating={handleRatingChange}

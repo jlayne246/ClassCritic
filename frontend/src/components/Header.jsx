@@ -82,7 +82,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn, isDark, setIsDark }) => {
             ) : (
               <>
                 <li>
-                  <a href="/register">Register</a>
+                  <a href="/verify">Register</a>
                 </li>
                 <li>
                   <a href="/login">Login</a>

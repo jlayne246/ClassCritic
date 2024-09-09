@@ -10,6 +10,7 @@ export default function Register() {
   const [email, setEmail] = useState(""); // Used to set a state variable for the email entered using useState, which will utilise the "setter" to then store the data in the variable email.
   const [password, setPassword] = useState(""); // Used to set a state variable for the password entered using useState, which will utilise the "setter" to then store the data in the variable passowrd.
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [otp, setOTP] = useState("");
   const [msg, setMsg] = useState("");
   const redirect = useNavigate();
 
@@ -22,31 +23,14 @@ export default function Register() {
     }
 
     try {
-      const response = await fetch("/api/register", {
-        method: "POST",
-        mode: "cors",
-        body: JSON.stringify({ email, password }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        //get response and put it into JSON object, give console warning of the json object and then display if an error has occured or if the JSON was successfully made
-        //Send an email to the specified email set by the useState setEmail
-        .then((response) => response.json())
-        .then((result) => {
-          console.warn(result);
-          if (JSON.stringify(result).includes("error")) {
-            setMsg(String("An error occured"));
-          } else {
-            setMsg(
-              String(
-                "Student successfully registered, verification email sent!"
-              )
-            );
-          }
-        });
-    } catch (err) {
-      console.error(err);
+      const response = await axios.post("/api/register", {email, password, otp});
+      if (response.data.success){
+        redirect("/login")
+      } else{
+        setMsg(response.data.message)
+      }
+    } catch (error) {
+      setMsg("error occured trying to register this user");
     }
   };
   const handleInput = (e) => {
@@ -69,6 +53,9 @@ export default function Register() {
     }
     if (e.target.name === "confirmPassword") {
       setConfirmPassword(e.target.value);
+    }
+    if (e.target.name == "OTP"){
+      setOTP(e.target.value);
     }
   };
 
@@ -115,6 +102,20 @@ export default function Register() {
               type="password"
               name="confirmPassword"
               placeholder="Confirm Password"
+              onBlur={handleInput}
+            />
+
+            {/* This is the input field for the Password part of the form. The type would allow for any text entered to be replaced with dots, the name helps with the labelling, the value is the state variable that the data will be stored in, the placeholder provides more information, and the onChange property calls a function that will take in the input field's value and pass it into setPassword.*/}
+            <i>
+              <LockIcon />
+            </i>
+          </div>
+          <div className="form-group">
+            {/* This is the div container for the Email part of the form */}
+            <input
+              type="text"
+              name="OTP"
+              placeholder="Enter verification code here"
               onBlur={handleInput}
             />
 

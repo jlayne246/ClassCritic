@@ -5,6 +5,7 @@ import SearchPage from "./pages/SearchPage";
 import ReviewPage from "./pages/ReviewPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import VerificationPage from "./pages/VerificationPage";
 import useLocalStorage from "use-local-storage";
 
 import "./App.css";
@@ -46,6 +47,7 @@ export default function App() {
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/verify" element ={<VerificationPage />} />
         </Routes>{" "}
       </BrowserRouter>
     </div>
