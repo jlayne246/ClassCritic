@@ -110,7 +110,8 @@ export default function ReviewDetails() {
 
       console.log('Item deleted');
       await deleteReview(existingReview._id);
-      
+      //toggleDialog();
+
       /* toast.error("You can only create one review");
       return; */
       // Delete the existing review before creating a new one
@@ -137,6 +138,7 @@ export default function ReviewDetails() {
       } */
     }
 
+    toggleDialog();
     // Add the username field to updatedFormData
     // Add the courseCode from the `courseInfo` which contains the courseCode and title
     // updatedFormData is used instead of formData since formData can not be appended
