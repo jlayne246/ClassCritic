@@ -14,25 +14,10 @@ import { Toaster, toast, useSonner } from "sonner"; //https://www.youtube.com/wa
 
 import dayjs from "dayjs";
 
-const ConfirmationDialog = ({ message, onConfirm, onCancel }) => {
-  return (
-    <div className="overlay">
-      <div className="dialog">
-        <p>{message}</p>
-        <div>
-          <button onClick={onConfirm}>Yes</button>
-          <button onClick={onCancel}>No</button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 export default function ReviewDetails() {
   // Get the role of the current user, to help determine what will be displayed
   // Get the username of the current user, to be submitted when a review is created
   const { role, username } = useUser();
-  const [showDialog, setShowDialog] = useState(false);
 
   /*-------------- START OF CODE USED TO TRACK AND SUBMIT FORM DATA --------------*/
   /////////////////////////////////////////////////////////////////////////////////
@@ -80,22 +65,9 @@ export default function ReviewDetails() {
   // Uncomment to view how `formData` changes as user enters input
   /* console.log(formData); */
 
-  const handleConfirm = async (reviewID) => {
-    setShowDialog(false);
-    // Perform the delete action here
-    console.log('Item deleted');
-    await deleteReview(reviewID)
-  };
-
-  const handleCancel = () => {
-    setShowDialog(false);
-  };
-
   // Function called when submit button is clicked
   const handleSubmit = async (e) => {
     e.preventDefault(); //do not reload the page
-
-    setShowDialog(true);
 
     // username is stored in session storage when logged in
     // so cancel review submission if no username is found
@@ -127,19 +99,6 @@ export default function ReviewDetails() {
     // if statement needs to be updated if user can overwrite (future implementation
 
     if (existingReview) {
-      setShowDialog(true);
-
-      console.log("Show? : " +  showDialog);
-      console.log("Existing user: " + username)
-
-      {showDialog && (
-        <ConfirmationDialog
-          message= "Are you sure? Submitting another review for your course will delete your previous review. Click confirm to proceed, or cancel to keep your previous message."
-          onConfirm= {await handleConfirm(existingReview._id)}
-          onCancel={handleCancel()}
-        />
-      )}
-
       // const confirmed = window.confirm("Are you sure? Submitting another review for your course will delete your previous review. Click OK to proceed.");
       // if (confirmed) {
       //   // Perform the delete action
@@ -148,6 +107,9 @@ export default function ReviewDetails() {
       // } else {
       //   return;
       // }
+
+      console.log('Item deleted');
+      await deleteReview(existingReview._id);
       
       /* toast.error("You can only create one review");
       return; */
@@ -442,10 +404,15 @@ export default function ReviewDetails() {
   /*-------------- Modal Box Code --------------*/
   //Used to control modal box visibility (false = do  not show)
   const [modal, setModal] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
 
   //Used to set modal box visibility
   const toggleModal = () => {
     setModal(!modal);
+  };
+
+  const toggleDialog = () => {
+    setShowDialog(!showDialog);
   };
   /*-------------- Modal Box Code --------------*/
 
@@ -500,6 +467,17 @@ export default function ReviewDetails() {
                   <div className="starIcon">
                     <h4>{stats.averageInstructionalEffectiveness}/5</h4>
                   </div>
+                </div>
+              </div>
+            )}
+            {showDialog && (
+              <div className="popup">
+                <div className="popup-inner">
+                  <h2>Are you sure?</h2>
+                  <p>If you already have a review saved, submitting another review for your course will delete your previous review. If you don't, you can proceed to submit to have it be saved or cancel if you're not ready.</p>
+                  <p>Click confirm to proceed, or cancel to keep your previous message.</p>
+                  <button type="submit " id="submit" form="myform">Confirm</button>
+                  <button onClick={toggleDialog}>Close</button>
                 </div>
               </div>
             )}
@@ -630,7 +608,7 @@ export default function ReviewDetails() {
           </div>
         )}
 
-        <button type="submit " id="submit" form="myform">
+        <button onClick={toggleDialog} >
           Submit Review
         </button>
       </div>

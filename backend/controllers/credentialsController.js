@@ -20,11 +20,11 @@ async function sendEmail(userEmail){
     try{
         const generatedAccessToken = await oAuth2Client.getAccessToken()//set up for this token.
         
-        const transporter = nodemailer.createTransport({
+        const transporter = nodemailer.createTransport({ 
             service: 'gmail',
             auth: {
                 type:'OAuth2',
-                user:'coursecritic.noreply@gmail.com',
+                user:'coursecritic.noreply@gmail.com', 
                 clientId: CLIENT_ID,
                 clientSecret: CLIENT_SECRET,
                 refreshToken: REFRESH_TOKEN,
