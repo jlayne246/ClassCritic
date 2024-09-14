@@ -99,18 +99,12 @@ function ReviewDetails() {
     // if statement needs to be updated if user can overwrite (future implementation
 
     if (existingReview) {
-      // const confirmed = window.confirm("Are you sure? Submitting another review for your course will delete your previous review. Click OK to proceed.");
-      // if (confirmed) {
-      //   // Perform the delete action
-      //   console.log('Item deleted');
-      //   await deleteReview(existingReview._id);
-      // } else {
-      //   return;
-      // }
+      if (confirm == false || confirm == undefined) {
+        toggleSubmissionModal();
+        return;
+      }
 
-      console.log('Item deleted');
       await deleteReview(existingReview._id);
-      //toggleDialog();
 
       /* toast.error("You can only create one review");
       return; */
@@ -138,7 +132,6 @@ function ReviewDetails() {
       } */
     }
 
-    toggleDialog();
     // Add the username field to updatedFormData
     // Add the courseCode from the `courseInfo` which contains the courseCode and title
     // updatedFormData is used instead of formData since formData can not be appended
@@ -366,7 +359,7 @@ function ReviewDetails() {
     // Round the averageGrade to one decimal place using Math.round()
     const roundedAverageGrade = Math.round(averageGrade * 10) / 10;
 
-    console.log(roundedAverageGrade);
+    /* console.log(roundedAverageGrade); */
 
     // Iterate through the gradeCutoffMap to find the matching letter grade
     for (const letterGrade in gradeCutoffMap) {
@@ -405,17 +398,30 @@ function ReviewDetails() {
   };
   /*-------------- Modal Box Code --------------*/
   //Used to control modal box visibility (false = do  not show)
-  const [modal, setModal] = useState(false);
-  const [showDialog, setShowDialog] = useState(false);
+  const [modal, setModal] = useState(false); //modal for written review
+  const [submissionModal, setSubmissionModal] = useState(false); //modal for submission
+  const [confirm, setConfirm] = useState(); //used to determine if user wishes to overwrite review
 
   //Used to set modal box visibility
   const toggleModal = () => {
     setModal(!modal);
   };
-
-  const toggleDialog = () => {
-    setShowDialog(!showDialog);
+  //Used to set submission modal box visibility
+  const toggleSubmissionModal = () => {
+    setSubmissionModal(!submissionModal);
   };
+  //Used to set whether the user wants to over ride the review previously saved
+  const handleConfirm = () => {
+    setConfirm(true);
+    console.log("confirm clicked!!!");
+    toggleSubmissionModal();
+  };
+  const handleCancel = () => {
+    setConfirm(false);
+    console.log("cancel clicked!!!!!!!!");
+    toggleSubmissionModal();
+  };
+
   /*-------------- Modal Box Code --------------*/
 
   return (
@@ -472,17 +478,6 @@ function ReviewDetails() {
                 </div>
               </div>
             )}
-            {showDialog && (
-              <div className="popup">
-                <div className="popup-inner">
-                  <h2>Are you sure?</h2>
-                  <p>If you already have a review saved, submitting another review for your course will delete your previous review. If you don't, you can proceed to submit to have it be saved or cancel if you're not ready.</p>
-                  <p>Click confirm to proceed, or cancel to keep your previous message.</p>
-                  <button type="submit " id="submit" form="myform">Confirm</button>
-                  <button onClick={toggleDialog}>Close</button>
-                </div>
-              </div>
-            )}
             <div className="writtenReviews">
               {reviews &&
                 reviews.map(
@@ -536,7 +531,9 @@ function ReviewDetails() {
               className="selectBox"
               // placeholder="Grade"
             >
-              <option value="" default selected>Grade</option>
+              <option value="" default selected>
+                Grade
+              </option>
               <option value="A+">A+</option>
               <option value="A">A</option>
               <option value="A-">A-</option>
@@ -609,10 +606,24 @@ function ReviewDetails() {
             </div>
           </div>
         )}
+        {submissionModal && (
+          <div className="modal">
+            <div onClick={toggleSubmissionModal} className="overlay"></div>
+            <div className="modal-content submission">
+              <div className="submissionModalContent">
+                <h2>Confirm Box</h2>
+                <h4>
+                  By clicking "Submit Review" again, your previous review will
+                  be overwritten!
+                </h4>
+                <button onClick={handleConfirm}>Confirm</button>
+                <button onClick={handleCancel}>Cancel</button>
+              </div>
+            </div>
+          </div>
+        )}
 
-        <button onClick={toggleDialog} >
-          Submit Review
-        </button>
+        <button onClick={handleSubmit}>Submit Review</button>
       </div>
     </div>
   );
