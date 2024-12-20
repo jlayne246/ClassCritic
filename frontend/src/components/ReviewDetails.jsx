@@ -14,25 +14,10 @@ import { Toaster, toast, useSonner } from "sonner"; //https://www.youtube.com/wa
 
 import dayjs from "dayjs";
 
-const ConfirmationDialog = ({ message, onConfirm, onCancel }) => {
-  return (
-    <div className="overlay">
-      <div className="dialog">
-        <p>{message}</p>
-        <div>
-          <button onClick={onConfirm}>Yes</button>
-          <button onClick={onCancel}>No</button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default function ReviewDetails() {
+function ReviewDetails() {
   // Get the role of the current user, to help determine what will be displayed
   // Get the username of the current user, to be submitted when a review is created
   const { role, username } = useUser();
-  const [showDialog, setShowDialog] = useState(false);
 
   /*-------------- START OF CODE USED TO TRACK AND SUBMIT FORM DATA --------------*/
   /////////////////////////////////////////////////////////////////////////////////
@@ -80,22 +65,9 @@ export default function ReviewDetails() {
   // Uncomment to view how `formData` changes as user enters input
   /* console.log(formData); */
 
-  const handleConfirm = async (reviewID) => {
-    setShowDialog(false);
-    // Perform the delete action here
-    console.log('Item deleted');
-    await deleteReview(reviewID)
-  };
-
-  const handleCancel = () => {
-    setShowDialog(false);
-  };
-
   // Function called when submit button is clicked
   const handleSubmit = async (e) => {
     e.preventDefault(); //do not reload the page
-
-    setShowDialog(true);
 
     // username is stored in session storage when logged in
     // so cancel review submission if no username is found
@@ -127,28 +99,13 @@ export default function ReviewDetails() {
     // if statement needs to be updated if user can overwrite (future implementation
 
     if (existingReview) {
-      setShowDialog(true);
+      if (confirm == false || confirm == undefined) {
+        toggleSubmissionModal();
+        return;
+      }
 
-      console.log("Show? : " +  showDialog);
-      console.log("Existing user: " + username)
+      await deleteReview(existingReview._id);
 
-      {showDialog && (
-        <ConfirmationDialog
-          message= "Are you sure? Submitting another review for your course will delete your previous review. Click confirm to proceed, or cancel to keep your previous message."
-          onConfirm= {await handleConfirm(existingReview._id)}
-          onCancel={handleCancel()}
-        />
-      )}
-
-      // const confirmed = window.confirm("Are you sure? Submitting another review for your course will delete your previous review. Click OK to proceed.");
-      // if (confirmed) {
-      //   // Perform the delete action
-      //   console.log('Item deleted');
-      //   await deleteReview(existingReview._id);
-      // } else {
-      //   return;
-      // }
-      
       /* toast.error("You can only create one review");
       return; */
       // Delete the existing review before creating a new one
@@ -402,7 +359,7 @@ export default function ReviewDetails() {
     // Round the averageGrade to one decimal place using Math.round()
     const roundedAverageGrade = Math.round(averageGrade * 10) / 10;
 
-    console.log(roundedAverageGrade);
+    /* console.log(roundedAverageGrade); */
 
     // Iterate through the gradeCutoffMap to find the matching letter grade
     for (const letterGrade in gradeCutoffMap) {
@@ -441,12 +398,30 @@ export default function ReviewDetails() {
   };
   /*-------------- Modal Box Code --------------*/
   //Used to control modal box visibility (false = do  not show)
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false); //modal for written review
+  const [submissionModal, setSubmissionModal] = useState(false); //modal for submission
+  const [confirm, setConfirm] = useState(); //used to determine if user wishes to overwrite review
 
   //Used to set modal box visibility
   const toggleModal = () => {
     setModal(!modal);
   };
+  //Used to set submission modal box visibility
+  const toggleSubmissionModal = () => {
+    setSubmissionModal(!submissionModal);
+  };
+  //Used to set whether the user wants to over ride the review previously saved
+  const handleConfirm = () => {
+    setConfirm(true);
+    console.log("confirm clicked!!!");
+    toggleSubmissionModal();
+  };
+  const handleCancel = () => {
+    setConfirm(false);
+    console.log("cancel clicked!!!!!!!!");
+    toggleSubmissionModal();
+  };
+
   /*-------------- Modal Box Code --------------*/
 
   return (
@@ -556,7 +531,9 @@ export default function ReviewDetails() {
               className="selectBox"
               // placeholder="Grade"
             >
-              <option value="" default selected>Grade</option>
+              <option value="" default selected>
+                Grade
+              </option>
               <option value="A+">A+</option>
               <option value="A">A</option>
               <option value="A-">A-</option>
@@ -629,11 +606,27 @@ export default function ReviewDetails() {
             </div>
           </div>
         )}
+        {submissionModal && (
+          <div className="modal">
+            <div onClick={toggleSubmissionModal} className="overlay"></div>
+            <div className="modal-content submission">
+              <div className="submissionModalContent">
+                <h2>Confirm Box</h2>
+                <h4>
+                  By clicking "Submit Review" again, your previous review will
+                  be overwritten!
+                </h4>
+                <button onClick={handleConfirm}>Confirm</button>
+                <button onClick={handleCancel}>Cancel</button>
+              </div>
+            </div>
+          </div>
+        )}
 
-        <button type="submit " id="submit" form="myform">
-          Submit Review
-        </button>
+        <button onClick={handleSubmit}>Submit Review</button>
       </div>
     </div>
   );
 }
+
+export default ReviewDetails;
