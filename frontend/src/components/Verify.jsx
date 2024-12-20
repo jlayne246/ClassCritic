@@ -5,7 +5,7 @@ import axios from "axios";
 import { Toaster, toast } from "sonner";
 import PersonIcon from "@mui/icons-material/Person";
 
-export default function Verify(){
+export default function Verify() {
     const [email, setEmail] = useState("");
     const [msg, setMsg] = useState("");
     const redirect = useNavigate();
