@@ -1,7 +1,41 @@
-# ClassCritic
-A place to share constructive criticism 
 
-## Set Up Intructions
+# ClassCritic
+
+This is a website created to help students at the University of the West Indies, Cave Hill Campus to review courses and offer their feedback publicly so that other students can hear how courses and lecturers are like without relying on "word of mouth". 
+
+
+## Authors
+
+- [@jlayne246](https://www.github.com/jlayne246)
+- Kashaun
+- Kai
+- Khajon
+
+
+## Features
+
+- Search through a course catalogue
+- Write reviews for a course
+- Give a rating from 1 - 5
+## Screenshots
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+
+## Demo
+
+Insert gif or link to demo
+
+
+## Project Status
+
+Development on hold as of Summer 2024
+## Tech Stack
+
+*Client*: React
+*Server*: Node, Express
+*Database*: MongoDB
+## Run Locally
 
 Select the directory you want to save the ClassCritic repository to and run the following command
 
