@@ -7,9 +7,9 @@ This is a website created to help students at the University of the West Indies,
 ## Authors
 
 - [@jlayne246](https://www.github.com/jlayne246)
-- Kashaun
-- Kai
-- Khajon
+- [@kashwald](https://github.com/kashwald)
+- [@KaiEJH](https://github.com/KaiEJH)
+- [@246-K-11](https://github.com/246-K-11)
 
 
 ## Features
@@ -35,6 +35,9 @@ Development on hold as of Summer 2024
 *Client*: React
 *Server*: Node, Express
 *Database*: MongoDB
+
+*Languages*: JavaScript, HTML, CSS
+
 ## Run Locally
 
 Select the directory you want to save the ClassCritic repository to and run the following command
