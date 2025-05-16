@@ -3,6 +3,9 @@
 
 This is a website created to help students at the University of the West Indies, Cave Hill Campus to review courses and offer their feedback publicly so that other students can hear how courses and lecturers are like without relying on "word of mouth". 
 
+**This is a forked version of the original repository which I contributed to hosted here: https://github.com/kashwald/ClassCritic**
+**This is a group project done together by the authors in Summer 2024**
+
 
 ## Authors
 
