@@ -22,14 +22,15 @@ This is a website created to help students at the University of the West Indies,
 - Search through a course catalogue
 - Write reviews for a course
 - Give a rating from 1 - 5
-## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+<!-- ## Screenshots
+
+<!-- [App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here) -->
 
 
 ## Demo
 
-Insert gif or link to demo
+[![Here's a demo](https://raw.githubusercontent.com/jlayne246/ClassCritic/main/demos/image.png)](https://raw.githubusercontent.com/jlayne246/ClassCritic/main/demos/91e6377b-70f3-453b-a305-721fd5cdf09e.mp4)
 
 
 ## Project Status
