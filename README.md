@@ -23,9 +23,22 @@ This is a website created to help students at the University of the West Indies,
 - Write reviews for a course
 - Give a rating from 1 - 5
 
-<!-- ## Screenshots
+## Screenshots
 
-<!-- [App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here) -->
+### Home Screen
+![App Screenshot](https://raw.githubusercontent.com/jlayne246/ClassCritic/main/demos/screenshots/home.png)
+
+### Email Verify Screen
+![App Screenshot](https://raw.githubusercontent.com/jlayne246/ClassCritic/main/demos/screenshots/email.png)
+
+### Register Screen
+![App Screenshot](https://raw.githubusercontent.com/jlayne246/ClassCritic/main/demos/screenshots/register.png)
+
+### Login Screen
+![App Screenshot](https://raw.githubusercontent.com/jlayne246/ClassCritic/main/demos/screenshots/login.png)
+
+### Review Screen
+![App Screenshot](https://raw.githubusercontent.com/jlayne246/ClassCritic/main/demos/screenshots/review.png)
 
 
 ## Demo
